@@ -1,15 +1,13 @@
 package model;
 
 public class Instruction {
-	protected String name;
-	protected String type; //J-Type, I-Type or R-Type
-	
+	protected String name;	
 	protected String offset; 
 	protected String memoryoffset;
 	protected int base; 
 	protected int rt; 
 	protected int rs; 
-	protected int rd; //for DADDIU only
+	protected int rd; 
 	protected int immediate; 
 	
 	protected String finalopcode; 
@@ -20,12 +18,6 @@ public class Instruction {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
 	}
 	public String getOffset() {
 		return offset;

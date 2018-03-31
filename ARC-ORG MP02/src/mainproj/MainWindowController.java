@@ -3,8 +3,6 @@ package mainproj;
 import java.net.URL;
 import java.util.*;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import model.*;
@@ -22,14 +20,14 @@ public class MainWindowController implements Initializable {
 	/////////////////  OTHER variables
 	public static ArrayList<Instruction> instructions = new ArrayList<Instruction>();
 	public static ArrayList<Integer> registers = new ArrayList<Integer>(31);
-	ObservableList<String> errors = FXCollections.observableArrayList();
 	String codeRead[];
 	
 	////////////////   FXML functions
 	@FXML
 	public void processTextArea() {
-
 		instructions.clear();
+		Errors.clearErrors();
+		Opcodes.clearOpcode();
 		
 		int datastart = 0;
 		int dataend = 0; 
@@ -42,21 +40,17 @@ public class MainWindowController implements Initializable {
 		for (int i = 0; i < codeRead.length; i++)	{
 			if (codeRead[i].replaceAll("\\s+","").equalsIgnoreCase(".data")) {
 				//contains memory declarations & initializations
-				datastart = i+1;
-				System.out.println(".data range start " + datastart);
-								
+				datastart = i+1;								
 			} else if (codeRead[i].replaceAll("\\s+","").equalsIgnoreCase(".code") || codeRead[i].replaceAll("\\s+","").equalsIgnoreCase(".text")) {
 				//contains the instructions
 				dataend = i-1;
 				codestart = i+1;
 				codeend = codeRead.length-1;
-				System.out.println(".data range end " + dataend);
-				System.out.println(".code/.text range start " + codestart);
-				System.out.println(".code/.text range end " + codeend);
 			} 
 		}
 		initializeInstructions(datastart, dataend, codestart, codeend);
-		errorsListView.setItems(errors);
+		errorsListView.setItems(Errors.getErrors());
+		opcodeListView.setItems(Opcodes.getOpcodes());
 	}
 
 	////////////////   OTHER functions
@@ -80,10 +74,8 @@ public class MainWindowController implements Initializable {
 				instructions.add(it);
 			} else {
 				int j = i + 1;
-				errors.add("There is an invalid instruction on line " + j);
+				Errors.addError("Invalid instruction on line " + j);
 			}
 		}
 	}
-	
-	
 }
