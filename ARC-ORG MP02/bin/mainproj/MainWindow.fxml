@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
@@ -19,7 +20,7 @@
                      <children>
                         <ScrollPane layoutX="28.0" layoutY="97.0" prefHeight="433.0" prefWidth="333.0">
                            <content>
-                              <TextArea fx:id="codeTextArea" onKeyTyped="#processTextArea" prefHeight="431.0" prefWidth="330.0" />
+                              <TextArea fx:id="codeTextArea" prefHeight="431.0" prefWidth="330.0" />
                            </content>
                         </ScrollPane>
                         <Label layoutX="29.0" layoutY="66.0" text="MIPS Program">
@@ -27,12 +28,23 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <ScrollPane layoutX="394.0" layoutY="97.0" prefHeight="314.0" prefWidth="325.0">
+                        <ScrollPane layoutX="394.0" layoutY="50.0" prefHeight="201.0" prefWidth="325.0">
                            <content>
-                              <ListView prefHeight="312.0" prefWidth="322.0" />
+                              <ListView fx:id="opcodeListView" prefHeight="197.0" prefWidth="320.0" />
                            </content>
                         </ScrollPane>
-                        <Label layoutX="400.0" layoutY="67.0" text="Opcodes">
+                        <Label layoutX="400.0" layoutY="25.0" text="Opcodes">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="opcodeButton" layoutX="603.0" layoutY="485.0" mnemonicParsing="false" onAction="#processTextArea" prefHeight="32.0" prefWidth="116.0" text="Generate Opcodes" />
+                        <ScrollPane layoutX="395.0" layoutY="292.0" prefHeight="176.0" prefWidth="325.0">
+                           <content>
+                              <ListView fx:id="errorsListView" prefHeight="174.0" prefWidth="321.0" />
+                           </content>
+                        </ScrollPane>
+                        <Label layoutX="398.0" layoutY="262.0" text="Errors">
                            <font>
                               <Font size="14.0" />
                            </font>
