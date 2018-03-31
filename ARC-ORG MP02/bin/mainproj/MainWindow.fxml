@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainproj.MainWindowController">
+   <children>
+      <TabPane prefHeight="586.0" prefWidth="755.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Untitled Tab 1">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="325.0" prefWidth="401.0">
+                     <children>
+                        <ScrollPane layoutX="28.0" layoutY="97.0" prefHeight="433.0" prefWidth="333.0">
+                           <content>
+                              <TextArea fx:id="codeTextArea" onKeyTyped="#processTextArea" prefHeight="431.0" prefWidth="330.0" />
+                           </content>
+                        </ScrollPane>
+                        <Label layoutX="29.0" layoutY="66.0" text="MIPS Program">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <ScrollPane layoutX="394.0" layoutY="97.0" prefHeight="314.0" prefWidth="325.0">
+                           <content>
+                              <ListView prefHeight="312.0" prefWidth="322.0" />
+                           </content>
+                        </ScrollPane>
+                        <Label layoutX="400.0" layoutY="67.0" text="Opcodes">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Untitled Tab 2">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
