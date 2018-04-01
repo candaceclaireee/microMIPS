@@ -25,9 +25,9 @@ public class MainWindowController implements Initializable {
 	////////////////   FXML functions
 	@FXML
 	public void processTextArea() {
-		instructions.clear();
 		Errors.clearErrors();
 		Opcodes.clearOpcode();
+		instructions.clear();
 		
 		int datastart = 0;
 		int dataend = 0; 
@@ -39,10 +39,10 @@ public class MainWindowController implements Initializable {
 		
 		for (int i = 0; i < codeRead.length; i++)	{
 			if (codeRead[i].replaceAll("\\s+","").equalsIgnoreCase(".data")) {
-				//contains memory declarations & initializations
+				// range of .data
 				datastart = i+1;								
 			} else if (codeRead[i].replaceAll("\\s+","").equalsIgnoreCase(".code") || codeRead[i].replaceAll("\\s+","").equalsIgnoreCase(".text")) {
-				//contains the instructions
+				// range of .code or .text
 				dataend = i-1;
 				codestart = i+1;
 				codeend = codeRead.length-1;

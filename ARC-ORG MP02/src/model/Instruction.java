@@ -1,5 +1,7 @@
 package model;
 
+import java.math.BigInteger;
+
 public class Instruction {
 	protected String name;	
 	protected String offset; 
@@ -8,11 +10,33 @@ public class Instruction {
 	protected int rt; 
 	protected int rs; 
 	protected int rd; 
-	protected int immediate; 
+	protected String immediate; 
 	
 	protected String finalopcode; 
 	protected String finalhexopcode;
-		
+	
+	// UTILSSS
+	public String padZeros(String binary, int n) { 
+		if (binary.length() < n){
+			for (int i = binary.length(); i<n; i++)
+				binary = "0" + binary;
+		}
+		return binary;		
+	}
+	
+	public String convertBinary(int n) {
+		return Integer.toBinaryString(n);
+	}
+	
+	public String convertHex(String bin) {
+		return new BigInteger(bin, 2).toString(16);
+	}
+	
+	public int convertInt(String n) {
+		return Integer.decode("0x"+n);
+	}
+	
+	// GETTERS AND SETTERS
 	public String getName() {
 		return name;
 	}
@@ -55,10 +79,10 @@ public class Instruction {
 	public void setRd(int rd) {
 		this.rd = rd;
 	}
-	public int getImmediate() {
+	public String getImmediate() {
 		return immediate;
 	}
-	public void setImmediate(int immediate) {
+	public void setImmediate(String immediate) {
 		this.immediate = immediate;
 	}
 }
