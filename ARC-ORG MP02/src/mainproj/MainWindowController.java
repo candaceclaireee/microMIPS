@@ -3,8 +3,11 @@ package mainproj;
 import java.net.URL;
 import java.util.*;
 
+import javafx.event.EventHandler;
 import javafx.fxml.*;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import model.*;
 
 public class MainWindowController implements Initializable {
@@ -21,6 +24,20 @@ public class MainWindowController implements Initializable {
 	public static ArrayList<Instruction> instructions = new ArrayList<Instruction>();
 	public static ArrayList<Integer> registers = new ArrayList<Integer>(31);
 	String codeRead[];
+	
+	//////////////// PUTANG INA MO GIT//////////////////////////////////////////////
+	@FXML
+	private GridPane GPGrid;
+	@FXML
+	private GridPane FPGrid;
+	@FXML
+	private ScrollPane GPPane;
+	@FXML
+	private ScrollPane FPPane;
+	
+	private ArrayList<String> GPregList = new ArrayList<String>();
+	private ArrayList<String> FPregList = new ArrayList<String>();
+	 
 	
 	////////////////   FXML functions
 	@FXML
@@ -55,7 +72,48 @@ public class MainWindowController implements Initializable {
 
 	////////////////   OTHER functions
 	public void initialize(URL url, ResourceBundle rb) {
+		initializeRegisters();
 	}
+	
+	public void initializeRegisters() {
+		for(int i = 0 ; i < 32 ; i++) {
+			GPregList.add("0000000000000000");
+			FPregList.add("0000000000000000");
+			
+			Button b1 = new Button("R" +i+ " = "+GPregList.get(i));
+			Button b2 = new Button("F"+i+  "=" +FPregList.get(i));
+			
+			b1.setMinWidth(GPPane.getWidth());
+			b1.setStyle("-fx-background-color: transparent");
+			setButtonMouseAction(b1);
+			
+			b2.setMinWidth(FPPane.getWidth());
+			b2.setStyle("-fx-background-color: transparent");
+			setButtonMouseAction(b2);
+			
+			GPGrid.add(b1, 0, i);
+			FPGrid.add(b2, 0, i);
+		}
+		
+	}
+	public void setButtonMouseAction(Button b) {
+		b.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				b.setStyle("-fx-border-color: blue");
+			
+			}
+			
+		});
+		b.setOnMouseExited(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				b.setStyle("-fx-background-color: transparent");
+			}
+			
+		});
+		
+		
+	}
+	
 	
 	public void initializeInstructions(int ds, int de, int cs, int ce) {
 
