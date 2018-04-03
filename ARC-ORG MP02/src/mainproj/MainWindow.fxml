@@ -17,7 +17,7 @@
    <children>
       <TabPane layoutX="-6.0" prefHeight="586.0" prefWidth="755.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Untitled Tab 1">
+          <Tab text="Load/View">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="325.0" prefWidth="401.0">
                      <children>
@@ -41,7 +41,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Button fx:id="opcodeButton" layoutX="603.0" layoutY="485.0" mnemonicParsing="false" onAction="#processTextArea" prefHeight="32.0" prefWidth="116.0" text="Generate Opcodes" />
+                        <Button fx:id="opcodeButton" layoutX="517.0" layoutY="492.0" mnemonicParsing="false" onAction="#processTextArea" prefHeight="32.0" prefWidth="116.0" text="Generate Opcodes" />
                         <ScrollPane layoutX="395.0" layoutY="292.0" prefHeight="176.0" prefWidth="325.0">
                            <content>
                               <ListView fx:id="errorsListView" prefHeight="174.0" prefWidth="321.0" />
@@ -52,11 +52,12 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
+                        <Button fx:id="runButton" layoutX="644.0" layoutY="492.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="75.0" text="Run" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Untitled Tab 2">
+          <Tab text="Main">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -74,9 +75,9 @@
                               </GridPane>
                            </content>
                         </ScrollPane>
-                        <ScrollPane fx:id="FPPane" fitToWidth="true" layoutX="274.0" layoutY="32.0" prefHeight="276.0" prefWidth="207.0">
+                        <ScrollPane fx:id="MemCodePane" fitToWidth="true" layoutX="274.0" layoutY="32.0" prefHeight="276.0" prefWidth="207.0">
                            <content>
-                              <GridPane fx:id="FPGrid">
+                              <GridPane fx:id="MemCodeGrid">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                 </columnConstraints>
@@ -88,8 +89,33 @@
                               </GridPane>
                            </content>
                         </ScrollPane>
-                        <Label layoutX="46.0" layoutY="14.0" prefHeight="18.0" prefWidth="75.0" text="GP Registers" />
-                        <Label layoutX="274.0" layoutY="14.0" prefHeight="18.0" prefWidth="75.0" text="FP Registers" />
+                        <Label layoutX="46.0" layoutY="12.0" prefHeight="18.0" prefWidth="75.0" text="GP Registers">
+                           <font>
+                              <Font size="13.0" />
+                           </font></Label>
+                        <Label layoutX="274.0" layoutY="12.0" prefHeight="18.0" prefWidth="75.0" text="Code">
+                           <font>
+                              <Font size="13.0" />
+                           </font></Label>
+                        <ScrollPane fx:id="MemDataPane" fitToWidth="true" layoutX="501.0" layoutY="32.0" prefHeight="276.0" prefWidth="207.0">
+                           <content>
+                              <GridPane fx:id="MemDataGrid">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                              </GridPane>
+                           </content>
+                        </ScrollPane>
+                        <Label layoutX="501.0" layoutY="12.0" prefHeight="18.0" prefWidth="75.0" text="Data">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
                      </children></AnchorPane>
             </content>
           </Tab>

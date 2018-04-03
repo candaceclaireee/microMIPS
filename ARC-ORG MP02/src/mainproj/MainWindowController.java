@@ -3,6 +3,8 @@ package mainproj;
 import java.net.URL;
 import java.util.*;
 
+import javax.swing.JOptionPane;
+
 import javafx.event.EventHandler;
 import javafx.fxml.*;
 import javafx.scene.control.*;
@@ -18,32 +20,22 @@ public class MainWindowController implements Initializable {
 	@FXML
 	private ListView<String> opcodeListView, errorsListView;
 	@FXML 
-	private Button opcodeButton;
+	private Button opcodeButton, runButton;
+
+	@FXML
+	private GridPane GPGrid, MemCodeGrid, MemDataGrid;
+	@FXML
+	private ScrollPane GPPane, MemCodePane, MemDataPane;
 	
 	/////////////////  OTHER variables
 	public static ArrayList<Instruction> instructions = new ArrayList<Instruction>();
-	public static ArrayList<Integer> registers = new ArrayList<Integer>(31);
-	String codeRead[];
-	
-	//////////////// PUTANG INA MO GIT//////////////////////////////////////////////
-	@FXML
-	private GridPane GPGrid;
-	@FXML
-	private GridPane FPGrid;
-	@FXML
-	private ScrollPane GPPane;
-	@FXML
-	private ScrollPane FPPane;
-	
-	private ArrayList<String> GPregList = new ArrayList<String>();
-	private ArrayList<String> FPregList = new ArrayList<String>();
-	 
+	String codeRead[]; 
 	
 	////////////////   FXML functions
 	@FXML
 	public void processTextArea() {
-		Errors.clearErrors();
-		Opcodes.clearOpcode();
+		Lists.clearErrors();
+		Lists.clearOpcode();
 		instructions.clear();
 		
 		int datastart = 0;
@@ -66,52 +58,77 @@ public class MainWindowController implements Initializable {
 			} 
 		}
 		initializeInstructions(datastart, dataend, codestart, codeend);
-		errorsListView.setItems(Errors.getErrors());
-		opcodeListView.setItems(Opcodes.getOpcodes());
+		errorsListView.setItems(Lists.getErrors());
+		opcodeListView.setItems(Lists.getOpcodes());
 	}
 
 	////////////////   OTHER functions
 	public void initialize(URL url, ResourceBundle rb) {
 		initializeRegisters();
+		initializeMemoryCode(); 
+		//initializeMemoryData();
 	}
 	
 	public void initializeRegisters() {
-		for(int i = 0 ; i < 32 ; i++) {
-			GPregList.add("0000000000000000");
-			FPregList.add("0000000000000000");
+		for(int i = 0 ; i < 31 ; i++) {
+			Register r = new Register(i+1, "0000000000000000");
+			Lists.addRegister(r);
 			
-			Button b1 = new Button("R" +i+ " = "+GPregList.get(i));
-			Button b2 = new Button("F"+i+  "=" +FPregList.get(i));
-			
+			Button b1 = new Button("R" + r.getNumber() + " =  "+ r.getContent());
 			b1.setMinWidth(GPPane.getWidth());
 			b1.setStyle("-fx-background-color: transparent");
-			setButtonMouseAction(b1);
-			
-			b2.setMinWidth(FPPane.getWidth());
-			b2.setStyle("-fx-background-color: transparent");
-			setButtonMouseAction(b2);
-			
+
+			b1.setOnMouseClicked(new EventHandler<MouseEvent>() { 
+				public void handle(MouseEvent event) {
+					String buttonText[] = b1.getText().replaceAll("\\s+","").split("=");
+					String register = JOptionPane.showInputDialog("Type content for register " + buttonText[0] );
+					
+					//ERROR CHECKING BEFORE CHANGING REGISTER CONTENT(length, all numbers etc)
+				}
+			});	
+			b1.setOnMouseEntered(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent event) {
+					b1.setStyle("-fx-border-color: blue");
+				
+				}
+				
+			});
+			b1.setOnMouseExited(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent event) {
+					b1.setStyle("-fx-background-color: transparent");
+				}
+				
+			});
 			GPGrid.add(b1, 0, i);
-			FPGrid.add(b2, 0, i);
 		}
-		
 	}
-	public void setButtonMouseAction(Button b) {
-		b.setOnMouseEntered(new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent event) {
-				b.setStyle("-fx-border-color: blue");
+
+	public void initializeMemoryCode() {
+		int j = 256;
+	    for(int i = 0 ; i < 256 ; i++) {
+			MemoryCode m = new MemoryCode("0"+Integer.toHexString(j).toUpperCase(), "WALA PA", "WALA PA");
+			Lists.addMemoryCode(m);
 			
-			}
-			
-		});
-		b.setOnMouseExited(new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent event) {
-				b.setStyle("-fx-background-color: transparent");
-			}
-			
-		});
-		
-		
+			Button b1 = new Button(m.getAddress() + "  " + m.getOpcode() + "  " + m.getInstruction() );
+			b1.setMinWidth(MemCodePane.getWidth());
+			b1.setStyle("-fx-background-color: transparent");
+
+			b1.setOnMouseEntered(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent event) {
+					b1.setStyle("-fx-border-color: blue");
+				
+				}
+				
+			});
+			b1.setOnMouseExited(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent event) {
+					b1.setStyle("-fx-background-color: transparent");
+				}
+				
+			});
+			MemCodeGrid.add(b1, 0, i);
+			j++;
+		}
 	}
 	
 	
@@ -132,7 +149,7 @@ public class MainWindowController implements Initializable {
 				instructions.add(it);
 			} else {
 				int j = i + 1;
-				Errors.addError("Invalid instruction on line " + j);
+				Lists.addError("Invalid instruction on line " + j);
 			}
 		}
 	}
