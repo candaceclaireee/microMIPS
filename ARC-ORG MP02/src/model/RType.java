@@ -2,13 +2,14 @@ package model;
 
 public class RType extends Instruction {
 
-	public static final String DADDU_OPCODE = "000000";
+	public static final String DADDU_OPCODE = "000000";   //DADDU OK
 	public static final String DADDU_SA = "00000";
 	public static final String DADDU_FUNC = "101101";
 	
 	String codeLine;
 	
 	public RType(String code) {
+		this.code = code;
 		codeLine = code;
 		if (checkForErrors() == false)
 			buildOpCode();
@@ -63,13 +64,13 @@ public class RType extends Instruction {
 		sb.append(padZeros(convertBinary(rs), 5));
 		sb.append(padZeros(convertBinary(rt), 5));
 		sb.append(padZeros(convertBinary(rd), 5));
-		sb.append(DADDU_SA); // SA
-		sb.append(DADDU_FUNC); //FUNC
+		sb.append(DADDU_SA); 
+		sb.append(DADDU_FUNC); 
 
 		finalopcode = sb.toString();
-		finalhexopcode = convertHex(finalopcode).toUpperCase();
+		finalhexopcode = padZeros(convertHex(finalopcode).toUpperCase(), 8);
 		Lists.addOpcode("DADDU        " + finalhexopcode);
-	
+		
 	
 	}
 	

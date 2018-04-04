@@ -6,8 +6,7 @@ public class MemoryCode {
 	private String instruction;
 	
 	
-	public MemoryCode(String address, String opcode, String instruction) {
-		this.address = address; 
+	public MemoryCode(String opcode, String instruction) {
 		this.opcode = opcode; 
 		this.instruction = instruction;
 	}

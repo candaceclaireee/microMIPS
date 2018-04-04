@@ -3,6 +3,7 @@ package model;
 import java.math.BigInteger;
 
 public class Instruction {
+	protected String code;
 	protected String name;	
 	protected String offset; 
 	protected String memoryoffset;
@@ -12,6 +13,21 @@ public class Instruction {
 	protected int rd; 
 	protected String immediate; 
 	
+	public String getFinalopcode() {
+		return finalopcode;
+	}
+
+	public void setFinalopcode(String finalopcode) {
+		this.finalopcode = finalopcode;
+	}
+
+	public String getFinalhexopcode() {
+		return finalhexopcode;
+	}
+
+	public void setFinalhexopcode(String finalhexopcode) {
+		this.finalhexopcode = finalhexopcode;
+	}
 	protected String finalopcode; 
 	protected String finalhexopcode;
 	
@@ -84,5 +100,12 @@ public class Instruction {
 	}
 	public void setImmediate(String immediate) {
 		this.immediate = immediate;
+	}
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 }

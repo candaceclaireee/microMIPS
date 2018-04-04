@@ -10,6 +10,7 @@ public class Lists {
 
 	private static ObservableList<Register> registers = FXCollections.observableArrayList();
 	private static ObservableList<MemoryCode> memorycodeaddresses = FXCollections.observableArrayList();
+	//private static ObservableList<MemoryData> memorydataaddresses = FXCollections.observableArrayList();
 	
 	///////////////////////////////////////////////ERRORS
 	public static void addError(String e) {

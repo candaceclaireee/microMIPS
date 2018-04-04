@@ -41,7 +41,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Button fx:id="opcodeButton" layoutX="517.0" layoutY="492.0" mnemonicParsing="false" onAction="#processTextArea" prefHeight="32.0" prefWidth="116.0" text="Generate Opcodes" />
+                        <Button fx:id="runButton" layoutX="603.0" layoutY="492.0" mnemonicParsing="false" onAction="#processTextArea" prefHeight="32.0" prefWidth="116.0" text="Run" />
                         <ScrollPane layoutX="395.0" layoutY="292.0" prefHeight="176.0" prefWidth="325.0">
                            <content>
                               <ListView fx:id="errorsListView" prefHeight="174.0" prefWidth="321.0" />
@@ -52,7 +52,6 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Button fx:id="runButton" layoutX="644.0" layoutY="492.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="75.0" text="Run" />
                      </children>
                   </AnchorPane>
             </content>

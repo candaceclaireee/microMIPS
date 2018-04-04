@@ -20,7 +20,7 @@ public class MainWindowController implements Initializable {
 	@FXML
 	private ListView<String> opcodeListView, errorsListView;
 	@FXML 
-	private Button opcodeButton, runButton;
+	private Button runButton;
 
 	@FXML
 	private GridPane GPGrid, MemCodeGrid, MemDataGrid;
@@ -36,6 +36,7 @@ public class MainWindowController implements Initializable {
 	public void processTextArea() {
 		Lists.clearErrors();
 		Lists.clearOpcode();
+		Lists.clearMemoryCodes();
 		instructions.clear();
 		
 		int datastart = 0;
@@ -60,12 +61,12 @@ public class MainWindowController implements Initializable {
 		initializeInstructions(datastart, dataend, codestart, codeend);
 		errorsListView.setItems(Lists.getErrors());
 		opcodeListView.setItems(Lists.getOpcodes());
+		initializeMemoryCode();
 	}
 
 	////////////////   OTHER functions
 	public void initialize(URL url, ResourceBundle rb) {
 		initializeRegisters();
-		initializeMemoryCode(); 
 		//initializeMemoryData();
 	}
 	
@@ -103,35 +104,6 @@ public class MainWindowController implements Initializable {
 		}
 	}
 
-	public void initializeMemoryCode() {
-		int j = 256;
-	    for(int i = 0 ; i < 256 ; i++) {
-			MemoryCode m = new MemoryCode("0"+Integer.toHexString(j).toUpperCase(), "WALA PA", "WALA PA");
-			Lists.addMemoryCode(m);
-			
-			Button b1 = new Button(m.getAddress() + "  " + m.getOpcode() + "  " + m.getInstruction() );
-			b1.setMinWidth(MemCodePane.getWidth());
-			b1.setStyle("-fx-background-color: transparent");
-
-			b1.setOnMouseEntered(new EventHandler<MouseEvent>() {
-				public void handle(MouseEvent event) {
-					b1.setStyle("-fx-border-color: blue");
-				
-				}
-				
-			});
-			b1.setOnMouseExited(new EventHandler<MouseEvent>() {
-				public void handle(MouseEvent event) {
-					b1.setStyle("-fx-background-color: transparent");
-				}
-				
-			});
-			MemCodeGrid.add(b1, 0, i);
-			j++;
-		}
-	}
-	
-	
 	public void initializeInstructions(int ds, int de, int cs, int ce) {
 
 		for (int i = cs; i <= ce ; i++) {
@@ -139,18 +111,50 @@ public class MainWindowController implements Initializable {
 			
 			if (code.contains("BC")) {
 				JType j = new JType(code);
-				instructions.add(j); 
+				instructions.add(j);
+				Lists.addMemoryCode(new MemoryCode(j.getFinalhexopcode(), code));
 			} else if (code.contains("DADDU")) {
 				RType r = new RType(code); 
 				instructions.add(r);
+				Lists.addMemoryCode(new MemoryCode(r.getFinalhexopcode(), code));
 			} else if (code.contains("DADDIU") || code.contains("XORI") || code.contains("LD") ||
 					    code.contains("SD") || code.contains("BLTC")) {
 				IType it = new IType(code); 
 				instructions.add(it);
+				Lists.addMemoryCode(new MemoryCode(it.getFinalhexopcode(), code));
 			} else {
 				int j = i + 1;
 				Lists.addError("Invalid instruction on line " + j);
 			}
 		}
+	}
+
+	public void initializeMemoryCode() {
+			int currentAddress = 256; 
+			MemCodeGrid.getChildren().clear();
+			for (int i = 0; i< Lists.getMemoryCodes().size(); i++) {
+				MemoryCode currentItem = Lists.getMemoryCodes().get(i);
+				currentItem.setAddress("0" + Integer.toHexString(currentAddress));
+				
+				Button b1 = new Button(currentItem.getAddress().toUpperCase() + " " + currentItem.getOpcode() + "  " + currentItem.getInstruction());
+				b1.setMinWidth(MemCodePane.getWidth());
+				b1.setStyle("-fx-background-color: transparent");
+
+				b1.setOnMouseEntered(new EventHandler<MouseEvent>() {
+					public void handle(MouseEvent event) {
+						b1.setStyle("-fx-border-color: blue");
+					
+					}
+					
+				});
+				b1.setOnMouseExited(new EventHandler<MouseEvent>() {
+					public void handle(MouseEvent event) {
+						b1.setStyle("-fx-background-color: transparent");
+					}
+					
+				});
+				MemCodeGrid.add(b1, 0, i);  
+				currentAddress += 4;
+			}			
 	}
 }
