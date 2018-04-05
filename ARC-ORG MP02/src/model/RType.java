@@ -8,16 +8,20 @@ public class RType extends Instruction {
 	
 	String codeLine;
 	
-	public RType(String code) {
-		this.code = code;
-		codeLine = code;
+	public RType(String codeLine) {
+		setCodeLine(codeLine);
+		if(codeLine.contains(":"))
+			code = codeLine.split(":")[1];
+		else 
+			code = codeLine;
 		if (checkForErrors() == false)
 			buildOpCode();
+			sendOpCode();
 	}
 	
 	public boolean checkForErrors() {
 	
-		String parameter[] = codeLine.replaceAll("\\s+","").split(",");
+		String parameter[] = code.replaceAll("\\s+","").split(",");
 			
 		if (parameter.length != 3) {
 			Lists.addError("Invalid parameters");
@@ -71,7 +75,9 @@ public class RType extends Instruction {
 		finalhexopcode = padZeros(convertHex(finalopcode).toUpperCase(), 8);
 		Lists.addOpcode("DADDU        " + finalhexopcode);
 		
-	
+	}
+	public void sendOpCode() {
+		Lists.addOpcode("DADDU        " + finalhexopcode);
 	}
 	
 }

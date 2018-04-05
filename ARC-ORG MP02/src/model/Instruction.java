@@ -4,6 +4,7 @@ import java.math.BigInteger;
 
 public class Instruction {
 	protected String code;
+	protected String codeLine;
 	protected String name;	
 	protected String offset; 
 	protected String memoryoffset;
@@ -12,6 +13,7 @@ public class Instruction {
 	protected int rs; 
 	protected int rd; 
 	protected String immediate; 
+	protected String jumpAddress = "0000";
 	
 	public String getFinalopcode() {
 		return finalopcode;
@@ -51,6 +53,9 @@ public class Instruction {
 	public int convertInt(String n) {
 		return Integer.decode("0x"+n);
 	}
+	static String hexToBin(String h) {
+		  return new BigInteger(h, 16).toString(2);
+		}
 	
 	// GETTERS AND SETTERS
 	public String getName() {
@@ -107,5 +112,19 @@ public class Instruction {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+	public String getJumpAddress() {
+		return jumpAddress;
+	}
+	public void setJumpAddress(String address) {
+		jumpAddress = hexToBin(address);
+	}
+
+	public String getCodeLine() {
+		return codeLine;
+	}
+
+	public void setCodeLine(String codeLine) {
+		this.codeLine = codeLine;
 	}
 }

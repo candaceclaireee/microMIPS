@@ -7,9 +7,19 @@ public class IType extends Instruction{
 	public static final String LD_OPCODE = "110111";  // LD OK
 	public static final String SD_OPCODE = "111111"; // SD OK
 	public static final String BLTC_OPCODE = "010111";
-			
-	public IType(String code) {
-		this.code = code;
+	
+	String codeLine;
+	
+	/////////////////
+	///////////////////////ADD SENDOPCODE FUNC////////////////
+	/////////////////
+	
+	public IType(String codeLine) {
+		setCodeLine(codeLine);
+		if(codeLine.contains(":"))
+			code = codeLine.split(":")[1];
+		else 
+			code = codeLine;
 		if (checkForErrors() == false)
 			buildOpcode();
 	}
