@@ -66,7 +66,7 @@ public class MainWindowController implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 		initializeRegisters();
 		initializeMemoryCode(); 
-		//initializeMemoryData();
+		initializeMemoryData();
 	}
 	
 	public void initializeRegisters() {
@@ -88,8 +88,31 @@ public class MainWindowController implements Initializable {
 			});	
 			b1.setOnMouseEntered(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent event) {
-					b1.setStyle("-fx-border-color: blue");
-				
+					b1.setStyle("-fx-border-color: blue");				
+				}				
+			});
+			b1.setOnMouseExited(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent event) {
+					b1.setStyle("-fx-background-color: transparent");
+				}				
+			});
+			GPGrid.add(b1, 0, i);
+		}
+	}
+
+	public void initializeMemoryData() {
+		int j = 0;
+	    for(int i = 0 ; i < 256 ; i++) {
+			MemoryCode m = new MemoryCode("0"+Integer.toHexString(j).toUpperCase(), "WALA PA", "WALA PA");
+			Lists.addMemoryCode(m);
+			
+			Button b1 = new Button(m.getAddress() + "  " + m.getOpcode() + "  " + m.getInstruction() );
+			b1.setMinWidth(MemDataPane.getWidth());
+			b1.setStyle("-fx-background-color: transparent");
+
+			b1.setOnMouseEntered(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent event) {
+					b1.setStyle("-fx-border-color: blue");				
 				}
 				
 			});
@@ -99,10 +122,11 @@ public class MainWindowController implements Initializable {
 				}
 				
 			});
-			GPGrid.add(b1, 0, i);
+			MemDataGrid.add(b1, 0, i);
+			j+=8;
 		}
 	}
-
+	
 	public void initializeMemoryCode() {
 		int j = 256;
 	    for(int i = 0 ; i < 256 ; i++) {
@@ -115,8 +139,7 @@ public class MainWindowController implements Initializable {
 
 			b1.setOnMouseEntered(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent event) {
-					b1.setStyle("-fx-border-color: blue");
-				
+					b1.setStyle("-fx-border-color: blue");				
 				}
 				
 			});
