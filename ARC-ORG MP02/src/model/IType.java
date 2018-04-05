@@ -9,16 +9,24 @@ public class IType extends Instruction{
 	public static final String BLTC_OPCODE = "010111";
 	
 	String codeLine;
-		
-	public IType(String code) {
-		codeLine = code;
+	
+	/////////////////
+	///////////////////////ADD SENDOPCODE FUNC////////////////
+	/////////////////
+	
+	public IType(String codeLine) {
+		setCodeLine(codeLine);
+		if(codeLine.contains(":"))
+			code = codeLine.split(":")[1];
+		else 
+			code = codeLine;
 		if (checkForErrors() == false)
 			buildOpcode();
 	}
 	
 	public boolean checkForErrors() {
-		if (codeLine.contains("DADDIU") || codeLine.contains("XORI")) {
-			String parameter[] = codeLine.replaceAll("\\s+","").split(",");
+		if (code.contains("DADDIU") || code.contains("XORI")) {
+			String parameter[] = code.replaceAll("\\s+","").split(",");
 
 //			//debug
 //			for(int i=0; i<parameter.length; i++){
@@ -56,8 +64,8 @@ public class IType extends Instruction{
 				}
 			} 
 		} 
-		else if (codeLine.contains("LD") || codeLine.contains("SD")) {
-			String[]parameter = codeLine.split(", |\\(");
+		else if (code.contains("LD") || code.contains("SD")) {
+			String[]parameter = code.split(", |\\(");
 			
 //			//debug
 //			for(int i=0; i<parameter.length; i++){
@@ -100,7 +108,7 @@ public class IType extends Instruction{
 	}
 	
 	public void assignParts(String parameter[]) {
-		if (codeLine.contains("DADDIU") || codeLine.contains("XORI")) {
+		if (code.contains("DADDIU") || code.contains("XORI")) {
 			name = parameter[0].substring(0, parameter[0].indexOf("R"));
 			
 			String rtInit = parameter[0].substring(parameter[0].lastIndexOf("R")+1, parameter[0].length());
@@ -120,7 +128,7 @@ public class IType extends Instruction{
 //			System.out.println("rs  "+rs);
 //			System.out.println("immediate "+immediate);
 		}
-		else if (codeLine.contains("LD") || codeLine.contains("SD")) {
+		else if (code.contains("LD") || code.contains("SD")) {
 			name = parameter[0].substring(0, parameter[0].indexOf("R"));
 			
 			String rtInit = parameter[0].substring(parameter[0].lastIndexOf("R")+1, parameter[0].length());
@@ -141,7 +149,7 @@ public class IType extends Instruction{
 	
 	public void buildOpcode() {
 		StringBuilder sb = new StringBuilder();
-		if (codeLine.contains("DADDIU")) {
+		if (code.contains("DADDIU")) {
 			sb.append(DADDIU_OPCODE);
 			sb.append(padZeros(convertBinary(rs), 5));
 			sb.append(padZeros(convertBinary(rt), 5));
@@ -153,11 +161,11 @@ public class IType extends Instruction{
 			}
 
 			finalopcode = sb.toString();
-			finalhexopcode = convertHex(finalopcode).toUpperCase();
+			finalhexopcode = padZeros(convertHex(finalopcode).toUpperCase(), 8);
 			Lists.addOpcode("DADDIU        " + finalhexopcode);
 			
 		}  
-		else if (codeLine.contains("XORI")) {
+		else if (code.contains("XORI")) {
 			sb.append(XORI_OPCODE);
 			sb.append(padZeros(convertBinary(rs), 5));
 			sb.append(padZeros(convertBinary(rt), 5));
@@ -169,10 +177,10 @@ public class IType extends Instruction{
 			}
 			
 			finalopcode = sb.toString();
-			finalhexopcode = convertHex(finalopcode).toUpperCase();
+			finalhexopcode = padZeros(convertHex(finalopcode).toUpperCase(), 8);
 			Lists.addOpcode("XORI        " + finalhexopcode);
 		}
-		else if (codeLine.contains("SD")) {
+		else if (code.contains("SD")) {
 			sb.append(SD_OPCODE);
 			sb.append(padZeros(convertBinary(base), 5));
 			sb.append(padZeros(convertBinary(rt), 5));
@@ -184,10 +192,10 @@ public class IType extends Instruction{
 			}
 			
 			finalopcode = sb.toString();
-			finalhexopcode = convertHex(finalopcode).toUpperCase();
+			finalhexopcode = padZeros(convertHex(finalopcode).toUpperCase(), 8);
 			Lists.addOpcode("SD        " + finalhexopcode);
 		}
-		else if (codeLine.contains("LD")) {
+		else if (code.contains("LD")) {
 			sb.append(LD_OPCODE);
 			sb.append(padZeros(convertBinary(base), 5));
 			sb.append(padZeros(convertBinary(rt), 5));
@@ -199,7 +207,7 @@ public class IType extends Instruction{
 			}
 			
 			finalopcode = sb.toString();
-			finalhexopcode = convertHex(finalopcode).toUpperCase();
+			finalhexopcode = padZeros(convertHex(finalopcode).toUpperCase(), 8);
 			Lists.addOpcode("LD        " + finalhexopcode);
 		}
 		//OTHER INSTRUCTIONS

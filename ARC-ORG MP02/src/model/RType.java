@@ -2,21 +2,26 @@ package model;
 
 public class RType extends Instruction {
 
-	public static final String DADDU_OPCODE = "000000";
+	public static final String DADDU_OPCODE = "000000";   //DADDU OK
 	public static final String DADDU_SA = "00000";
 	public static final String DADDU_FUNC = "101101";
 	
 	String codeLine;
 	
-	public RType(String code) {
-		codeLine = code;
+	public RType(String codeLine) {
+		setCodeLine(codeLine);
+		if(codeLine.contains(":"))
+			code = codeLine.split(":")[1];
+		else 
+			code = codeLine;
 		if (checkForErrors() == false)
 			buildOpCode();
+			sendOpCode();
 	}
 	
 	public boolean checkForErrors() {
 	
-		String parameter[] = codeLine.replaceAll("\\s+","").split(",");
+		String parameter[] = code.replaceAll("\\s+","").split(",");
 			
 		if (parameter.length != 3) {
 			Lists.addError("Invalid parameters");
@@ -63,14 +68,16 @@ public class RType extends Instruction {
 		sb.append(padZeros(convertBinary(rs), 5));
 		sb.append(padZeros(convertBinary(rt), 5));
 		sb.append(padZeros(convertBinary(rd), 5));
-		sb.append(DADDU_SA); // SA
-		sb.append(DADDU_FUNC); //FUNC
+		sb.append(DADDU_SA); 
+		sb.append(DADDU_FUNC); 
 
 		finalopcode = sb.toString();
-		finalhexopcode = convertHex(finalopcode).toUpperCase();
+		finalhexopcode = padZeros(convertHex(finalopcode).toUpperCase(), 8);
 		Lists.addOpcode("DADDU        " + finalhexopcode);
-	
-	
+		
+	}
+	public void sendOpCode() {
+		Lists.addOpcode("DADDU        " + finalhexopcode);
 	}
 	
 }

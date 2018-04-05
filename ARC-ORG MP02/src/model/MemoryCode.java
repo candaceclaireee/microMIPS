@@ -4,12 +4,19 @@ public class MemoryCode {
 	private String address; 
 	private String opcode; 
 	private String instruction;
+	private Instruction struct;
 	
 	
-	public MemoryCode(String address, String opcode, String instruction) {
-		this.address = address; 
-		this.opcode = opcode; 
-		this.instruction = instruction;
+	public MemoryCode(Instruction struct) {
+		this.struct = struct;
+		this.opcode = struct.getFinalhexopcode();
+		this.instruction = struct.getCode();
+	}
+	public Instruction getStruct() {
+		return struct;
+	}
+	public void setStruct(Instruction struct) {
+		this.struct = struct;
 	}
 	public String getAddress() {
 		return address;
