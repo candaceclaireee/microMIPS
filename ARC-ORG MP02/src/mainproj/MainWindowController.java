@@ -67,12 +67,12 @@ public class MainWindowController implements Initializable {
 	////////////////   OTHER functions
 	public void initialize(URL url, ResourceBundle rb) {
 		initializeRegisters();
-<<<<<<< HEAD
+
 		initializeMemoryCode(); 
-		initializeMemoryData();
-=======
 		//initializeMemoryData();
->>>>>>> af1386ea4a66fc2b7067befa121e50421341bb99
+
+		//initializeMemoryData();
+
 	}
 	
 	public void initializeRegisters() {
@@ -106,65 +106,7 @@ public class MainWindowController implements Initializable {
 		}
 	}
 
-	public void initializeMemoryData() {
-		int j = 0;
-	    for(int i = 0 ; i < 256 ; i++) {
-			MemoryCode m = new MemoryCode("0"+Integer.toHexString(j).toUpperCase(), "WALA PA", "WALA PA");
-			Lists.addMemoryCode(m);
-			
-			Button b1 = new Button(m.getAddress() + "  " + m.getOpcode() + "  " + m.getInstruction() );
-			b1.setMinWidth(MemDataPane.getWidth());
-			b1.setStyle("-fx-background-color: transparent");
-
-			b1.setOnMouseEntered(new EventHandler<MouseEvent>() {
-				public void handle(MouseEvent event) {
-					b1.setStyle("-fx-border-color: blue");				
-				}
-				
-			});
-			b1.setOnMouseExited(new EventHandler<MouseEvent>() {
-				public void handle(MouseEvent event) {
-					b1.setStyle("-fx-background-color: transparent");
-				}
-				
-			});
-			MemDataGrid.add(b1, 0, i);
-			j+=8;
-		}
-	}
-<<<<<<< HEAD
 	
-	public void initializeMemoryCode() {
-		int j = 256;
-	    for(int i = 0 ; i < 256 ; i++) {
-			MemoryCode m = new MemoryCode("0"+Integer.toHexString(j).toUpperCase(), "WALA PA", "WALA PA");
-			Lists.addMemoryCode(m);
-			
-			Button b1 = new Button(m.getAddress() + "  " + m.getOpcode() + "  " + m.getInstruction() );
-			b1.setMinWidth(MemCodePane.getWidth());
-			b1.setStyle("-fx-background-color: transparent");
-
-			b1.setOnMouseEntered(new EventHandler<MouseEvent>() {
-				public void handle(MouseEvent event) {
-					b1.setStyle("-fx-border-color: blue");				
-				}
-				
-			});
-			b1.setOnMouseExited(new EventHandler<MouseEvent>() {
-				public void handle(MouseEvent event) {
-					b1.setStyle("-fx-background-color: transparent");
-				}
-				
-			});
-			MemCodeGrid.add(b1, 0, i);
-			j++;
-		}
-	}
-	
-	
-=======
-
->>>>>>> af1386ea4a66fc2b7067befa121e50421341bb99
 	public void initializeInstructions(int ds, int de, int cs, int ce) {
 		
 		for (int i = cs; i <= ce ; i++) {
