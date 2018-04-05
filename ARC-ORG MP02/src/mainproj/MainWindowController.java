@@ -4,9 +4,11 @@ import java.net.URL;
 import java.util.*;
 
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 
 import javafx.event.EventHandler;
 import javafx.fxml.*;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -20,7 +22,7 @@ public class MainWindowController implements Initializable {
 	@FXML
 	private ListView<String> opcodeListView, errorsListView;
 	@FXML 
-	private Button runButton;
+	private Button runButton, gotoButton;
 
 	@FXML
 	private GridPane GPGrid, MemCodeGrid, MemDataGrid;
@@ -28,7 +30,6 @@ public class MainWindowController implements Initializable {
 	private ScrollPane GPPane, MemCodePane, MemDataPane;
 	
 	/////////////////  OTHER variables
-	public static ArrayList<Instruction> instructions = new ArrayList<Instruction>();
 	public String codeRead[]; 
 	public String fullLines;
 	public int currentAddress = 256; 
@@ -39,7 +40,7 @@ public class MainWindowController implements Initializable {
 		Lists.clearErrors();
 		Lists.clearOpcode();
 		Lists.clearMemoryCodes();
-		instructions.clear();
+		Lists.clearInstructions();
 		
 		int datastart = 0;
 		int dataend = 0; 
@@ -62,17 +63,37 @@ public class MainWindowController implements Initializable {
 		}
 		initializeInstructions(datastart, dataend, codestart, codeend);
 		initializeMemoryCode();
+		//initializeMemoryData
+		executeCode();
 	}
 
 	////////////////   OTHER functions
 	public void initialize(URL url, ResourceBundle rb) {
 		initializeRegisters();
-
-		initializeMemoryCode(); 
+		//initializeMemoryCode(); 
 		//initializeMemoryData();
-
-		//initializeMemoryData();
-
+	}
+	
+	public void initializeInstructions(int ds, int de, int cs, int ce) {
+		
+		for (int i = cs; i <= ce ; i++) {
+			String code = codeRead[i].toUpperCase();
+		
+			if (code.contains("BC")) {
+				JType j = new JType(code);
+				Lists.addInstruction(j);
+			} else if (code.contains("DADDU")) {
+				RType r = new RType(code); 
+				Lists.addInstruction(r);
+			} else if (code.contains("DADDIU") || code.contains("XORI") || code.contains("LD") ||
+						    code.contains("SD") || code.contains("BLTC")) {
+				IType it = new IType(code); 
+				Lists.addInstruction(it);
+			} else {
+				int j = i + 1;
+				Lists.addError("Invalid instruction on line " + j);
+			}
+		}
 	}
 	
 	public void initializeRegisters() {
@@ -87,7 +108,7 @@ public class MainWindowController implements Initializable {
 			b1.setOnMouseClicked(new EventHandler<MouseEvent>() { 
 				public void handle(MouseEvent event) {
 					String buttonText[] = b1.getText().replaceAll("\\s+","").split("=");
-					String register = JOptionPane.showInputDialog("Type content for register " + buttonText[0] );
+					String register = JOptionPane.showInputDialog("Type content for register " + buttonText[0]);
 					
 					//ERROR CHECKING BEFORE CHANGING REGISTER CONTENT(length, all numbers etc)
 				}
@@ -105,78 +126,33 @@ public class MainWindowController implements Initializable {
 			GPGrid.add(b1, 0, i);
 		}
 	}
-
 	
-	public void initializeInstructions(int ds, int de, int cs, int ce) {
-		
-		for (int i = cs; i <= ce ; i++) {
-			String code = codeRead[i].toUpperCase();
-		
-			//INIT INSTRUCTIONS THEN ADD TO INSTRUCTION LIST
-			if (code.contains("BC")) {
-				JType j = new JType(code);
-				instructions.add(j);
-			} else if (code.contains("DADDU")) {
-				RType r = new RType(code); 
-				instructions.add(r);
-			} else if (code.contains("DADDIU") || code.contains("XORI") || code.contains("LD") ||
-						    code.contains("SD") || code.contains("BLTC")) {
-				IType it = new IType(code); 
-				instructions.add(it);
-			} else {
-				int j = i + 1;
-				Lists.addError("Invalid instruction on line " + j);
-				}
-			}
-	}
-	public void setMemoryCode() {
-		Lists.getMemoryCodes().clear();
-		currentAddress = 256;
-		
-		//INIT MEMORYCODE
-		for(int k =0; k < instructions.size(); k++) {
-			Lists.addMemoryCode(new MemoryCode(instructions.get(k)));
-		}
-		
-		//SET ADDRESS FOR MEMORY CODE
-		for (int i = 0; i< Lists.getMemoryCodes().size(); i++) {
-			MemoryCode currentItem = Lists.getMemoryCodes().get(i);
-			currentItem.setAddress("0" + Integer.toHexString(currentAddress));
-			currentAddress+=4;
-		}
-		
-	}
-
 	public void initializeMemoryCode() {
-			
 			MemCodeGrid.getChildren().clear();
 			
-			
-			setMemoryCode();
-			
 			//SET JUMP ADDRESSES FOR BC & BLTC
-			for(int k =0; k < instructions.size(); k++) {
+			for(int k =0; k < Lists.getInstructions().size(); k++) {
 				String jumpCode;
 				boolean isBC;
 				
-				if(instructions.get(k).getCode().contains("BC") || instructions.get(k).getCode().contains("BLTC")) {
-					if(instructions.get(k).getCode().contains("BC")) {
-						jumpCode = instructions.get(k).getCode().split(" ")[1];
+				if(Lists.getInstructions().get(k).getCode().contains("BC") || Lists.getInstructions().get(k).getCode().contains("BLTC")) {
+					if(Lists.getInstructions().get(k).getCode().contains("BC")) {
+						jumpCode = Lists.getInstructions().get(k).getCode().split(" ")[1];
 						isBC = true;
 					}
 					else {
-						jumpCode = instructions.get(k).getCode().split(",")[3];
+						jumpCode = Lists.getInstructions().get(k).getCode().split(",")[3];
 						isBC = false;
 					}
 					for (int i = 0; i< Lists.getMemoryCodes().size(); i++) {
-						if(Lists.getMemoryCodes().get(i).getStruct().getCodeLine().contains(jumpCode) && !Lists.getMemoryCodes().get(i).getStruct().getCode().equalsIgnoreCase(instructions.get(k).getCode())) {
-							instructions.get(k).setJumpAddress(Lists.getMemoryCodes().get(i).getAddress());
+						if(Lists.getMemoryCodes().get(i).getStruct().getCodeLine().contains(jumpCode) && !Lists.getMemoryCodes().get(i).getStruct().getCode().equalsIgnoreCase(Lists.getInstructions().get(k).getCode())) {
+							Lists.getInstructions().get(k).setJumpAddress(Lists.getMemoryCodes().get(i).getAddress());
 							
 							if(isBC)
-								((JType)instructions.get(k)).buildOpcode();
+								((JType)Lists.getInstructions().get(k)).buildOpcode();
 							else
-								((IType)instructions.get(k)).buildOpcode();
-							System.out.println(instructions.get(k).getJumpAddress());
+								((IType)Lists.getInstructions().get(k)).buildOpcode();
+							System.out.println(Lists.getInstructions().get(k).getJumpAddress());
 						}
 					}	
 				} 
@@ -185,33 +161,62 @@ public class MainWindowController implements Initializable {
 			setMemoryCode();
 			currentAddress+=4;
 			
-			
 			// ADD TO GUI
 			for (int i = 0; i< Lists.getMemoryCodes().size(); i++){
 				MemoryCode currentItem = Lists.getMemoryCodes().get(i);
 			
-				Button b1 = new Button(currentItem.getAddress().toUpperCase() + " " + currentItem.getOpcode() + "  " + currentItem.getInstruction());
+				Button b1 = new Button(currentItem.getAddress().toUpperCase() + " / " + currentItem.getOpcode() + " / " + currentItem.getInstruction());
 				b1.setMinWidth(MemCodePane.getWidth());
+				b1.setAlignment(Pos.CENTER_LEFT);
 				b1.setStyle("-fx-background-color: transparent");
 
 				b1.setOnMouseEntered(new EventHandler<MouseEvent>() {
 					public void handle(MouseEvent event) {
 						b1.setStyle("-fx-border-color: blue");
-					
 					}
-					
 				});
 				b1.setOnMouseExited(new EventHandler<MouseEvent>() {
 					public void handle(MouseEvent event) {
 						b1.setStyle("-fx-background-color: transparent");
 					}
-					
 				});
+				
 				MemCodeGrid.add(b1, 0, i);  
 				errorsListView.setItems(Lists.getErrors());
 				opcodeListView.setItems(Lists.getOpcodes());
-				
 			}	
 		}
+
+	public void setMemoryCode() {
+		Lists.getMemoryCodes().clear();
+		currentAddress = 256;
+		
+		//INIT MEMORYCODE
+		for(int k =0; k < Lists.getInstructions().size(); k++) {
+			Lists.addMemoryCode(new MemoryCode(Lists.getInstructions().get(k)));
+		}
+		
+		//SET ADDRESS FOR MEMORY CODE
+		for (int i = 0; i< Lists.getMemoryCodes().size(); i++) {
+			MemoryCode currentItem = Lists.getMemoryCodes().get(i);
+			currentItem.setAddress("0" + Integer.toHexString(currentAddress));
+			currentAddress+=4;
+		}
 	}
+	
+	public void initializeMemoryData(){
+		//FOR .DATA
+	}
+	
+	public void executeCode() {
+		//manipulate the memorycode and memorydata observablelists HERE
+		
+		for (int i=0; i<Lists.getMemoryCodes().size(); i++) {
+			MemoryCode m = Lists.getMemoryCodes().get(i);
+			
+		}		
+	}
+
+}
+
 

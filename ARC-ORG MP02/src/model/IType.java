@@ -7,13 +7,7 @@ public class IType extends Instruction{
 	public static final String LD_OPCODE = "110111";  // LD OK
 	public static final String SD_OPCODE = "111111"; // SD OK
 	public static final String BLTC_OPCODE = "010111";
-	
-	String codeLine;
-	
-	/////////////////
-	///////////////////////ADD SENDOPCODE FUNC////////////////
-	/////////////////
-	
+			
 	public IType(String codeLine) {
 		setCodeLine(codeLine);
 		if(codeLine.contains(":"))
@@ -28,11 +22,6 @@ public class IType extends Instruction{
 		if (code.contains("DADDIU") || code.contains("XORI")) {
 			String parameter[] = code.replaceAll("\\s+","").split(",");
 
-//			//debug
-//			for(int i=0; i<parameter.length; i++){
-//				System.out.println(parameter[i]);
-//			}
-			
 			if (parameter.length != 3) {
 				Lists.addError("Invalid parameters");
 				return true;
@@ -67,11 +56,6 @@ public class IType extends Instruction{
 		else if (code.contains("LD") || code.contains("SD")) {
 			String[]parameter = code.split(", |\\(");
 			
-//			//debug
-//			for(int i=0; i<parameter.length; i++){
-//				System.out.println(parameter[i]);
-//			}
-			
 			if (parameter.length != 3) {
 				Lists.addError("Invalid parameters");
 				return true;
@@ -85,10 +69,6 @@ public class IType extends Instruction{
 					Lists.addError("Third parameter is not a register");
 					return true;
 				}
-//				if ( !(parameter[1].matches("^[ABCDEF0123456789]+$"))) { //(text.matches("[0-9]+")
-//					Errors.addError("Second parameter has a wrong offset format");
-//					return true;
-//				}
 				if (!(parameter[1].length()==4)) {
 					Lists.addError("Second parameter size is invalid");
 					return true;
@@ -104,12 +84,12 @@ public class IType extends Instruction{
 			}
 		}
 		return false;	
-		//OTHER INSTRUCTIONS
+		//BLTC!!!
 	}
 	
 	public void assignParts(String parameter[]) {
 		if (code.contains("DADDIU") || code.contains("XORI")) {
-			name = parameter[0].substring(0, parameter[0].indexOf("R"));
+			name = parameter[0].substring(0, parameter[0].lastIndexOf("R")).replaceAll("\\s+","");
 			
 			String rtInit = parameter[0].substring(parameter[0].lastIndexOf("R")+1, parameter[0].length());
 			rt = Integer.parseInt(rtInit);
@@ -122,14 +102,9 @@ public class IType extends Instruction{
 			} else {
 				immediate = parameter[2].substring(parameter[2].indexOf("X")+1, parameter[2].length());
 			}
-			
-//			System.out.println("name "+name);
-//			System.out.println("rt "+rt);
-//			System.out.println("rs  "+rs);
-//			System.out.println("immediate "+immediate);
 		}
 		else if (code.contains("LD") || code.contains("SD")) {
-			name = parameter[0].substring(0, parameter[0].indexOf("R"));
+			name = parameter[0].substring(0, parameter[0].lastIndexOf("R")).replaceAll("\\s+","");
 			
 			String rtInit = parameter[0].substring(parameter[0].lastIndexOf("R")+1, parameter[0].length());
 			rt = Integer.parseInt(rtInit);
@@ -138,13 +113,8 @@ public class IType extends Instruction{
 			base = Integer.parseInt(baseInit);
 			
 			offset =  parameter[1];
-			
-//			System.out.println("name "+name);
-//			System.out.println("rt "+rt);
-//			System.out.println("base "+base);
-//			System.out.println("offset "+offset);
 		}
-		
+		//BLTC!!!
 	}
 	
 	public void buildOpcode() {
@@ -163,7 +133,6 @@ public class IType extends Instruction{
 			finalopcode = sb.toString();
 			finalhexopcode = padZeros(convertHex(finalopcode).toUpperCase(), 8);
 			Lists.addOpcode("DADDIU        " + finalhexopcode);
-			
 		}  
 		else if (code.contains("XORI")) {
 			sb.append(XORI_OPCODE);
@@ -210,8 +179,7 @@ public class IType extends Instruction{
 			finalhexopcode = padZeros(convertHex(finalopcode).toUpperCase(), 8);
 			Lists.addOpcode("LD        " + finalhexopcode);
 		}
-		//OTHER INSTRUCTIONS
-		
+	 // ELSE IF BLTC!!!!
 	}
 	
 }

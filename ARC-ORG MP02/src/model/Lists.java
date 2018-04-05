@@ -1,17 +1,38 @@
 package model;
 
+import java.util.ArrayList;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Lists {
 
+	private static ArrayList<Instruction> instructions = new ArrayList<Instruction>();
+	
 	private static ObservableList<String> errors = FXCollections.observableArrayList();
 	private static ObservableList<String> opcodes = FXCollections.observableArrayList();
 
 	private static ObservableList<Register> registers = FXCollections.observableArrayList();
 	private static ObservableList<MemoryCode> memorycodeaddresses = FXCollections.observableArrayList();
-	//private static ObservableList<MemoryData> memorydataaddresses = FXCollections.observableArrayList();
 	
+	//private static ObservableList<MemoryData> memorydataaddresses = FXCollections.observableArrayList();
+
+	///////////////////////////////////////////////INSTRUCTIONS
+	public static void addInstruction(Instruction i) {
+		instructions.add(i);
+	}
+	
+	public static void removeInstruction(Instruction i) {
+		instructions.remove(i);
+	}
+	
+	public static ArrayList<Instruction> getInstructions(){
+		return instructions;
+	}
+
+	public static void clearInstructions() {
+		instructions.clear();
+	}
 	///////////////////////////////////////////////ERRORS
 	public static void addError(String e) {
 		errors.add(e);

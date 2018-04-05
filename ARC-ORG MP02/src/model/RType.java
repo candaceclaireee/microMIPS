@@ -6,8 +6,6 @@ public class RType extends Instruction {
 	public static final String DADDU_SA = "00000";
 	public static final String DADDU_FUNC = "101101";
 	
-	String codeLine;
-	
 	public RType(String codeLine) {
 		setCodeLine(codeLine);
 		if(codeLine.contains(":"))
@@ -16,7 +14,6 @@ public class RType extends Instruction {
 			code = codeLine;
 		if (checkForErrors() == false)
 			buildOpCode();
-			sendOpCode();
 	}
 	
 	public boolean checkForErrors() {
@@ -52,6 +49,8 @@ public class RType extends Instruction {
 	} 
 	
 	public void assignParts(String parameter[]) {
+		name = parameter[0].substring(0, parameter[0].lastIndexOf("R"));
+		
 		String rdInit = parameter[0].substring(parameter[0].lastIndexOf("R")+1, parameter[0].length());
 		rd = Integer.parseInt(rdInit);
 		
@@ -73,10 +72,6 @@ public class RType extends Instruction {
 
 		finalopcode = sb.toString();
 		finalhexopcode = padZeros(convertHex(finalopcode).toUpperCase(), 8);
-		Lists.addOpcode("DADDU        " + finalhexopcode);
-		
-	}
-	public void sendOpCode() {
 		Lists.addOpcode("DADDU        " + finalhexopcode);
 	}
 	

@@ -6,30 +6,15 @@ public class Instruction {
 	protected String code;
 	protected String codeLine;
 	protected String name;	
+	
 	protected String offset; 
-	protected String memoryoffset;
 	protected int base; 
 	protected int rt; 
 	protected int rs; 
 	protected int rd; 
 	protected String immediate; 
 	protected String jumpAddress = "0000";
-	
-	public String getFinalopcode() {
-		return finalopcode;
-	}
 
-	public void setFinalopcode(String finalopcode) {
-		this.finalopcode = finalopcode;
-	}
-
-	public String getFinalhexopcode() {
-		return finalhexopcode;
-	}
-
-	public void setFinalhexopcode(String finalhexopcode) {
-		this.finalhexopcode = finalhexopcode;
-	}
 	protected String finalopcode; 
 	protected String finalhexopcode;
 	
@@ -53,11 +38,18 @@ public class Instruction {
 	public int convertInt(String n) {
 		return Integer.decode("0x"+n);
 	}
-	static String hexToBin(String h) {
+	
+	public String hexToBin(String h) {
 		  return new BigInteger(h, 16).toString(2);
-		}
+	}
 	
 	// GETTERS AND SETTERS
+	public String getCodeLine() {
+		return codeLine;
+	}
+	public void setCodeLine(String codeLine) {
+		this.codeLine = codeLine;
+	}
 	public String getName() {
 		return name;
 	}
@@ -69,12 +61,6 @@ public class Instruction {
 	}
 	public void setOffset(String offset) {
 		this.offset = offset;
-	}
-	public String getMemoryoffset() {
-		return memoryoffset;
-	}
-	public void setMemoryoffset(String memoryoffset) {
-		this.memoryoffset = memoryoffset;
 	}
 	public int getBase() {
 		return base;
@@ -109,7 +95,6 @@ public class Instruction {
 	public String getCode() {
 		return code;
 	}
-
 	public void setCode(String code) {
 		this.code = code;
 	}
@@ -119,12 +104,16 @@ public class Instruction {
 	public void setJumpAddress(String address) {
 		jumpAddress = hexToBin(address);
 	}
-
-	public String getCodeLine() {
-		return codeLine;
+	public String getFinalopcode() {
+		return finalopcode;
 	}
-
-	public void setCodeLine(String codeLine) {
-		this.codeLine = codeLine;
+	public void setFinalopcode(String finalopcode) {
+		this.finalopcode = finalopcode;
+	}
+	public String getFinalhexopcode() {
+		return finalhexopcode;
+	}
+	public void setFinalhexopcode(String finalhexopcode) {
+		this.finalhexopcode = finalhexopcode;
 	}
 }

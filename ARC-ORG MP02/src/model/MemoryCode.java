@@ -6,12 +6,12 @@ public class MemoryCode {
 	private String instruction;
 	private Instruction struct;
 	
-	
 	public MemoryCode(Instruction struct) {
 		this.struct = struct;
 		this.opcode = struct.getFinalhexopcode();
 		this.instruction = struct.getCode();
 	}
+	
 	public Instruction getStruct() {
 		return struct;
 	}
