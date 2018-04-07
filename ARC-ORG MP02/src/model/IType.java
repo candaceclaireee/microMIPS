@@ -71,10 +71,10 @@ public class IType extends Instruction{
 					Lists.addError("Third parameter is not a register");
 					return true;
 				}
-				if (!(parameter[1].length()==4)) {
-					Lists.addError("Second parameter size is invalid");
-					return true;
-				}
+//				if (!(parameter[1].length()==4)) {
+//					Lists.addError("Second parameter size is invalid");
+//					return true;
+//				}
 				else {
 					assignParts(parameter);
 					if (rt > 31) {
@@ -142,7 +142,15 @@ public class IType extends Instruction{
 			String baseInit = parameter[2].substring(parameter[2].indexOf("R")+1, parameter[2].indexOf(")"));
 			base = Integer.parseInt(baseInit);
 			
-			offset =  parameter[1];
+			for (int m=0; m<Lists.getMemoryData().size(); m++){
+				System.out.println(Lists.getMemoryData().get(m).getLabel().toUpperCase()+" vs"+parameter[1].toUpperCase());
+				if (Lists.getMemoryData().get(m).getLabel().toUpperCase().equalsIgnoreCase(parameter[1].toUpperCase())){
+					offset =  Lists.getMemoryData().get(m).getAddress();
+					System.out.println("offset: " +offset);
+					break;
+				}
+			}
+			
 		}
 		else if (code.contains("BLTC")) {
 			name = parameter[0].substring(0, parameter[0].lastIndexOf("R")).replaceAll("\\s+","");
@@ -209,11 +217,13 @@ public class IType extends Instruction{
 			sb.append(util.padZeros(util.convertBinary(base), 5));
 			sb.append(util.padZeros(util.convertBinary(rt), 5));
 
-			String offsetString = util.padZeros(offset, 4);
-			for (int i=0; i<offsetString.length(); i++) {
-				int value = util.convertInt(offsetString.substring(i, i+1));
-				sb.append(util.padZeros(util.convertBinary(value), 4));
-			}
+			String offsetString = util.padZeros(util.hexToBin(util.padZeros(offset, 4)), 16);
+			System.out.println(offsetString);
+			sb.append(offsetString);
+//			for (int i=0; i<offsetString.length(); i++) {
+//				int value = util.convertInt(offsetString.substring(i, i+1));
+//				sb.append(util.padZeros(util.convertBinary(value), 4));
+//			}
 			
 			finalopcode = sb.toString();
 			finalhexopcode = util.padZeros(util.convertHex(finalopcode).toUpperCase(), 8);

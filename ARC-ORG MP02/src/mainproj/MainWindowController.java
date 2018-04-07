@@ -63,13 +63,13 @@ public class MainWindowController implements Initializable {
 				codeend = codeRead.length-1;
 			} 
 		}
-		try {
+//		try {
+			initializeData(datastart, dataend);
 			initializeInstructions(datastart, dataend, codestart, codeend);
 			initializeMemoryCode();
-			initializeData(datastart, dataend);
-		} catch(Exception e) {
+//		} catch(Exception e) {
 			System.out.println("Code empty");
-		}
+//		}
 	}
 
 	private void initializeData(int datastart, int dataend) {
