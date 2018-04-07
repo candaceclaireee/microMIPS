@@ -64,14 +64,14 @@ public class RType extends Instruction {
 	public void buildOpCode() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(DADDU_OPCODE);
-		sb.append(padZeros(convertBinary(rs), 5));
-		sb.append(padZeros(convertBinary(rt), 5));
-		sb.append(padZeros(convertBinary(rd), 5));
+		sb.append(util.padZeros(util.convertBinary(rs), 5));
+		sb.append(util.padZeros(util.convertBinary(rt), 5));
+		sb.append(util.padZeros(util.convertBinary(rd), 5));
 		sb.append(DADDU_SA); 
 		sb.append(DADDU_FUNC); 
 
 		finalopcode = sb.toString();
-		finalhexopcode = padZeros(convertHex(finalopcode).toUpperCase(), 8);
+		finalhexopcode = util.padZeros(util.convertHex(finalopcode).toUpperCase(), 8);
 		Lists.addOpcode("DADDU        " + finalhexopcode);
 	}
 	

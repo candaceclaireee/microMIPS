@@ -28,9 +28,9 @@ public class JType extends Instruction{
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append(BC_OPCODE);
-		sb.append(padZeros(getJumpAddress(), 26));
+		sb.append(util.padZeros(getJumpAddress(), 26));
 		finalopcode = sb.toString();
-		finalhexopcode = padZeros(convertHex(finalopcode).toUpperCase(), 8);
+		finalhexopcode = util.padZeros(util.convertHex(finalopcode).toUpperCase(), 8);
 		Lists.addOpcode("BC        " + finalhexopcode);	
 	}  
 }

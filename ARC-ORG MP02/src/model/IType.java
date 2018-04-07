@@ -121,62 +121,62 @@ public class IType extends Instruction{
 		StringBuilder sb = new StringBuilder();
 		if (code.contains("DADDIU")) {
 			sb.append(DADDIU_OPCODE);
-			sb.append(padZeros(convertBinary(rs), 5));
-			sb.append(padZeros(convertBinary(rt), 5));
+			sb.append(util.padZeros(util.convertBinary(rs), 5));
+			sb.append(util.padZeros(util.convertBinary(rt), 5));
 
-			String immediateString = padZeros(immediate, 4); 
+			String immediateString = util.padZeros(immediate, 4); 
 			for (int i=0; i<immediateString.length(); i++) {
-				int value = convertInt(immediateString.substring(i, i+1));
-				sb.append(padZeros(convertBinary(value), 4));
+				int value = util.convertInt(immediateString.substring(i, i+1));
+				sb.append(util.padZeros(util.convertBinary(value), 4));
 			}
 
 			finalopcode = sb.toString();
-			finalhexopcode = padZeros(convertHex(finalopcode).toUpperCase(), 8);
+			finalhexopcode = util.padZeros(util.convertHex(finalopcode).toUpperCase(), 8);
 			Lists.addOpcode("DADDIU        " + finalhexopcode);
 		}  
 		else if (code.contains("XORI")) {
 			sb.append(XORI_OPCODE);
-			sb.append(padZeros(convertBinary(rs), 5));
-			sb.append(padZeros(convertBinary(rt), 5));
+			sb.append(util.padZeros(util.convertBinary(rs), 5));
+			sb.append(util.padZeros(util.convertBinary(rt), 5));
 
-			String immediateString = padZeros(immediate, 4);
+			String immediateString = util.padZeros(immediate, 4);
 			for (int i=0; i<immediateString.length(); i++) {
-				int value = convertInt(immediateString.substring(i, i+1));
-				sb.append(padZeros(convertBinary(value), 4));
+				int value = util.convertInt(immediateString.substring(i, i+1));
+				sb.append(util.padZeros(util.convertBinary(value), 4));
 			}
 			
 			finalopcode = sb.toString();
-			finalhexopcode = padZeros(convertHex(finalopcode).toUpperCase(), 8);
+			finalhexopcode = util.padZeros(util.convertHex(finalopcode).toUpperCase(), 8);
 			Lists.addOpcode("XORI        " + finalhexopcode);
 		}
 		else if (code.contains("SD")) {
 			sb.append(SD_OPCODE);
-			sb.append(padZeros(convertBinary(base), 5));
-			sb.append(padZeros(convertBinary(rt), 5));
+			sb.append(util.padZeros(util.convertBinary(base), 5));
+			sb.append(util.padZeros(util.convertBinary(rt), 5));
 
-			String offsetString = padZeros(offset, 4);
+			String offsetString = util.padZeros(offset, 4);
 			for (int i=0; i<offsetString.length(); i++) {
-				int value = convertInt(offsetString.substring(i, i+1));
-				sb.append(padZeros(convertBinary(value), 4));
+				int value = util.convertInt(offsetString.substring(i, i+1));
+				sb.append(util.padZeros(util.convertBinary(value), 4));
 			}
 			
 			finalopcode = sb.toString();
-			finalhexopcode = padZeros(convertHex(finalopcode).toUpperCase(), 8);
+			finalhexopcode = util.padZeros(util.convertHex(finalopcode).toUpperCase(), 8);
 			Lists.addOpcode("SD        " + finalhexopcode);
 		}
 		else if (code.contains("LD")) {
 			sb.append(LD_OPCODE);
-			sb.append(padZeros(convertBinary(base), 5));
-			sb.append(padZeros(convertBinary(rt), 5));
+			sb.append(util.padZeros(util.convertBinary(base), 5));
+			sb.append(util.padZeros(util.convertBinary(rt), 5));
 
-			String offsetString = padZeros(offset, 4);
+			String offsetString = util.padZeros(offset, 4);
 			for (int i=0; i<offsetString.length(); i++) {
-				int value = convertInt(offsetString.substring(i, i+1));
-				sb.append(padZeros(convertBinary(value), 4));
+				int value = util.convertInt(offsetString.substring(i, i+1));
+				sb.append(util.padZeros(util.convertBinary(value), 4));
 			}
 			
 			finalopcode = sb.toString();
-			finalhexopcode = padZeros(convertHex(finalopcode).toUpperCase(), 8);
+			finalhexopcode = util.padZeros(util.convertHex(finalopcode).toUpperCase(), 8);
 			Lists.addOpcode("LD        " + finalhexopcode);
 		}
 	 // ELSE IF BLTC!!!!

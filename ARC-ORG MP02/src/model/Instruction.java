@@ -18,31 +18,12 @@ public class Instruction {
 	protected String finalopcode; 
 	protected String finalhexopcode;
 	
-	// UTILSSS
-	public String padZeros(String binary, int n) { 
-		if (binary.length() < n){
-			for (int i = binary.length(); i<n; i++)
-				binary = "0" + binary;
-		}
-		return binary;		
-	}
+	protected Utilities util;
 	
-	public String convertBinary(int n) {
-		return Integer.toBinaryString(n);
+	public Instruction () {
+		util = new Utilities();
 	}
-	
-	public String convertHex(String bin) {
-		return new BigInteger(bin, 2).toString(16);
-	}
-	
-	public int convertInt(String n) {
-		return Integer.decode("0x"+n);
-	}
-	
-	public String hexToBin(String h) {
-		  return new BigInteger(h, 16).toString(2);
-	}
-	
+
 	// GETTERS AND SETTERS
 	public String getCodeLine() {
 		return codeLine;
@@ -102,7 +83,7 @@ public class Instruction {
 		return jumpAddress;
 	}
 	public void setJumpAddress(String address) {
-		jumpAddress = hexToBin(address);
+		jumpAddress = util.hexToBin(address);
 	}
 	public String getFinalopcode() {
 		return finalopcode;
