@@ -22,9 +22,9 @@ public class MainWindowController implements Initializable {
 	private Button runButton, gotoButton;
 
 	@FXML
-	private GridPane GPGrid, MemCodeGrid, MemDataGrid;
+	private GridPane GPGrid, MemCodeGrid, MemDataGrid, CyclesGrid;
 	@FXML
-	private ScrollPane GPPane, MemCodePane, MemDataPane;
+	private ScrollPane GPPane, MemCodePane, MemDataPane, CyclesPane;
 	
 	/////////////////  OTHER variables
 	public String codeRead[]; 
@@ -479,8 +479,8 @@ public class MainWindowController implements Initializable {
 					b1.setStyle("-fx-background-color: transparent");
 				}
 			});
-			
 			MemDataGrid.add(b1, 0, k); 
 		}
-	}
+	}	
+	
 }
