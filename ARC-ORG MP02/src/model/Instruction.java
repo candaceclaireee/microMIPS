@@ -1,6 +1,5 @@
 package model;
 
-import java.math.BigInteger;
 
 public class Instruction {
 	protected String code;

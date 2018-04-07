@@ -16,7 +16,7 @@ public class Lists {
 	private static ObservableList<MemoryCode> memorycodeaddresses = FXCollections.observableArrayList();
 	
 	private static ObservableList<MemoryData> memorydataaddresses = FXCollections.observableArrayList();
-	private static ObservableList<Cycles> cyclesList = FXCollections.observableArrayList();
+	private static ObservableList<Cycle> cyclesList = FXCollections.observableArrayList();
 
 	///////////////////////////////////////////////INSTRUCTIONS
 	public static void addInstruction(Instruction i) {
@@ -116,15 +116,15 @@ public class Lists {
 	}
 	
 	//////////////////////////////////////////////CYCLES 
-	public static void addCyles(Cycles m) {
+	public static void addCyles(Cycle m) {
 		cyclesList.add(m);
 	}
 	
-	public static void removeCyles(Cycles m) {
+	public static void removeCyles(Cycle m) {
 		cyclesList.remove(m);
 	}
 	
-	public static ObservableList<Cycles> getCycles(){
+	public static ObservableList<Cycle> getCycles(){
 		return cyclesList;
 	}
 	

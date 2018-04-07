@@ -484,14 +484,67 @@ public class MainWindowController implements Initializable {
 		}
 	}
 	public void runCycles() {
+		Cycle curCycle = new Cycle();
 		for(int i = 0;i <= Lists.getMemoryCodes().size() ; i++) {
-			//List
-			
-			
+			if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("DADDU")) {
+				MemoryCode m = Lists.getMemoryCodes().get(i);
+
+				curCycle.setIR(m.getOpcode());
+				curCycle.setNPC(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)));
+				curCycle.setA(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRs()))).getContent());
+				curCycle.setB(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).getContent());
+				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 12));				
+				curCycle.setALUOUPUT(util.decToHex(Integer.toString(util.hexToDec(curCycle.getA()) + util.hexToDec(curCycle.getB()))));
+				curCycle.setCOND(false);
+				curCycle.setPC(curCycle.getNPC());
+				curCycle.setLMD("N/A");
+				curCycle.setRANGE("N/A");
+				curCycle.setRN(curCycle.getALUOUPUT());
+				Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRd()))).setContent(util.padZeros(curCycle.getALUOUPUT().toUpperCase(), 16));
+
+				Lists.addCyles(curCycle);
+				//System.out.println(curCycle.getIR());
+				//System.out.println(curCycle.getNPC());
+				//System.out.println(curCycle.getA());
+				//System.out.println(curCycle.getB());
+				//System.out.println(curCycle.getIMM());
+
+				//System.out.println(curCycle.getALUOUPUT());
+				//System.out.println(curCycle.getPC());
+				//System.out.println(curCycle.getLMD());
+				//System.out.println(curCycle.getRANGE());
+				//System.out.println(curCycle.getRN());
+				
+			}// ELSE IF .....
 		}
-		
-		
+		showCycles();
+
 	}
 	
+	public void showCycles(){
+		CyclesGrid.getChildren().clear();
+		for (int k=0; k<Lists.getCycles().size(); k++){	
+			Cycle c = Lists.getCycles().get(k);
+			Button b1 = new Button(c.getIR() + " || " + c.getNPC() + " || " + c.getA() + " || " + c.getB()+ " || " + c.getIMM()
+				+ " || " + c.getALUOUPUT() + " || " + c.getCOND() + " || " + c.getPC()+ " || " + c.getLMD()+ " || " + c.getRANGE()
+				+ " || " + c.getRN());
+			
+			b1.setMinWidth(CyclesPane.getWidth());
+			b1.setAlignment(Pos.CENTER_LEFT);
+			b1.setStyle("-fx-background-color: transparent");
+
+			b1.setOnMouseEntered(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent event) {
+					b1.setStyle("-fx-border-color: blue");
+				}
+			});
+			b1.setOnMouseExited(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent event) {
+					b1.setStyle("-fx-background-color: transparent");
+				}
+			});
+			CyclesGrid.add(b1, 0, k); 
+		}
+	}
 	
 }

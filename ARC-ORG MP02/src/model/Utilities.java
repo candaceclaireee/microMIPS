@@ -45,4 +45,7 @@ public class Utilities {
 		int num= Integer.parseInt(n);
 		return Integer.toHexString(num);
 	}
+	public int hexToDec(String n) {
+		return Integer.parseInt(n, 16);
+	}
 }

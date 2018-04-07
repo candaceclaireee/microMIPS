@@ -1,18 +1,27 @@
 package model;
 
-public class Cycles {
+public class Cycle {
 	private String IR;
 	private String NPC;
 	private String A;
 	private String B;
 	private String IMM;
 	private String ALUOUPUT;
+	private boolean COND;
 	private String PC;
 	private String LMD;
 	private String RANGE;
 	private String RN;
 	
-	
+	public boolean isCOND() {
+		return COND;
+	}
+	public void setCOND(boolean cOND) {
+		COND = cOND;
+	}
+	public boolean getCOND() {
+		return COND;
+	}
 	public String getIR() {
 		return IR;
 	}
