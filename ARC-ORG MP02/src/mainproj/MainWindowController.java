@@ -117,7 +117,7 @@ public class MainWindowController implements Initializable {
 						
 						//check if multiple or single data
 						if (data[1].equalsIgnoreCase("DNE")){ //single
-							System.out.println("enter DNE");
+//							System.out.println("enter DNE");
 							
 							if (data[0].contains("0x")){
 								data[0]= util.removeExtrasHex(data[0]);
@@ -128,25 +128,25 @@ public class MainWindowController implements Initializable {
 							
 							if (data[0].trim().length() >= 3){
 								Lists.addError("Invalid data found!");
-								System.out.println(data[0]+" Invalid data found!");
+//								System.out.println(data[0]+" Invalid data found!");
 							}
 							else {
 								Lists.getMemoryData().get(m).setCode(code);
 								Lists.getMemoryData().get(m).setLabel(label);
 								Lists.getMemoryData().get(m).setType(type);
-								System.out.println("newData: "+data[0]);
-								System.out.println("added to "+Lists.getMemoryData().get(m));
+//								System.out.println("newData: "+data[0]);
+//								System.out.println("added to "+Lists.getMemoryData().get(m));
 								Lists.getMemoryData().get(m).setData(util.padZeros(data[0], 16));
 								Lists.getMemoryData().get(m).setTaken(true);
-								System.out.println("added to "+Lists.getMemoryData().get(m));
+//								System.out.println("added to "+Lists.getMemoryData().get(m));
 							}
 							break;
 						}
 						else { //multiple
-							System.out.println("enter multiple ");
-							for (int n=0; n<data.length; n++){
-								System.out.println(data[n]);
-							}
+//							System.out.println("enter multiple ");
+//							for (int n=0; n<data.length; n++){
+//								System.out.println(data[n]);
+//							}
 							
 							for (int d=(data.length-1); d>=0; d--){ //assign every data
 								if (data[d].contains("0x")){
@@ -158,13 +158,13 @@ public class MainWindowController implements Initializable {
 								
 								if (data[d].length() >= 3){
 									Lists.addError("Invalid data found!");
-									System.out.println(data[d]+" Invalid data found!");
+//									System.out.println(data[d]+" Invalid data found!");
 									invalid = true;
 									break;
 								}
 								else {
 									newData = newData + data[d];
-									System.out.println("newData: "+newData);
+//									System.out.println("newData: "+newData);
 								}
 							}
 							
@@ -210,15 +210,63 @@ public class MainWindowController implements Initializable {
 						}
 						
 					}
-					else if (type.trim().equalsIgnoreCase(".word")){
+					else if (type.trim().equalsIgnoreCase(".word") || type.trim().equalsIgnoreCase(".word64")){
 						System.out.println("enter word");
-						
+						//check if multiple or single data
+						if (data[1].equalsIgnoreCase("DNE")){ //single
+							System.out.println("enter DNE");
+							
+							if (data[0].contains("0x")){
+								data[0]= util.removeExtrasHex(data[0]);
+							}
+							else {
+								data[0]= util.decToHex(data[0].replaceAll("\\s+","")).toUpperCase();
+							}
+							
+							if (data[0].trim().length() >= 17){
+								Lists.addError("Invalid data found!");
+//								System.out.println(data[0]+" Invalid data found!");
+							}
+							else {
+								Lists.getMemoryData().get(m).setCode(code);
+								Lists.getMemoryData().get(m).setLabel(label);
+								Lists.getMemoryData().get(m).setType(type);
+//								System.out.println("newData: "+data[0]);
+//								System.out.println("added to "+Lists.getMemoryData().get(m));
+								Lists.getMemoryData().get(m).setData(util.padZeros(data[0], 16));
+								Lists.getMemoryData().get(m).setTaken(true);
+//								System.out.println("added to "+Lists.getMemoryData().get(m));
+							}
+							break;
+						}
+						else { //multiple
+							
+							for (int d=0; d<data.length; d++){
+								if (data[d].contains("0x")){
+									data[d]= util.removeExtrasHex(data[d]);
+								}
+								else {
+									data[d]= util.decToHex(data[d].replaceAll("\\s+","")).toUpperCase();
+								}
+								
+								if (data[d].trim().length() >= 17){
+									Lists.addError("Invalid data found!");
+//									System.out.println(data[0]+" Invalid data found!");
+									break;
+								}
+								
+								//assign first
+								Lists.getMemoryData().get(m).setCode(code);
+								Lists.getMemoryData().get(m).setLabel(label);
+								Lists.getMemoryData().get(m).setType(type);
+								Lists.getMemoryData().get(m).setData(util.padZeros(data[d], 16));
+								Lists.getMemoryData().get(m).setTaken(true);
+								m++;
+							}
+							
+							break;
+						}
 					}
-					else if (type.trim().equalsIgnoreCase(".word64")){
-						System.out.println("enter word64");
-						
-					}
-					
 				}
 			}
 			
