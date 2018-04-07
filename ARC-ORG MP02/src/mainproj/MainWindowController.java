@@ -2,10 +2,7 @@ package mainproj;
 
 import java.net.URL;
 import java.util.*;
-
 import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-
 import javafx.event.EventHandler;
 import javafx.fxml.*;
 import javafx.geometry.Pos;
@@ -66,16 +63,22 @@ public class MainWindowController implements Initializable {
 				codeend = codeRead.length-1;
 			} 
 		}
-		initializeInstructions(datastart, dataend, codestart, codeend);
-		initializeMemoryCode();
-		initializeData(datastart, dataend);
-		executeCode();
+		try {
+			initializeInstructions(datastart, dataend, codestart, codeend);
+			initializeMemoryCode();
+			initializeData(datastart, dataend);
+		} catch(Exception e) {
+			System.out.println("Code empty");
+		}
 	}
 
 	private void initializeData(int datastart, int dataend) {
 		String type = "";
 		String label = "";
 		String code = "";
+		String newData = "";
+		boolean invalid = false;
+		String nextStr = "";
 
 //		System.out.println(datastart + " to "+ dataend);
 		for (int i=datastart; i<=dataend; i++){ 
@@ -98,28 +101,128 @@ public class MainWindowController implements Initializable {
 				data = code.split(" ");
 				type = code.substring(code.indexOf("."), code.indexOf(" ")+1);
 				data[0] = data[1];
+				data[1] = "DNE";
 			}
 			
-			System.out.println("Type: " + type );
-			System.out.println("label: " + label );
-			System.out.println("code: " + code );
+//			System.out.println("Type: " + type );
+//			System.out.println("label: " + label );
+//			System.out.println("code: " + code );
 			
 			//assign to memorydatalist
 			for (int m=0; m<Lists.getMemoryData().size(); m++){
 				if (Lists.getMemoryData().get(m).isTaken() == false){ //not yet taken
-					Lists.getMemoryData().get(m).setCode(code);
-					Lists.getMemoryData().get(m).setLabel(label);
-					Lists.getMemoryData().get(m).setType(type);
+					//check data type
+					if (type.trim().equalsIgnoreCase(".byte")){
+						System.out.println("enter byte");
+						
+						//check if multiple or single data
+						if (data[1].equalsIgnoreCase("DNE")){ //single
+							System.out.println("enter DNE");
+							
+							if (data[0].contains("0x")){
+								data[0]= util.removeExtrasHex(data[0]);
+							}
+							else {
+								data[0]= util.decToHex(data[0].replaceAll("\\s+","")).toUpperCase();
+							}
+							
+							if (data[0].trim().length() >= 3){
+								Lists.addError("Invalid data found!");
+								System.out.println(data[0]+" Invalid data found!");
+							}
+							else {
+								Lists.getMemoryData().get(m).setCode(code);
+								Lists.getMemoryData().get(m).setLabel(label);
+								Lists.getMemoryData().get(m).setType(type);
+								System.out.println("newData: "+data[0]);
+								System.out.println("added to "+Lists.getMemoryData().get(m));
+								Lists.getMemoryData().get(m).setData(util.padZeros(data[0], 16));
+								Lists.getMemoryData().get(m).setTaken(true);
+								System.out.println("added to "+Lists.getMemoryData().get(m));
+							}
+							break;
+						}
+						else { //multiple
+							System.out.println("enter multiple ");
+							for (int n=0; n<data.length; n++){
+								System.out.println(data[n]);
+							}
+							
+							for (int d=(data.length-1); d>=0; d--){ //assign every data
+								if (data[d].contains("0x")){
+									data[d]= util.removeExtrasHex(data[d]);
+								}
+								else {
+									data[d]= util.padZeros(util.decToHex(data[d].replaceAll("\\s+","")).toUpperCase(), 2);
+								}
+								
+								if (data[d].length() >= 3){
+									Lists.addError("Invalid data found!");
+									System.out.println(data[d]+" Invalid data found!");
+									invalid = true;
+									break;
+								}
+								else {
+									newData = newData + data[d];
+									System.out.println("newData: "+newData);
+								}
+							}
+							
+							if (invalid){
+								
+							}
+							else{
+								if(newData.length()>16){
+									do {									
+										nextStr = newData.substring(0, newData.length()-16); 	//next
+										newData = newData.substring(newData.length()-16, newData.length());					//first
+										
+										//assign first
+										Lists.getMemoryData().get(m).setCode(code);
+										Lists.getMemoryData().get(m).setLabel(label);
+										Lists.getMemoryData().get(m).setType(type);
+										Lists.getMemoryData().get(m).setData(newData);
+										Lists.getMemoryData().get(m).setTaken(true);
+										m++;
+										newData = nextStr;
+										
+										if (nextStr.length()<16){
+											//assign first
+											Lists.getMemoryData().get(m).setCode(code);
+											Lists.getMemoryData().get(m).setLabel(label);
+											Lists.getMemoryData().get(m).setType(type);
+											Lists.getMemoryData().get(m).setData(util.padZeros(newData, 16));
+											Lists.getMemoryData().get(m).setTaken(true);
+										}
+									} while (nextStr.length()>16);	
+									newData = "";
+								}
+								else {
+									Lists.getMemoryData().get(m).setCode(code);
+									Lists.getMemoryData().get(m).setLabel(label);
+									Lists.getMemoryData().get(m).setType(type);
+									Lists.getMemoryData().get(m).setData(util.padZeros(newData, 16));
+									Lists.getMemoryData().get(m).setTaken(true);
+									newData= "";
+								}
+							}							
+							break;
+						}
+						
+					}
+					else if (type.trim().equalsIgnoreCase(".word")){
+						System.out.println("enter word");
+						
+					}
+					else if (type.trim().equalsIgnoreCase(".word64")){
+						System.out.println("enter word64");
+						
+					}
 					
-					data[0]= util.padZeros(util.removeExtrasHex(data[0]), 16);
-					Lists.getMemoryData().get(m).setData(data[0]);
-					Lists.getMemoryData().get(m).setTaken(true);
-					break;
 				}
 			}
 			
 		}
-		
 		//REFRESH GUI MEMORY DATA
 		MemDataGrid.getChildren().clear();
 		for (int k=0; k<Lists.getMemoryData().size(); k++){				
@@ -148,8 +251,11 @@ public class MainWindowController implements Initializable {
 
 	////////////////   OTHER functions
 	public void initialize(URL url, ResourceBundle rb) {
+		for(int i = 0 ; i < 32 ; i++) {
+			Register r = new Register(i, "0000000000000000");
+			Lists.addRegister(r);
+		}
 		initializeRegisters();
-		//initializeMemoryCode(); 
 		initializeMemoryData();
 	}
 	
@@ -173,23 +279,53 @@ public class MainWindowController implements Initializable {
 				Lists.addError("Invalid instruction on line " + j);
 			}
 		}
+		
+		for (int j=0; j<Lists.getInstructions().size(); j++) {
+			Instruction i = Lists.getInstructions().get(j);
+			
+			if(i instanceof JType) {
+				((JType) i).buildOpcode();
+			} else if (i instanceof IType) {
+				if (((IType) i).checkForErrors() == false)
+					((IType) i).buildOpcode();
+			} else if (i instanceof RType) {
+				if (((RType) i).checkForErrors() == false)
+					((RType) i).buildOpCode();
+			}
+		}
 	}
 	
 	public void initializeRegisters() {
-		for(int i = 0 ; i < 31 ; i++) {
-			Register r = new Register(i+1, "0000000000000000");
-			Lists.addRegister(r);
+		GPGrid.getChildren().clear();
+		
+		for(int i = 0 ; i < Lists.getRegisters().size() ; i++) {
+			Register r = Lists.getRegisters().get(i);
 			
 			Button b1 = new Button("R" + r.getNumber() + " =  "+ r.getContent());
 			b1.setMinWidth(GPPane.getWidth());
+			b1.setAlignment(Pos.CENTER_LEFT);
 			b1.setStyle("-fx-background-color: transparent");
-
+	
 			b1.setOnMouseClicked(new EventHandler<MouseEvent>() { 
 				public void handle(MouseEvent event) {
 					String buttonText[] = b1.getText().replaceAll("\\s+","").split("=");
-					String register = JOptionPane.showInputDialog("Type content for register " + buttonText[0]);
+					int registerNum = Integer.parseInt(buttonText[0].replace("R", ""));
+					String registerContent = JOptionPane.showInputDialog("Type content for register " + registerNum);
 					
-					//ERROR CHECKING BEFORE CHANGING REGISTER CONTENT(length, all numbers etc)
+					if (registerContent.replaceAll("\\s+","").length() > 16 || !registerContent.matches("[0-9A-F]+")) { 
+						JOptionPane.showMessageDialog(null, "Please enter a valid input! ", "Error", JOptionPane.ERROR_MESSAGE);		
+					} else {
+						registerContent = util.padZeros(registerContent, 16);
+						
+						for(int j=0; j<Lists.getRegisters().size(); j++) {
+							Register r = Lists.getRegisters().get(j);
+							if (r.getNumber() == registerNum) {
+								r.setContent(registerContent);
+							}
+						}
+						processTextArea();
+						initializeRegisters();
+					}
 				}
 			});	
 			b1.setOnMouseEntered(new EventHandler<MouseEvent>() {
@@ -205,66 +341,36 @@ public class MainWindowController implements Initializable {
 			GPGrid.add(b1, 0, i);
 		}
 	}
-	
-	public void initializeMemoryCode() {
-			MemCodeGrid.getChildren().clear();
-			
-			//SET JUMP ADDRESSES FOR BC & BLTC
-			for(int k =0; k < Lists.getInstructions().size(); k++) {
-				String jumpCode;
-				boolean isBC;
-				
-				if(Lists.getInstructions().get(k).getCode().contains("BC") || Lists.getInstructions().get(k).getCode().contains("BLTC")) {
-					if(Lists.getInstructions().get(k).getCode().contains("BC")) {
-						jumpCode = Lists.getInstructions().get(k).getCode().split(" ")[1];
-						isBC = true;
-					}
-					else {
-						jumpCode = Lists.getInstructions().get(k).getCode().split(",")[3];
-						isBC = false;
-					}
-					for (int i = 0; i< Lists.getMemoryCodes().size(); i++) {
-						if(Lists.getMemoryCodes().get(i).getStruct().getCodeLine().contains(jumpCode) && !Lists.getMemoryCodes().get(i).getStruct().getCode().equalsIgnoreCase(Lists.getInstructions().get(k).getCode())) {
-							Lists.getInstructions().get(k).setJumpAddress(Lists.getMemoryCodes().get(i).getAddress());
-							
-							if(isBC)
-								((JType)Lists.getInstructions().get(k)).buildOpcode();
-							else
-								((IType)Lists.getInstructions().get(k)).buildOpcode();
-							System.out.println(Lists.getInstructions().get(k).getJumpAddress());
-						}
-					}	
-				} 
-			}
-			
-			setMemoryCode();
-			currentAddress+=4;
-			
-			// ADD TO GUI
-			for (int i = 0; i< Lists.getMemoryCodes().size(); i++){
-				MemoryCode currentItem = Lists.getMemoryCodes().get(i);
-			
-				Button b1 = new Button(currentItem.getAddress().toUpperCase() + " / " + currentItem.getOpcode() + " / " + currentItem.getInstruction());
-				b1.setMinWidth(MemCodePane.getWidth());
-				b1.setAlignment(Pos.CENTER_LEFT);
-				b1.setStyle("-fx-background-color: transparent");
 
-				b1.setOnMouseEntered(new EventHandler<MouseEvent>() {
-					public void handle(MouseEvent event) {
-						b1.setStyle("-fx-border-color: blue");
-					}
-				});
-				b1.setOnMouseExited(new EventHandler<MouseEvent>() {
-					public void handle(MouseEvent event) {
-						b1.setStyle("-fx-background-color: transparent");
-					}
-				});
-				
-				MemCodeGrid.add(b1, 0, i);  
-				errorsListView.setItems(Lists.getErrors());
-				opcodeListView.setItems(Lists.getOpcodes());
-			}	
-		}
+	public void initializeMemoryCode() {
+		MemCodeGrid.getChildren().clear();
+		setMemoryCode();
+		currentAddress+=4;
+						
+		for (int i = 0; i< Lists.getMemoryCodes().size(); i++){
+			MemoryCode currentItem = Lists.getMemoryCodes().get(i);
+		
+			Button b1 = new Button(currentItem.getAddress().toUpperCase() + " || " + currentItem.getOpcode() + " || " + currentItem.getInstruction());
+			b1.setMinWidth(MemCodePane.getWidth());
+			b1.setAlignment(Pos.CENTER_LEFT);
+			b1.setStyle("-fx-background-color: transparent");
+	
+			b1.setOnMouseEntered(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent event) {
+					b1.setStyle("-fx-border-color: blue");
+				}
+			});
+			b1.setOnMouseExited(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent event) {
+					b1.setStyle("-fx-background-color: transparent");
+				}
+			});
+			
+			MemCodeGrid.add(b1, 0, i);  
+			errorsListView.setItems(Lists.getErrors());
+			opcodeListView.setItems(Lists.getOpcodes());
+		}	
+	}
 
 	public void setMemoryCode() {
 		Lists.getMemoryCodes().clear();
@@ -306,7 +412,6 @@ public class MainWindowController implements Initializable {
 			j+=8;
 		}
 		
-		
 		for (int k=0; k<Lists.getMemoryData().size(); k++){			
 			Button b1 = new Button(Lists.getMemoryData().get(k).getAddress().toUpperCase() + " || " + 
 								   Lists.getMemoryData().get(k).getData() + " || " + 
@@ -330,16 +435,4 @@ public class MainWindowController implements Initializable {
 			MemDataGrid.add(b1, 0, k); 
 		}
 	}
-	
-	public void executeCode() {
-		//manipulate the memorycode and memorydata observablelists HERE
-		
-		for (int i=0; i<Lists.getMemoryCodes().size(); i++) {
-			MemoryCode m = Lists.getMemoryCodes().get(i);
-			
-		}		
-	}
-
 }
-
-

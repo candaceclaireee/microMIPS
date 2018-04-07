@@ -9,7 +9,6 @@ public class Utilities {
 			for (int i = binary.length(); i<n; i++)
 				binary = "0" + binary;
 		}
-//		System.out.println(binary);
 		return binary;		
 	}
 	
@@ -23,7 +22,6 @@ public class Utilities {
 			newHex = hex.substring(hex.indexOf("x")+1, hex.length());
 		}
 
-		System.out.println("newHex: "+newHex);
 		return newHex;
 	}
 	
@@ -41,5 +39,10 @@ public class Utilities {
 	
 	public String hexToBin(String h) {
 		  return new BigInteger(h, 16).toString(2);
+	}
+	
+	public String decToHex (String n){
+		int num= Integer.parseInt(n);
+		return Integer.toHexString(num);
 	}
 }

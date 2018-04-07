@@ -2,18 +2,20 @@ package model;
 
 public class RType extends Instruction {
 
-	public static final String DADDU_OPCODE = "000000";   //DADDU OK
+	public static final String DADDU_OPCODE = "000000";   
 	public static final String DADDU_SA = "00000";
 	public static final String DADDU_FUNC = "101101";
+
+	public Utilities util;
 	
 	public RType(String codeLine) {
+
+		util = new Utilities ();
 		setCodeLine(codeLine);
 		if(codeLine.contains(":"))
 			code = codeLine.split(":")[1];
 		else 
 			code = codeLine;
-		if (checkForErrors() == false)
-			buildOpCode();
 	}
 	
 	public boolean checkForErrors() {
@@ -73,6 +75,5 @@ public class RType extends Instruction {
 		finalopcode = sb.toString();
 		finalhexopcode = util.padZeros(util.convertHex(finalopcode).toUpperCase(), 8);
 		Lists.addOpcode("DADDU        " + finalhexopcode);
-	}
-	
+	}	
 }

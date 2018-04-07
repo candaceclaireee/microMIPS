@@ -2,20 +2,22 @@ package model;
 
 public class IType extends Instruction{
 	
-	public static final String DADDIU_OPCODE = "011001";  // DADDIU OK
-	public static final String XORI_OPCODE = "001110";  // XORI OK
-	public static final String LD_OPCODE = "110111";  // LD OK
-	public static final String SD_OPCODE = "111111"; // SD OK
+	public static final String DADDIU_OPCODE = "011001"; 
+	public static final String XORI_OPCODE = "001110";  
+	public static final String LD_OPCODE = "110111";  
+	public static final String SD_OPCODE = "111111"; 
 	public static final String BLTC_OPCODE = "010111";
+	
+	private String jumptoCode;
+	public Utilities util;
 			
 	public IType(String codeLine) {
+		util = new Utilities ();
 		setCodeLine(codeLine);
 		if(codeLine.contains(":"))
 			code = codeLine.split(":")[1];
 		else 
 			code = codeLine;
-		if (checkForErrors() == false)
-			buildOpcode();
 	}
 	
 	public boolean checkForErrors() {
@@ -75,16 +77,44 @@ public class IType extends Instruction{
 				}
 				else {
 					assignParts(parameter);
-					if (rt > 31 || rs > 31) {
+					if (rt > 31) {
 						Lists.addError("Invalid register number");	
 						return true;
 					}
 					return false; 
 				}
 			}
+		}	
+		else if (code.contains("BLTC")) {
+			String parameter[] = code.replaceAll("\\s+","").split(",");
+
+			if (parameter.length != 3) {
+				Lists.addError("Invalid parameters");
+				return true;
+			} else {
+				if (!parameter[0].contains("R")) {
+					Lists.addError("First parameter is not a register");
+					return true;
+				}
+				if (!parameter[1].contains("R")) {
+					Lists.addError("Second parameter is not a register");
+					return true;
+				} else {
+					assignParts(parameter);
+					if (rt > 31 || rs > 31) {
+						Lists.addError("Invalid register number");	
+						return true;
+					} else if (rt == 0) {
+						Lists.addError("Invalid rt. Cannot be zero");	
+						return true;
+					} else if (rs == rt) {
+						Lists.addError("Error. rs cannot be equal to rt");
+					}
+					return false; 
+				}
+			}
 		}
-		return false;	
-		//BLTC!!!
+		return false;
 	}
 	
 	public void assignParts(String parameter[]) {
@@ -114,7 +144,17 @@ public class IType extends Instruction{
 			
 			offset =  parameter[1];
 		}
-		//BLTC!!!
+		else if (code.contains("BLTC")) {
+			name = parameter[0].substring(0, parameter[0].lastIndexOf("R")).replaceAll("\\s+","");
+			
+			String rsInit = parameter[0].substring(parameter[0].indexOf("R")+1, parameter[0].length());
+			rs = Integer.parseInt(rsInit);
+			
+			String rtInit = parameter[1].substring(parameter[1].lastIndexOf("R")+1, parameter[1].length());
+			rt = Integer.parseInt(rtInit);
+			
+			jumptoCode = parameter[2];
+		}
 	}
 	
 	public void buildOpcode() {
@@ -179,7 +219,34 @@ public class IType extends Instruction{
 			finalhexopcode = util.padZeros(util.convertHex(finalopcode).toUpperCase(), 8);
 			Lists.addOpcode("LD        " + finalhexopcode);
 		}
-	 // ELSE IF BLTC!!!!
+		else if (code.contains("BLTC")) {
+			
+			int bcIndex = 0; 
+			int bcOffset = 0;
+			
+			for (int k = 0; k< Lists.getInstructions().size(); k++ ) {
+				Instruction i = Lists.getInstructions().get(k);
+				
+				if (i.getCode().contains("BLTC")) {
+					bcIndex = k;
+				}
+				if (i.getCodeLine().contains(":")) {
+					if (i.getCodeLine().split(":")[0].equalsIgnoreCase(jumptoCode)) {
+						bcOffset = k;
+						break;
+					}
+				}
+			}
+			int countDistance = bcOffset - bcIndex -1;
+			
+			sb.append(BLTC_OPCODE); 
+			sb.append(util.padZeros(util.convertBinary(rs), 5));
+			sb.append(util.padZeros(util.convertBinary(rt), 5));
+			sb.append(util.padZeros(util.convertBinary(countDistance), 16));
+
+			finalopcode = sb.toString();
+			finalhexopcode = util.padZeros(util.convertHex(finalopcode).toUpperCase(), 8);
+			Lists.addOpcode("BLTC        " + finalhexopcode);
+		}
 	}
-	
 }
