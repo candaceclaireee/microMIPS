@@ -67,6 +67,7 @@ public class MainWindowController implements Initializable {
 			initializeInstructions(datastart, dataend, codestart, codeend);
 			initializeMemoryCode();
 			initializeData(datastart, dataend);
+			runCycles();
 		} catch(Exception e) {
 			System.out.println("Code empty");
 		}
@@ -481,6 +482,16 @@ public class MainWindowController implements Initializable {
 			});
 			MemDataGrid.add(b1, 0, k); 
 		}
-	}	
+	}
+	public void runCycles() {
+		for(int i = 0;i <= Lists.getMemoryCodes().size() ; i++) {
+			//List
+			
+			
+		}
+		
+		
+	}
+	
 	
 }
