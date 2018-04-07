@@ -105,7 +105,7 @@ public class MainWindowController implements Initializable {
 			b1.setMinWidth(GPPane.getWidth());
 			b1.setStyle("-fx-background-color: transparent");
 
-			b1.setOnMouseClicked(new EventHandler<MouseEvent>() { 
+			b1.setOnMouseClicked(new EventHandler<MouseEvent>() { zzzzzzzzz
 				public void handle(MouseEvent event) {
 					String buttonText[] = b1.getText().replaceAll("\\s+","").split("=");
 					String register = JOptionPane.showInputDialog("Type content for register " + buttonText[0]);
