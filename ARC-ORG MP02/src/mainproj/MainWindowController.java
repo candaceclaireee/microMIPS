@@ -39,12 +39,13 @@ public class MainWindowController implements Initializable {
 	////////////////   FXML functions
 	@FXML
 	public void processTextArea() {
+		Lists.clearMemoryData();
 		Lists.clearErrors();
 		Lists.clearOpcode();
 		Lists.clearMemoryCodes();
 		Lists.clearCycles();
 		Lists.clearInstructions();
-		Lists.clearCycles();
+		Lists.clearRegisters();
 		
 		int datastart = 0;
 		int dataend = 0; 
@@ -65,7 +66,13 @@ public class MainWindowController implements Initializable {
 				codeend = codeRead.length-1;
 			} 
 		}
-		try {
+		try {		
+			for(int i = 0 ; i < 32 ; i++) {
+			Register r = new Register(i, "0000000000000000");
+			Lists.addRegister(r);
+			}
+			initializeRegisters();
+			initializeMemoryData();
 			initializeData(datastart, dataend);
 			initializeInstructions(datastart, dataend, codestart, codeend);
 			initializeMemoryCode();
@@ -75,7 +82,126 @@ public class MainWindowController implements Initializable {
 		}
 	}
 
+	////////////////   OTHER functions
+	public void initialize(URL url, ResourceBundle rb) {
+		gotoButton.setOnMouseClicked(new EventHandler<MouseEvent>() { 
+			public void handle(MouseEvent event) {
+				String memoryAddress = JOptionPane.showInputDialog("Type memory address ");
+				try {
+					if (memoryAddress.replaceAll("\\s+","").length() > 4) {
+						JOptionPane.showMessageDialog(null, "Please enter a valid input! ", "Error", JOptionPane.ERROR_MESSAGE);		
+					} else {
+						for (int i=0; i<Lists.getMemoryData().size(); i++) {
+							MemoryData m = Lists.getMemoryData().get(i);
+							
+							if (memoryAddress.equals(m.getAddress())) {
+								JOptionPane.showMessageDialog(null, "Address: " + m.getAddress() + "\nData: " + m.getData()
+								 	+ "\n Label: " + m.getLabel() + "\nCode: " + m.getCode(), "\nError", JOptionPane.INFORMATION_MESSAGE);
+							}
+						}
+					}
+				} catch (Exception e) {
+					System.out.println("Exited/Cancelled");
+				}
+			}
+		});	
+		
+		for(int i = 0 ; i < 32 ; i++) {
+			Register r = new Register(i, "0000000000000000");
+			Lists.addRegister(r);
+		}
+		initializeRegisters();
+		initializeMemoryData();
+	}
+	
+	public void initializeInstructions(int ds, int de, int cs, int ce) {
+		
+		for (int i = cs; i <= ce ; i++) {
+			String code = codeRead[i].toUpperCase();
+		
+			if (code.contains("BC")) {
+				JType j = new JType(code);
+				Lists.addInstruction(j);
+			} else if (code.contains("DADDU")) {
+				RType r = new RType(code); 
+				Lists.addInstruction(r);
+			} else if (code.contains("DADDIU") || code.contains("XORI") || code.contains("LD") ||
+						    code.contains("SD") || code.contains("BLTC")) {
+				IType it = new IType(code); 
+				Lists.addInstruction(it);
+			} else {
+				int j = i + 1;
+				Lists.addError("Invalid instruction on line " + j);
+			}
+		}
+		
+		for (int j=0; j<Lists.getInstructions().size(); j++) {
+			Instruction i = Lists.getInstructions().get(j);
+			
+			if(i instanceof JType) {
+				((JType) i).buildOpcode();
+			} else if (i instanceof IType) {
+				if (((IType) i).checkForErrors() == false)
+					((IType) i).buildOpcode();
+			} else if (i instanceof RType) {
+				if (((RType) i).checkForErrors() == false)
+					((RType) i).buildOpCode();
+			}
+		}
+	}
+	
+	public void initializeRegisters() {
+		GPGrid.getChildren().clear();
+		
+		for(int i = 0 ; i < Lists.getRegisters().size() ; i++) {
+			Register r = Lists.getRegisters().get(i);
+			
+			Button b1 = new Button("R" + r.getNumber() + " =  "+ r.getContent());
+			b1.setMinWidth(GPPane.getWidth());
+			b1.setAlignment(Pos.CENTER_LEFT);
+			b1.setStyle("-fx-background-color: transparent");
+	
+			b1.setOnMouseClicked(new EventHandler<MouseEvent>() { 
+				public void handle(MouseEvent event) {
+					String buttonText[] = b1.getText().replaceAll("\\s+","").split("=");
+					int registerNum = Integer.parseInt(buttonText[0].replace("R", ""));
+					String registerContent = JOptionPane.showInputDialog("Type content for register " + registerNum);
+					try {
+						if (registerContent.replaceAll("\\s+","").length() > 16 || !registerContent.matches("[0-9A-F]+")) { 
+							JOptionPane.showMessageDialog(null, "Please enter a valid input! ", "Error", JOptionPane.ERROR_MESSAGE);		
+						} else {
+							registerContent = util.padZeros(registerContent, 16);
+							
+							for(int j=0; j<Lists.getRegisters().size(); j++) {
+								Register r = Lists.getRegisters().get(j);
+								if (r.getNumber() == registerNum) {
+									r.setContent(registerContent);
+								}
+							}
+							processTextArea();
+							initializeRegisters();
+						}
+					} catch (Exception e) {
+						System.out.println("Exited/Cancelled");
+					}
+				}
+			});	
+			b1.setOnMouseEntered(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent event) {
+					b1.setStyle("-fx-border-color: blue");				
+				}				
+			});
+			b1.setOnMouseExited(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent event) {
+					b1.setStyle("-fx-background-color: transparent");
+				}				
+			});
+			GPGrid.add(b1, 0, i);
+		}
+	}
+	
 	private void initializeData(int datastart, int dataend) {
+
 		String type = "";
 		String label = "";
 		String code = "";
@@ -281,7 +407,7 @@ public class MainWindowController implements Initializable {
 								   Lists.getMemoryData().get(k).getData() + " || " + 
 								   Lists.getMemoryData().get(k).getLabel() + " || " + 
 								   Lists.getMemoryData().get(k).getCode());
-			b1.setMinWidth(MemCodePane.getWidth());
+			b1.setMinWidth(MemDataPane.getWidth());
 			b1.setAlignment(Pos.CENTER_LEFT);
 			b1.setStyle("-fx-background-color: transparent");
 
@@ -297,102 +423,6 @@ public class MainWindowController implements Initializable {
 			});
 			
 			MemDataGrid.add(b1, 0, k); 
-		}
-	}
-
-	////////////////   OTHER functions
-	public void initialize(URL url, ResourceBundle rb) {
-		for(int i = 0 ; i < 32 ; i++) {
-			Register r = new Register(i, "0000000000000000");
-			Lists.addRegister(r);
-		}
-		initializeRegisters();
-		initializeMemoryData();
-	}
-	
-	public void initializeInstructions(int ds, int de, int cs, int ce) {
-		
-		for (int i = cs; i <= ce ; i++) {
-			String code = codeRead[i].toUpperCase();
-		
-			if (code.contains("BC")) {
-				JType j = new JType(code);
-				Lists.addInstruction(j);
-			} else if (code.contains("DADDU")) {
-				RType r = new RType(code); 
-				Lists.addInstruction(r);
-			} else if (code.contains("DADDIU") || code.contains("XORI") || code.contains("LD") ||
-						    code.contains("SD") || code.contains("BLTC")) {
-				IType it = new IType(code); 
-				Lists.addInstruction(it);
-			} else {
-				int j = i + 1;
-				Lists.addError("Invalid instruction on line " + j);
-			}
-		}
-		
-		for (int j=0; j<Lists.getInstructions().size(); j++) {
-			Instruction i = Lists.getInstructions().get(j);
-			
-			if(i instanceof JType) {
-				((JType) i).buildOpcode();
-			} else if (i instanceof IType) {
-				if (((IType) i).checkForErrors() == false)
-					((IType) i).buildOpcode();
-			} else if (i instanceof RType) {
-				if (((RType) i).checkForErrors() == false)
-					((RType) i).buildOpCode();
-			}
-		}
-	}
-	
-	public void initializeRegisters() {
-		GPGrid.getChildren().clear();
-		
-		for(int i = 0 ; i < Lists.getRegisters().size() ; i++) {
-			Register r = Lists.getRegisters().get(i);
-			
-			Button b1 = new Button("R" + r.getNumber() + " =  "+ r.getContent());
-			b1.setMinWidth(GPPane.getWidth());
-			b1.setAlignment(Pos.CENTER_LEFT);
-			b1.setStyle("-fx-background-color: transparent");
-	
-			b1.setOnMouseClicked(new EventHandler<MouseEvent>() { 
-				public void handle(MouseEvent event) {
-					String buttonText[] = b1.getText().replaceAll("\\s+","").split("=");
-					int registerNum = Integer.parseInt(buttonText[0].replace("R", ""));
-					String registerContent = JOptionPane.showInputDialog("Type content for register " + registerNum);
-					try {
-						if (registerContent.replaceAll("\\s+","").length() > 16 || !registerContent.matches("[0-9A-F]+")) { 
-							JOptionPane.showMessageDialog(null, "Please enter a valid input! ", "Error", JOptionPane.ERROR_MESSAGE);		
-						} else {
-							registerContent = util.padZeros(registerContent, 16);
-							
-							for(int j=0; j<Lists.getRegisters().size(); j++) {
-								Register r = Lists.getRegisters().get(j);
-								if (r.getNumber() == registerNum) {
-									r.setContent(registerContent);
-								}
-							}
-							processTextArea();
-							initializeRegisters();
-						}
-					} catch (Exception e) {
-						System.out.println("Exited/Cancelled");
-					}
-				}
-			});	
-			b1.setOnMouseEntered(new EventHandler<MouseEvent>() {
-				public void handle(MouseEvent event) {
-					b1.setStyle("-fx-border-color: blue");				
-				}				
-			});
-			b1.setOnMouseExited(new EventHandler<MouseEvent>() {
-				public void handle(MouseEvent event) {
-					b1.setStyle("-fx-background-color: transparent");
-				}				
-			});
-			GPGrid.add(b1, 0, i);
 		}
 	}
 
@@ -489,9 +519,11 @@ public class MainWindowController implements Initializable {
 		}
 	}
 	public String xorFunc(String a, String b) {
-		int A = Integer.parseInt(util.hexToBin(a));
-		int B = Integer.parseInt(util.hexToBin(b));
-		return util.convertHex(Integer.toString(A^B));
+		String A = (util.hexToBin(a));
+		int AinInt = util.binToInt(A);
+		String B = (util.hexToBin(b));
+		int BinInt = util.binToInt(B);
+		return (util.intToHex(BinInt ^ AinInt).toUpperCase());
 	}
 	public void runCycles() {
 		for(int i = 0;i <= Lists.getMemoryCodes().size() ; i++) {
@@ -499,16 +531,16 @@ public class MainWindowController implements Initializable {
 			if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("DADDU")) {
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 				curCycle.setIR(m.getOpcode());
-				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)), 16));
+				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)).toUpperCase(), 16));
 				curCycle.setA(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRs()))).getContent());
 				curCycle.setB(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).getContent());
 				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));				
-				curCycle.setALUOUPUT(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(curCycle.getA()) + util.hexToDec(curCycle.getB()))), 16));
+				curCycle.setALUOUPUT(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(curCycle.getA()) + util.hexToDec(curCycle.getB()))).toUpperCase(), 16));
 				curCycle.setCOND(false);
 				curCycle.setPC(curCycle.getNPC());
 				curCycle.setLMD("N/A");
 				curCycle.setRANGE("N/A");
-				curCycle.setRN(util.padZeros(curCycle.getALUOUPUT(), i));
+				curCycle.setRN(util.padZeros(curCycle.getALUOUPUT(), 16) + "in R" + m.getStruct().getRd());
 				Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRd()))).setContent(util.padZeros(curCycle.getALUOUPUT().toUpperCase(), 16));
 
 				Lists.addCyles(curCycle);
@@ -517,16 +549,16 @@ public class MainWindowController implements Initializable {
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 
 				curCycle.setIR(m.getOpcode());
-				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)), 16));
+				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)).toUpperCase(), 16));
 				curCycle.setA(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRs()))).getContent());
 				curCycle.setB(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).getContent());
 				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));				
-				curCycle.setALUOUPUT(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(curCycle.getA()) + util.hexToDec(curCycle.getIMM()))), 16));
+				curCycle.setALUOUPUT(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(curCycle.getA()) + util.hexToDec(curCycle.getIMM()))).toUpperCase(), 16));
 				curCycle.setCOND(false);
 				curCycle.setPC(curCycle.getNPC());
 				curCycle.setLMD("N/A");
 				curCycle.setRANGE("N/A");
-				curCycle.setRN(util.padZeros(curCycle.getALUOUPUT(), i));
+				curCycle.setRN(util.padZeros(curCycle.getALUOUPUT(), 16)+ "in R" + m.getStruct().getRt());
 				Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).setContent(util.padZeros(curCycle.getALUOUPUT().toUpperCase(), 16));
 
 				Lists.addCyles(curCycle);
@@ -534,16 +566,17 @@ public class MainWindowController implements Initializable {
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 
 				curCycle.setIR(m.getOpcode());
-				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)), 16));
+				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)).toUpperCase(), 16));
 				curCycle.setA(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRs()))).getContent());
 				curCycle.setB(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).getContent());
 				curCycle.setIMM(util.padZeros(m.getStruct().getImmediate(), 16));				
-				curCycle.setALUOUPUT(util.padZeros(xorFunc(curCycle.getA(), curCycle.getIMM()), 16));
+				curCycle.setALUOUPUT(util.padZeros(xorFunc(curCycle.getA(), curCycle.getIMM()).toUpperCase(), 16));
 				curCycle.setCOND(false);
 				curCycle.setPC(curCycle.getNPC());
 				curCycle.setLMD("N/A");
 				curCycle.setRANGE("N/A");
-				curCycle.setRN(util.padZeros(curCycle.getALUOUPUT(), i));
+				curCycle.setRN(util.padZeros(curCycle.getALUOUPUT(), 16)+ "in R" + m.getStruct().getRt());
+				
 				Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).setContent(util.padZeros(curCycle.getALUOUPUT().toUpperCase(), 16));
 
 				Lists.addCyles(curCycle);
@@ -553,21 +586,20 @@ public class MainWindowController implements Initializable {
 				String label = "";
 				
 				curCycle.setIR(m.getOpcode());
-				curCycle.setNPC(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)));
+				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)).toUpperCase(), 16));
 				curCycle.setA(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getBase()))).getContent()); //base
 				curCycle.setB(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).getContent()); //rt
-				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 12));				
-				curCycle.setALUOUPUT(util.decToHex(Integer.toString(util.hexToDec(curCycle.getA()) + util.hexToDec(curCycle.getIMM()))));
+				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));				
+				curCycle.setALUOUPUT(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(curCycle.getA()) + util.hexToDec(curCycle.getIMM()))).toUpperCase(), 16));
 				curCycle.setCOND(false);
 				curCycle.setPC(curCycle.getNPC());
 				curCycle.setLMD("N/A");
 				curCycle.setRANGE(m.getStruct().getOffset()+" - " +util.decToHex(Integer.toString(util.hexToDec(m.getStruct().getOffset()) + 7)));
-				curCycle.setRN("N/A");
+				curCycle.setRN("N/A in R" + m.getStruct().getRt());
 				
 				for (int l=0; l<Lists.getMemoryData().size(); l++){
 					if (Lists.getMemoryData().get(l).getAddress().equalsIgnoreCase(m.getStruct().getOffset())){
 						Lists.getMemoryData().get(l).setData(curCycle.getB());
-//						System.out.println(Lists.getMemoryData().get(l).getAddress() + "YOOOOOO IT WORKED: "+Lists.getMemoryData().get(l).getData());
 						break;
 					}
 				}
@@ -578,11 +610,11 @@ public class MainWindowController implements Initializable {
 				String label = "";
 				
 				curCycle.setIR(m.getOpcode());
-				curCycle.setNPC(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)));
+				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)).toUpperCase(), 16));
 				curCycle.setA(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getBase()))).getContent()); //base
 				curCycle.setB(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).getContent()); //rt
-				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 12));				
-				curCycle.setALUOUPUT(util.decToHex(Integer.toString(util.hexToDec(curCycle.getA()) + util.hexToDec(curCycle.getIMM()))));
+				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));				
+				curCycle.setALUOUPUT(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(curCycle.getA()) + util.hexToDec(curCycle.getIMM()))).toUpperCase(), 16));
 				curCycle.setCOND(false);
 				curCycle.setPC(curCycle.getNPC());
 				
@@ -609,7 +641,7 @@ public class MainWindowController implements Initializable {
 		for (int k = 0; k < Lists.getCycles().size(); k++){	
 			Cycle c = Lists.getCycles().get(k);
 			Button b1 = new Button(c.getIR() + " || " + c.getNPC() + " || " + c.getA() + " || " + c.getB()+ " || " + c.getIMM()
-				+ " || " + c.getALUOUPUT() + " || " + c.getCOND() + " || " + c.getPC()+ " || " + c.getLMD()+ " || " + c.getRANGE()
+				+ " || " + c.getALUOUPUT() + " || " + Boolean.toString(c.getCOND()).toUpperCase() + " || " + c.getPC()+ " || " + c.getLMD()+ " || " + c.getRANGE()
 				+ " || " + c.getRN());
 			
 			b1.setMinWidth(CyclesPane.getWidth());

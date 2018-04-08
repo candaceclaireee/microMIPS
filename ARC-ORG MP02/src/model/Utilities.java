@@ -37,6 +37,10 @@ public class Utilities {
 		return Integer.decode("0x"+n);
 	}
 	
+	public String intToHex(int n) {
+		return Integer.toHexString(n);
+	}
+	
 	public String hexToBin(String h) {
 		  return new BigInteger(h, 16).toString(2);
 	}
@@ -45,6 +49,11 @@ public class Utilities {
 		int num= Integer.parseInt(n);
 		return Integer.toHexString(num);
 	}
+	
+	public int binToInt(String bin) {
+		return Integer.parseInt(bin, 2);
+	}
+	
 	public int hexToDec(String n) {
 		return Integer.parseInt(n, 16);
 	}
