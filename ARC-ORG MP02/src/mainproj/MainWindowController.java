@@ -82,6 +82,49 @@ public class MainWindowController implements Initializable {
 		}
 	}
 
+	public void specialProcessTextArea() { //FOR MANUALLY INPUT OF REGISTERS
+		Lists.clearMemoryData();
+		Lists.clearErrors();
+		Lists.clearOpcode();
+		Lists.clearMemoryCodes();
+		Lists.clearCycles();
+		Lists.clearInstructions();
+		
+		int datastart = 0;
+		int dataend = 0; 
+		int codestart =0; 
+		int codeend =0;
+		
+		codeRead = codeTextArea.getText().split("[\\r\\n]+");
+		// ^ splits the code by every newline (removes blank lines)
+		
+		for (int i = 0; i < codeRead.length; i++)	{
+			if (codeRead[i].replaceAll("\\s+","").equalsIgnoreCase(".data")) {
+				// range of .data
+				datastart = i+1;								
+			} else if (codeRead[i].replaceAll("\\s+","").equalsIgnoreCase(".code") || codeRead[i].replaceAll("\\s+","").equalsIgnoreCase(".text")) {
+				// range of .code or .text
+				dataend = i-1;
+				codestart = i+1;
+				codeend = codeRead.length-1;
+			} 
+		}
+		try {		
+			for(int i = 0 ; i < 32 ; i++) {
+			Register r = new Register(i, "0000000000000000");
+			Lists.addRegister(r);
+			}
+			initializeRegisters();
+			initializeMemoryData();
+			initializeData(datastart, dataend);
+			initializeInstructions(datastart, dataend, codestart, codeend);
+			initializeMemoryCode();
+			runCycles();
+		} catch(Exception e) {
+			System.out.println("Code empty");
+		}
+	}
+	
 	////////////////   OTHER functions
 	public void initialize(URL url, ResourceBundle rb) {
 		gotoButton.setOnMouseClicked(new EventHandler<MouseEvent>() { 
@@ -169,6 +212,8 @@ public class MainWindowController implements Initializable {
 					try {
 						if (registerContent.replaceAll("\\s+","").length() > 16 || !registerContent.matches("[0-9A-F]+")) { 
 							JOptionPane.showMessageDialog(null, "Please enter a valid input! ", "Error", JOptionPane.ERROR_MESSAGE);		
+						} else if (registerNum == 0) {
+							JOptionPane.showMessageDialog(null, "Cannot put value in R1! ", "Error", JOptionPane.ERROR_MESSAGE);		
 						} else {
 							registerContent = util.padZeros(registerContent, 16);
 							
@@ -178,7 +223,7 @@ public class MainWindowController implements Initializable {
 									r.setContent(registerContent);
 								}
 							}
-							processTextArea();
+							specialProcessTextArea();
 							initializeRegisters();
 						}
 					} catch (Exception e) {
@@ -634,6 +679,58 @@ public class MainWindowController implements Initializable {
 				curCycle.setRN(curCycle.getLMD()+" in R"+m.getStruct().getRt());
 				Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).setContent(util.padZeros(curCycle.getLMD().toUpperCase(), 16));
 
+				Lists.addCyles(curCycle);
+			} else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("BC") && Lists.getMemoryCodes().get(i).getAddress().equals(currPointer.substring(currPointer.length() - 4))) {
+				MemoryCode m = Lists.getMemoryCodes().get(i);
+
+				curCycle.setIR(m.getOpcode());
+				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)).toUpperCase(), 16));
+				curCycle.setA(util.padZeros(util.decToHex(m.getStruct().getFinalopcode().substring(21, 25)), 16));
+				curCycle.setB(util.padZeros(util.decToHex(m.getStruct().getFinalopcode().substring(16, 20)), 16));	
+				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));		
+				curCycle.setALUOUPUT(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) +  (util.hexToDec(curCycle.getIMM())*4) + 4)), 16));
+				curCycle.setCOND(true);
+				curCycle.setLMD("N/A");
+				curCycle.setRANGE("N/A");
+				curCycle.setRN("N/A");
+				currPointer = curCycle.getPC();
+				if (curCycle.getCOND()) {
+					curCycle.setPC(curCycle.getALUOUPUT());
+					System.out.println("NEXT IS: "+ curCycle.getALUOUPUT());
+				}
+				else {
+					curCycle.setPC(curCycle.getNPC());
+				}
+				currPointer = curCycle.getPC();
+				
+				Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).setContent(util.padZeros(curCycle.getALUOUPUT().toUpperCase(), 16));
+				Lists.addCyles(curCycle);
+			} else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("BLTC") && Lists.getMemoryCodes().get(i).getAddress().equals(currPointer.substring(currPointer.length() - 4))) {
+				MemoryCode m = Lists.getMemoryCodes().get(i);
+
+				curCycle.setIR(m.getOpcode());
+				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)).toUpperCase(), 16));
+				curCycle.setA(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRs()))).getContent());
+				curCycle.setB(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).getContent());		
+				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));				
+				curCycle.setALUOUPUT(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) +  (util.hexToDec(curCycle.getIMM())*4) + 4)), 16));
+				
+				if(util.hexToDec(curCycle.getA()) > util.hexToDec((curCycle.getB()))) {
+					curCycle.setCOND(true);
+					curCycle.setPC(curCycle.getALUOUPUT());
+					
+				}
+				else {
+					curCycle.setCOND(false);
+					curCycle.setPC(curCycle.getNPC());
+				}
+				curCycle.setLMD("N/A");
+				curCycle.setRANGE("N/A");
+				curCycle.setRN("N/A");
+				
+				currPointer = curCycle.getPC();
+				
+				Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).setContent(util.padZeros(curCycle.getALUOUPUT().toUpperCase(), 16));
 				Lists.addCyles(curCycle);
 			}
 			////////////////BC CYCLES////////////////////////////
