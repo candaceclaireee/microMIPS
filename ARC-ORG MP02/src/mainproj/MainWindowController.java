@@ -662,10 +662,6 @@ public class MainWindowController implements Initializable {
 				currPointer = curCycle.getPC();
 				
 				
-					
-				
-				Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).setContent(util.padZeros(curCycle.getALUOUPUT().toUpperCase(), 16));
-
 				Lists.addCyles(curCycle);
 			}
 			
@@ -695,9 +691,7 @@ public class MainWindowController implements Initializable {
 				
 				currPointer = curCycle.getPC();
 				
-				
-				Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).setContent(util.padZeros(curCycle.getALUOUPUT().toUpperCase(), 16));
-
+	
 				Lists.addCyles(curCycle);
 			}
 		showCycles();
