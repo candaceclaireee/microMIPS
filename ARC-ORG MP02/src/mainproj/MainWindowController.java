@@ -3,10 +3,14 @@ package mainproj;
 import java.net.URL;
 import java.util.*;
 import javax.swing.JOptionPane;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.*;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import model.*;
@@ -25,6 +29,7 @@ public class MainWindowController implements Initializable {
 	private GridPane GPGrid, MemCodeGrid, MemDataGrid, CyclesGrid;
 	@FXML
 	private ScrollPane GPPane, MemCodePane, MemDataPane, CyclesPane;
+
 	
 	/////////////////  OTHER variables
 	public String codeRead[]; 
@@ -46,6 +51,7 @@ public class MainWindowController implements Initializable {
 		Lists.clearCycles();
 		Lists.clearInstructions();
 		Lists.clearRegisters();
+
 		
 		int datastart = 0;
 		int dataend = 0; 
@@ -155,6 +161,7 @@ public class MainWindowController implements Initializable {
 		}
 		initializeRegisters();
 		initializeMemoryData();
+		initCyclesTable();
 	}
 	
 	public void initializeInstructions(int ds, int de, int cs, int ce) {
@@ -581,7 +588,7 @@ public class MainWindowController implements Initializable {
 				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)).toUpperCase(), 16));
 				curCycle.setA(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRs()))).getContent());
 				curCycle.setB(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).getContent());
-				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));				
+				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));
 				curCycle.setALUOUPUT(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(curCycle.getA()) + util.hexToDec(curCycle.getB()))).toUpperCase(), 16));
 				curCycle.setCOND(false);
 				curCycle.setPC(curCycle.getNPC());
@@ -591,7 +598,7 @@ public class MainWindowController implements Initializable {
 				Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRd()))).setContent(util.padZeros(curCycle.getALUOUPUT().toUpperCase(), 16));
 				currPointer = curCycle.getPC();
 				Lists.addCyles(curCycle);
-				
+
 			} else if (Lists.getMemoryCodes().get(i).getStruct().getName().trim().equalsIgnoreCase("DADDIU") && Lists.getMemoryCodes().get(i).getAddress().equals(currPointer.substring(currPointer.length() - 4))) {
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 
@@ -599,7 +606,7 @@ public class MainWindowController implements Initializable {
 				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)).toUpperCase(), 16));
 				curCycle.setA(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRs()))).getContent());
 				curCycle.setB(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).getContent());
-				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));				
+				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));
 				curCycle.setALUOUPUT(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(curCycle.getA()) + util.hexToDec(curCycle.getIMM()))).toUpperCase(), 16));
 				curCycle.setCOND(false);
 				curCycle.setPC(curCycle.getNPC());
@@ -611,47 +618,47 @@ public class MainWindowController implements Initializable {
 				Lists.addCyles(curCycle);
 			}else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("XORI") && Lists.getMemoryCodes().get(i).getAddress().equals(currPointer.substring(currPointer.length() - 4))) {
 				MemoryCode m = Lists.getMemoryCodes().get(i);
-				
+
 
 				curCycle.setIR(m.getOpcode());
 				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)).toUpperCase(), 16));
 				curCycle.setA(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRs()))).getContent());
 				curCycle.setB(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).getContent());
-				curCycle.setIMM(util.padZeros(m.getStruct().getImmediate(), 16));				
+				curCycle.setIMM(util.padZeros(m.getStruct().getImmediate(), 16));
 				curCycle.setALUOUPUT(util.padZeros(xorFunc(curCycle.getA(), curCycle.getIMM()).toUpperCase(), 16));
 				curCycle.setCOND(false);
 				curCycle.setPC(curCycle.getNPC());
 				curCycle.setLMD("N/A");
 				curCycle.setRANGE("N/A");
 				curCycle.setRN(util.padZeros(curCycle.getALUOUPUT(), 16)+ "in R" + m.getStruct().getRt());
-				
+
 				Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).setContent(util.padZeros(curCycle.getALUOUPUT().toUpperCase(), 16));
 				currPointer = curCycle.getPC();
 				Lists.addCyles(curCycle);
 				currPointer = curCycle.getPC();
-			
+
 			} else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("SD") && Lists.getMemoryCodes().get(i).getAddress().equals(currPointer.substring(currPointer.length() - 4))) {
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 				String label = "";
-							
+
 				curCycle.setIR(m.getOpcode());
 				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)).toUpperCase(), 16));
 				curCycle.setA(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getBase()))).getContent()); //base
 				curCycle.setB(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).getContent()); //rt
-				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));	
-				
-					//a, b, imm
-					System.out.println("a :"   + Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getBase()))).getContent());
-					System.out.println("b :"   + Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).getContent());
-					System.out.println("imm :" + util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));
-				
+				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));
+
+				//a, b, imm
+				System.out.println("a :"   + Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getBase()))).getContent());
+				System.out.println("b :"   + Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).getContent());
+				System.out.println("imm :" + util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));
+
 				curCycle.setALUOUPUT(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(curCycle.getA()) + util.hexToDec(curCycle.getIMM()))).toUpperCase(), 16));
 				curCycle.setCOND(false);
 				curCycle.setPC(curCycle.getNPC());
 				curCycle.setLMD("N/A");
 				curCycle.setRANGE(m.getStruct().getOffset()+" - " +util.decToHex(Integer.toString(util.hexToDec(m.getStruct().getOffset()) + 7)));
 				curCycle.setRN("N/A in R" + m.getStruct().getRt());
-				
+
 				for (int l=0; l<Lists.getMemoryData().size(); l++){
 					System.out.println(util.padZeros(Lists.getMemoryData().get(l).getAddress(), 16)+" vs "+curCycle.getALUOUPUT());
 					if (util.padZeros(Lists.getMemoryData().get(l).getAddress(), 16).equalsIgnoreCase(curCycle.getALUOUPUT())){
@@ -666,23 +673,23 @@ public class MainWindowController implements Initializable {
 			} else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("LD") && Lists.getMemoryCodes().get(i).getAddress().equals(currPointer.substring(currPointer.length() - 4))) {
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 				String label = "";
-				
+
 				curCycle.setIR(m.getOpcode());
 				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)).toUpperCase(), 16));
 				curCycle.setA(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getBase()))).getContent()); //base
 				curCycle.setB(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).getContent()); //rt
-				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));				
+				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));
 				curCycle.setALUOUPUT(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(curCycle.getA()) + util.hexToDec(curCycle.getIMM()))).toUpperCase(), 16));
 				curCycle.setCOND(false);
 				curCycle.setPC(curCycle.getNPC());
-				
+
 				for (int l=0; l<Lists.getMemoryData().size(); l++){
 					if (Lists.getMemoryData().get(l).getAddress().equalsIgnoreCase(m.getStruct().getOffset())){
 						curCycle.setLMD(Lists.getMemoryData().get(l).getData());
 						break;
 					}
 				}
-				
+
 				currPointer = curCycle.getPC();
 				curCycle.setRANGE("N/A");
 				curCycle.setRN(curCycle.getLMD()+" in R"+m.getStruct().getRt());
@@ -695,8 +702,8 @@ public class MainWindowController implements Initializable {
 				curCycle.setIR(m.getOpcode());
 				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)).toUpperCase(), 16));
 				curCycle.setA(util.padZeros(util.decToHex(m.getStruct().getFinalopcode().substring(21, 25)), 16));
-				curCycle.setB(util.padZeros(util.decToHex(m.getStruct().getFinalopcode().substring(16, 20)), 16));	
-				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));		
+				curCycle.setB(util.padZeros(util.decToHex(m.getStruct().getFinalopcode().substring(16, 20)), 16));
+				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));
 				curCycle.setALUOUPUT(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) +  (util.hexToDec(curCycle.getIMM())*4) + 4)), 16));
 				curCycle.setCOND(true);
 				curCycle.setLMD("N/A");
@@ -718,14 +725,14 @@ public class MainWindowController implements Initializable {
 				curCycle.setIR(m.getOpcode());
 				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)).toUpperCase(), 16));
 				curCycle.setA(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRs()))).getContent());
-				curCycle.setB(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).getContent());		
-				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));				
+				curCycle.setB(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).getContent());
+				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));
 				curCycle.setALUOUPUT(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) +  (util.hexToDec(curCycle.getIMM())*4) + 4)), 16));
-				
+
 				if(util.hexToDec(curCycle.getA()) > util.hexToDec((curCycle.getB()))) {
 					curCycle.setCOND(true);
 					curCycle.setPC(curCycle.getALUOUPUT());
-					
+
 				}
 				else {
 					curCycle.setCOND(false);
@@ -734,20 +741,20 @@ public class MainWindowController implements Initializable {
 				curCycle.setLMD("N/A");
 				curCycle.setRANGE("N/A");
 				curCycle.setRN("N/A");
-				
+
 				currPointer = curCycle.getPC();
 				Lists.addCyles(curCycle);
 			}
 			////////////////BC CYCLES////////////////////////////
-			
+
 			else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("BC") && Lists.getMemoryCodes().get(i).getAddress().equals(currPointer.substring(currPointer.length() - 4))) {
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 
 				curCycle.setIR(m.getOpcode());
 				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)).toUpperCase(), 16));
 				curCycle.setA(util.padZeros(util.decToHex(m.getStruct().getFinalopcode().substring(21, 25)), 16));
-				curCycle.setB(util.padZeros(util.decToHex(m.getStruct().getFinalopcode().substring(16, 20)), 16));	
-				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));		
+				curCycle.setB(util.padZeros(util.decToHex(m.getStruct().getFinalopcode().substring(16, 20)), 16));
+				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));
 				curCycle.setALUOUPUT(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) +  (util.hexToDec(curCycle.getIMM())*4) + 4)), 16));
 				curCycle.setCOND(true);
 				curCycle.setLMD("N/A");
@@ -762,11 +769,11 @@ public class MainWindowController implements Initializable {
 					curCycle.setPC(curCycle.getNPC());
 				}
 				currPointer = curCycle.getPC();
-				
-				
+
+
 				Lists.addCyles(curCycle);
 			}
-			
+
 			//////////////////BLTC CYCLES////////////////////////////////////
 			else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("BLTC") && Lists.getMemoryCodes().get(i).getAddress().equals(currPointer.substring(currPointer.length() - 4))) {
 				MemoryCode m = Lists.getMemoryCodes().get(i);
@@ -774,14 +781,14 @@ public class MainWindowController implements Initializable {
 				curCycle.setIR(m.getOpcode());
 				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)).toUpperCase(), 16));
 				curCycle.setA(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRs()))).getContent());
-				curCycle.setB(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).getContent());		
-				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));				
+				curCycle.setB(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).getContent());
+				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));
 				curCycle.setALUOUPUT(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) +  (util.hexToDec(curCycle.getIMM())*4) + 4)), 16));
-				
+
 				if(util.hexToDec(curCycle.getA()) > util.hexToDec((curCycle.getB()))) {
 					curCycle.setCOND(true);
 					curCycle.setPC(curCycle.getALUOUPUT());
-					
+
 				}
 				else {
 					curCycle.setCOND(false);
@@ -790,66 +797,64 @@ public class MainWindowController implements Initializable {
 				curCycle.setLMD("N/A");
 				curCycle.setRANGE("N/A");
 				curCycle.setRN("N/A");
-				
+
 				currPointer = curCycle.getPC();
-				
-	
+
+
 				Lists.addCyles(curCycle);
 			}
-		showCycles();
-		initializeRegisters();
-		
-		//REFRESH GUI MEMORY DATA
-		MemDataGrid.getChildren().clear();
-		for (int k=0; k<Lists.getMemoryData().size(); k++){				
-			Button b1 = new Button(Lists.getMemoryData().get(k).getAddress().toUpperCase() + " || " + 
-								   Lists.getMemoryData().get(k).getData() + " || " + 
-								   Lists.getMemoryData().get(k).getLabel() + " || " + 
-								   Lists.getMemoryData().get(k).getCode());
-			b1.setMinWidth(MemDataPane.getWidth());
-			b1.setAlignment(Pos.CENTER_LEFT);
-			b1.setStyle("-fx-background-color: transparent");
+			showCycles();
+			initializeRegisters();
 
-			b1.setOnMouseEntered(new EventHandler<MouseEvent>() {
-				public void handle(MouseEvent event) {
-					b1.setStyle("-fx-border-color: blue");
-				}
-			});
-			b1.setOnMouseExited(new EventHandler<MouseEvent>() {
-				public void handle(MouseEvent event) {
-					b1.setStyle("-fx-background-color: transparent");
-				}
-			});
-			
-			MemDataGrid.add(b1, 0, k); 
+			//REFRESH GUI MEMORY DATA
+			MemDataGrid.getChildren().clear();
+			for (int k=0; k<Lists.getMemoryData().size(); k++){
+				Button b1 = new Button(Lists.getMemoryData().get(k).getAddress().toUpperCase() + " || " +
+						Lists.getMemoryData().get(k).getData() + " || " +
+						Lists.getMemoryData().get(k).getLabel() + " || " +
+						Lists.getMemoryData().get(k).getCode());
+				b1.setMinWidth(MemDataPane.getWidth());
+				b1.setAlignment(Pos.CENTER_LEFT);
+				b1.setStyle("-fx-background-color: transparent");
+
+				b1.setOnMouseEntered(new EventHandler<MouseEvent>() {
+					public void handle(MouseEvent event) {
+						b1.setStyle("-fx-border-color: blue");
+					}
+				});
+				b1.setOnMouseExited(new EventHandler<MouseEvent>() {
+					public void handle(MouseEvent event) {
+						b1.setStyle("-fx-background-color: transparent");
+					}
+				});
+
+				MemDataGrid.add(b1, 0, k);
+			}
 		}
-		}
-		
+
 	}
-	
 	public void showCycles(){
-		CyclesGrid.getChildren().clear();
-		for (int k = 0; k < Lists.getCycles().size(); k++){	
-			Cycle c = Lists.getCycles().get(k);
-			Button b1 = new Button(c.getIR() + " || " + c.getNPC() + " || " + c.getA() + " || " + c.getB()+ " || " + c.getIMM()
-				+ " || " + c.getALUOUPUT() + " || " + Boolean.toString(c.getCOND()).toUpperCase() + " || " + c.getPC()+ " || " + c.getLMD()+ " || " + c.getRANGE()
-				+ " || " + c.getRN());
-			
-			b1.setMinWidth(CyclesPane.getWidth());
-			b1.setAlignment(Pos.CENTER_LEFT);
-			b1.setStyle("-fx-background-color: transparent");
+		initCyclesTable();
 
-			b1.setOnMouseEntered(new EventHandler<MouseEvent>() {
-				public void handle(MouseEvent event) {
-					b1.setStyle("-fx-border-color: blue");
-				}
-			});
-			b1.setOnMouseExited(new EventHandler<MouseEvent>() {
-				public void handle(MouseEvent event) {
-					b1.setStyle("-fx-background-color: transparent");
-				}
-			});
-			CyclesGrid.add(b1, 0, k); 
-		}
+
+
+	}
+	public void initCyclesTable(){
+
+
+		CyclesGrid.getChildren().retainAll(CyclesGrid.getChildren().get(0));
+
+		CyclesGrid.add(new Label(" Instruction"), 0, 0);
+		CyclesGrid.add(new Label(" IR"), 0, 1);
+		CyclesGrid.add(new Label(" NPC"), 0, 2);
+		CyclesGrid.add(new Label(" A"), 0, 3);
+		CyclesGrid.add(new Label(" B"), 0, 4);
+		CyclesGrid.add(new Label(" IMM"), 0, 5);
+		CyclesGrid.add(new Label(" ALUOUTPUT"), 0, 6);
+		CyclesGrid.add(new Label(" PC"), 0, 7);
+		CyclesGrid.add(new Label(" LMD"), 0, 8);
+		CyclesGrid.add(new Label(" RN"), 0, 9);
+
+		CyclesGrid.setGridLinesVisible(true);
 	}
 }
