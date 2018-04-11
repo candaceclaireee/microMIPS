@@ -142,15 +142,21 @@ public class IType extends Instruction{
 			String baseInit = parameter[2].substring(parameter[2].indexOf("R")+1, parameter[2].indexOf(")"));
 			base = Integer.parseInt(baseInit);
 			
-			for (int m=0; m<Lists.getMemoryData().size(); m++){
-				System.out.println(Lists.getMemoryData().get(m).getLabel().toUpperCase()+" vs"+parameter[1].toUpperCase());
-				if (Lists.getMemoryData().get(m).getLabel().toUpperCase().equalsIgnoreCase(parameter[1].toUpperCase())){
-					offset =  Lists.getMemoryData().get(m).getAddress();
-					System.out.println("offset: " +offset);
-					break;
-				}
+			if (util.isHex(parameter[1])){
+				offset= parameter[1];
+				
+				System.out.println(parameter[1]);
 			}
-			
+			else {
+				for (int m=0; m<Lists.getMemoryData().size(); m++){
+//					System.out.println(Lists.getMemoryData().get(m).getLabel().toUpperCase()+" vs"+parameter[1].toUpperCase());
+					if (Lists.getMemoryData().get(m).getLabel().toUpperCase().equalsIgnoreCase(parameter[1].toUpperCase())){
+						offset =  Lists.getMemoryData().get(m).getAddress();
+						System.out.println("offset: " +offset);
+						break;
+					}
+				}
+			}	
 		}
 		else if (code.contains("BLTC")) {
 			name = parameter[0].substring(0, parameter[0].lastIndexOf("R")).replaceAll("\\s+","");

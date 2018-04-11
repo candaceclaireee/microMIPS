@@ -4,6 +4,11 @@ import java.math.BigInteger;
 
 public class Utilities {
 	// UTILSSS
+	public boolean isHex(String str)
+	{
+	  return str.matches("-?[0-9a-fA-F]+");  //match a number with optional '-' and decimal.
+	}
+	
 	public String padZeros(String binary, int n) { 
 		if (binary.length() < n){
 			for (int i = binary.length(); i<n; i++)
