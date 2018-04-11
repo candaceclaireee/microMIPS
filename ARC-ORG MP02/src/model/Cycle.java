@@ -1,6 +1,9 @@
 package model;
 
 public class Cycle {
+	private String INSTRUCTION;
+
+
 	private String IR;
 	private String NPC;
 	private String A;
@@ -12,7 +15,15 @@ public class Cycle {
 	private String LMD;
 	private String RANGE;
 	private String RN;
-	
+
+
+	public String getINSTRUCTION() {
+		return INSTRUCTION;
+	}
+
+	public void setINSTRUCTION(String INSTRUCTION) {
+		this.INSTRUCTION = INSTRUCTION;
+	}
 	public boolean isCOND() {
 		return COND;
 	}
