@@ -689,7 +689,7 @@ public class MainWindowController implements Initializable {
 				curCycle.setPC(curCycle.getNPC());
 				curCycle.setLMD("N/A");
 				curCycle.setRANGE(m.getStruct().getOffset()+" - " +util.decToHex(Integer.toString(util.hexToDec(m.getStruct().getOffset()) + 7)));
-				curCycle.setRN("N/A" + m.getStruct().getRt());
+				curCycle.setRN("N/A");
 				
 				int c=0;
 				for (int b = 0; b< 32; b++) {
