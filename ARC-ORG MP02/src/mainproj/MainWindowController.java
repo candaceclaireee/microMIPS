@@ -17,6 +17,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import model.*;
 
+
+
 public class MainWindowController implements Initializable {
 	
 	/////////////////  FXML variables
@@ -38,6 +40,8 @@ public class MainWindowController implements Initializable {
 	public String fullLines;
 	public int currentAddress = 256; 
 	public Utilities util;
+	public String currPointer;
+	public final String  defaultPointer = "0000000000000100";
 	
 	public MainWindowController (){
 		util = new Utilities ();
@@ -84,6 +88,7 @@ public class MainWindowController implements Initializable {
 			initializeData(datastart, dataend);
 			initializeInstructions(datastart, dataend, codestart, codeend);
 			initializeMemoryCode();
+			currPointer = defaultPointer;
 			runCycles();
 		} catch(Exception e) {
 			System.out.println("Code empty");
@@ -604,12 +609,12 @@ public class MainWindowController implements Initializable {
 	public void runCycles() {
 
 		
-		String currPointer = "0000000000000100";
+
 		for(int i = 0;i <= Lists.getMemoryCodes().size() ; i++) {
 			Cycle curCycle = new Cycle();
 			System.out.println(currPointer);
 			if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("DADDU") && Lists.getMemoryCodes().get(i).getAddress().equalsIgnoreCase(currPointer.substring(currPointer.length() - 4))) {
-				System.out.println("DADDU REACHED");
+
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 				curCycle.setINSTRUCTION(m.getStruct().getCode());
 				curCycle.setIR(m.getOpcode());
@@ -623,12 +628,12 @@ public class MainWindowController implements Initializable {
 				curCycle.setLMD("N/A");
 				curCycle.setRANGE("N/A");
 				curCycle.setRN(util.padZeros(curCycle.getALUOUPUT(), 16) + " in R" + m.getStruct().getRd());
-				Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRd()))).setContent(util.padZeros(curCycle.getALUOUPUT().toUpperCase(), 16));
+				Lists.getRegisters().get(m.getStruct().getRd()).setContent(util.padZeros(curCycle.getALUOUPUT().toUpperCase(), 16));
 				currPointer = curCycle.getPC();
 				Lists.addCyles(curCycle);
 
 			} else if (Lists.getMemoryCodes().get(i).getStruct().getName().trim().equalsIgnoreCase("DADDIU") && Lists.getMemoryCodes().get(i).getAddress().equalsIgnoreCase(currPointer.substring(currPointer.length() - 4))) {
-				System.out.println("DADDIU REACHED");
+
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 				curCycle.setINSTRUCTION(m.getStruct().getCode());
 				curCycle.setIR(m.getOpcode());
@@ -642,11 +647,11 @@ public class MainWindowController implements Initializable {
 				curCycle.setLMD("N/A");
 				curCycle.setRANGE("N/A");
 				curCycle.setRN(util.padZeros(curCycle.getALUOUPUT(), 16)+ " in R" + m.getStruct().getRt());
-				Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).setContent(util.padZeros(curCycle.getALUOUPUT().toUpperCase(), 16));
+				Lists.getRegisters().get(m.getStruct().getRt()).setContent(util.padZeros(curCycle.getALUOUPUT().toUpperCase(), 16));
 				currPointer = curCycle.getPC();
 				Lists.addCyles(curCycle);
 			}else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("XORI") && Lists.getMemoryCodes().get(i).getAddress().equalsIgnoreCase(currPointer.substring(currPointer.length() - 4))) {
-				System.out.println("XORI REACHED");
+
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 
 				curCycle.setINSTRUCTION(m.getStruct().getCode());
@@ -662,13 +667,13 @@ public class MainWindowController implements Initializable {
 				curCycle.setRANGE("N/A");
 				curCycle.setRN(util.padZeros(curCycle.getALUOUPUT(), 16)+ " in R" + m.getStruct().getRt());
 
-				Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).setContent(util.padZeros(curCycle.getALUOUPUT().toUpperCase(), 16));
+				Lists.getRegisters().get(m.getStruct().getRt()).setContent(util.padZeros(curCycle.getALUOUPUT().toUpperCase(), 16));
 				currPointer = curCycle.getPC();
 				Lists.addCyles(curCycle);
 
 
 			} else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("SD") && Lists.getMemoryCodes().get(i).getAddress().equalsIgnoreCase(currPointer.substring(currPointer.length() - 4))) {
-				System.out.println("SD REACHED");
+
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 				String label = "";
 
@@ -716,7 +721,7 @@ public class MainWindowController implements Initializable {
 				currPointer = curCycle.getPC();
 				Lists.addCyles(curCycle);
 			} else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("LD") && Lists.getMemoryCodes().get(i).getAddress().equalsIgnoreCase(currPointer.substring(currPointer.length() - 4))) {
-				System.out.println("LD REACHED");
+
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 				String label = "";
 
@@ -753,11 +758,11 @@ public class MainWindowController implements Initializable {
 				currPointer = curCycle.getPC();
 				curCycle.setRANGE("N/A");
 				curCycle.setRN(curCycle.getLMD()+" in R"+m.getStruct().getRt());
-				Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).setContent(util.padZeros(curCycle.getLMD().toUpperCase(), 16));
+				Lists.getRegisters().get(m.getStruct().getRt()).setContent(util.padZeros(curCycle.getLMD().toUpperCase(), 16));
 
 				Lists.addCyles(curCycle);
 			} else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("BC") && Lists.getMemoryCodes().get(i).getAddress().equalsIgnoreCase(currPointer.substring(currPointer.length() - 4))) {
-				System.out.println("BC REACHED");
+
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 
 				curCycle.setINSTRUCTION(m.getStruct().getCode());
@@ -781,7 +786,7 @@ public class MainWindowController implements Initializable {
 				currPointer = curCycle.getPC();
 				Lists.addCyles(curCycle);
 			} else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("BLTC") && Lists.getMemoryCodes().get(i).getAddress().equalsIgnoreCase(currPointer.substring(currPointer.length() - 4))) {
-				System.out.println("BLTC REACHED");
+
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 
 				curCycle.setINSTRUCTION(m.getStruct().getCode());
@@ -845,16 +850,27 @@ public class MainWindowController implements Initializable {
 		for(int i = 0; i < Lists.getCycles().size() ; i++){
 			Cycle c = Lists.getCycles().get(i);
 			CyclesGrid.add(new Label(c.getINSTRUCTION()), j, 0);
+			System.out.println("Instruction: " + c.getINSTRUCTION());
 			CyclesGrid.add(new Label(c.getIR()), j, 1);
+			System.out.println("IR: " + c.getIR());
 			CyclesGrid.add(new Label(c.getNPC()), j, 2);
+			System.out.println("NPC: " + c.getNPC());
 			CyclesGrid.add(new Label(c.getA()), j, 3);
+			System.out.println("A: " + c.getA());
 			CyclesGrid.add(new Label(c.getB()), j, 4);
+			System.out.println("B: " + c.getB());
 			CyclesGrid.add(new Label(c.getIMM()), j, 5);
+			System.out.println("IMM: " + c.getIMM());
 			CyclesGrid.add(new Label(c.getALUOUPUT()), j, 6);
+			System.out.println("ALUOUTPUT: " + c.getALUOUPUT());
 			CyclesGrid.add(new Label(c.getPC()), j, 7);
+			System.out.println("PC: " + c.getPC());
 			CyclesGrid.add(new Label(c.getLMD()), j, 8);
+			System.out.println("LMD: " + c.getLMD());
 			CyclesGrid.add(new Label(c.getRANGE()), j, 9);
+			System.out.println("RANGE: " + c.getRANGE());
 			CyclesGrid.add(new Label(c.getRN()), j, 10);
+			System.out.println("RN: " + c.getRN());
 			j++;
 		}
 

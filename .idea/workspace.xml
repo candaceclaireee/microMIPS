@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java" line="796" />
+    <bookmark url="file://$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java" line="848" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="760b0336-0a29-4963-8e8f-2e513529eadb" name="Default" comment="">
+    <list default="true" id="760b0336-0a29-4963-8e8f-2e513529eadb" name="Default" comment="fixed cycles">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ARC-ORG MP02/bin/mainproj/MainWindowController.class" beforeDir="false" afterPath="$PROJECT_DIR$/ARC-ORG MP02/bin/mainproj/MainWindowController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ARC-ORG MP02/bin/model/IType.class" beforeDir="false" afterPath="$PROJECT_DIR$/ARC-ORG MP02/bin/model/IType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ARC-ORG MP02/bin/model/JType.class" beforeDir="false" afterPath="$PROJECT_DIR$/ARC-ORG MP02/bin/model/JType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ARC-ORG MP02/bin/model/RType.class" beforeDir="false" afterPath="$PROJECT_DIR$/ARC-ORG MP02/bin/model/RType.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARC-ORG MP02/src/model/IType.java" beforeDir="false" afterPath="$PROJECT_DIR$/ARC-ORG MP02/src/model/IType.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,27 +23,20 @@
       <file leaf-file-name="MainWindowController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="589" column="155" selection-start-line="589" selection-start-column="155" selection-end-line="589" selection-end-column="155" />
+            <state relative-caret-position="-1920">
+              <caret line="86" column="35" lean-forward="true" selection-start-line="86" selection-start-column="35" selection-end-line="86" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#7598#7599#0" expanded="true" />
-                <element signature="e#7652#7653#0" expanded="true" />
-                <element signature="e#7762#7763#0" expanded="true" />
-                <element signature="e#7823#7824#0" expanded="true" />
-                <element signature="e#15156#15157#0" expanded="true" />
-                <element signature="e#15206#15207#0" expanded="true" />
-                <element signature="e#15312#15313#0" expanded="true" />
-                <element signature="e#15373#15374#0" expanded="true" />
-                <element signature="e#16042#16043#0" expanded="true" />
-                <element signature="e#16092#16093#0" expanded="true" />
-                <element signature="e#16198#16199#0" expanded="true" />
-                <element signature="e#16259#16260#0" expanded="true" />
-                <element signature="e#17937#17938#0" expanded="true" />
-                <element signature="e#17987#17988#0" expanded="true" />
-                <element signature="e#18093#18094#0" expanded="true" />
-                <element signature="e#18154#18155#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IType.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/model/IType.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1808">
+              <caret line="137" column="45" selection-start-line="137" selection-start-column="45" selection-end-line="137" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -102,6 +93,7 @@
       <list>
         <option value="$PROJECT_DIR$/ARC-ORG MP02/src/model/Cycle.java" />
         <option value="$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindow.fxml" />
+        <option value="$PROJECT_DIR$/ARC-ORG MP02/src/model/IType.java" />
         <option value="$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java" />
       </list>
     </option>
@@ -124,7 +116,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -158,6 +149,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="AndroidView" />
       <pane id="PackagesPane" />
     </panes>
@@ -177,6 +169,117 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Aaron Fajardo\Desktop\DLSU Term 2 Year 2\ARCHORG\MP2\microMIPS\ARC-ORG MP02\src" />
     </key>
+  </component>
+  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
+    <UpdatedFiles>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/ARC-ORG MP02/bin/mainproj/MainWindowController.class</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+    </UpdatedFiles>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -267,7 +370,10 @@
       <workItem from="1523437719260" duration="11163000" />
       <workItem from="1523457400282" duration="2908000" />
       <workItem from="1523463217763" duration="582000" />
-      <workItem from="1523508193090" duration="1742000" />
+      <workItem from="1523508193090" duration="5037000" />
+      <workItem from="1523528041713" duration="790000" />
+      <workItem from="1523532771704" duration="420000" />
+      <workItem from="1523541318953" duration="3286000" />
     </task>
     <task id="LOCAL-00001" summary="fixed BC and BLTC">
       <created>1523438540136</created>
@@ -290,11 +396,18 @@
       <option name="project" value="LOCAL" />
       <updated>1523459703844</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="fixed cycles">
+      <created>1523509979972</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1523509979972</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17197000" />
+    <option name="totallyTimeSpent" value="24988000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -310,7 +423,7 @@
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32965517" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49934897" visible="true" weight="0.033103447" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49934897" visible="true" weight="0.3627586" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
@@ -340,31 +453,130 @@
     <MESSAGE value="fixed BC and BLTC" />
     <MESSAGE value="merged aaron's and chesie's work" />
     <MESSAGE value="updated cycles gui" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated cycles gui" />
+    <MESSAGE value="fixed cycles" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed cycles" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11360">
+          <caret line="710" column="100" selection-start-line="710" selection-start-column="100" selection-end-line="710" selection-end-column="100" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/model/Cycle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/model/Instruction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-9.0.1/lib/src.zip!/javafx.fxml/javafx/fxml/Initializable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="848">
+          <caret line="53" column="16" selection-start-line="53" selection-start-column="16" selection-end-line="53" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/model/Utilities.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11360">
+          <caret line="710" column="100" selection-start-line="710" selection-start-column="100" selection-end-line="710" selection-end-column="100" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/model/Cycle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/model/Instruction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-9.0.1/lib/src.zip!/javafx.fxml/javafx/fxml/Initializable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="848">
+          <caret line="53" column="16" selection-start-line="53" selection-start-column="16" selection-end-line="53" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/model/Utilities.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10816">
+          <caret line="676" column="78" lean-forward="true" selection-start-line="676" selection-start-column="78" selection-end-line="676" selection-end-column="78" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/model/Cycle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/model/Instruction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-9.0.1/lib/src.zip!/javafx.fxml/javafx/fxml/Initializable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="848">
+          <caret line="53" column="16" selection-start-line="53" selection-start-column="16" selection-end-line="53" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/model/Utilities.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="11920">
           <caret line="745" column="54" lean-forward="true" selection-start-line="745" selection-start-column="54" selection-end-line="745" selection-end-column="54" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7598#7599#0" expanded="true" />
-            <element signature="e#7652#7653#0" expanded="true" />
-            <element signature="e#7762#7763#0" expanded="true" />
-            <element signature="e#7823#7824#0" expanded="true" />
-            <element signature="e#15156#15157#0" expanded="true" />
-            <element signature="e#15206#15207#0" expanded="true" />
-            <element signature="e#15312#15313#0" expanded="true" />
-            <element signature="e#15373#15374#0" expanded="true" />
-            <element signature="e#16042#16043#0" expanded="true" />
-            <element signature="e#16092#16093#0" expanded="true" />
-            <element signature="e#16198#16199#0" expanded="true" />
-            <element signature="e#16259#16260#0" expanded="true" />
-            <element signature="e#17937#17938#0" expanded="true" />
-            <element signature="e#17987#17988#0" expanded="true" />
-            <element signature="e#18093#18094#0" expanded="true" />
-            <element signature="e#18154#18155#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -403,22 +615,6 @@
           <caret line="816" column="33" selection-start-line="816" selection-start-column="33" selection-end-line="816" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7598#7599#0" expanded="true" />
-            <element signature="e#7652#7653#0" expanded="true" />
-            <element signature="e#7762#7763#0" expanded="true" />
-            <element signature="e#7823#7824#0" expanded="true" />
-            <element signature="e#15156#15157#0" expanded="true" />
-            <element signature="e#15206#15207#0" expanded="true" />
-            <element signature="e#15312#15313#0" expanded="true" />
-            <element signature="e#15373#15374#0" expanded="true" />
-            <element signature="e#16042#16043#0" expanded="true" />
-            <element signature="e#16092#16093#0" expanded="true" />
-            <element signature="e#16198#16199#0" expanded="true" />
-            <element signature="e#16259#16260#0" expanded="true" />
-            <element signature="e#17937#17938#0" expanded="true" />
-            <element signature="e#17987#17988#0" expanded="true" />
-            <element signature="e#18093#18094#0" expanded="true" />
-            <element signature="e#18154#18155#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -457,22 +653,6 @@
           <caret line="839" selection-start-line="839" selection-end-line="839" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7598#7599#0" expanded="true" />
-            <element signature="e#7652#7653#0" expanded="true" />
-            <element signature="e#7762#7763#0" expanded="true" />
-            <element signature="e#7823#7824#0" expanded="true" />
-            <element signature="e#15156#15157#0" expanded="true" />
-            <element signature="e#15206#15207#0" expanded="true" />
-            <element signature="e#15312#15313#0" expanded="true" />
-            <element signature="e#15373#15374#0" expanded="true" />
-            <element signature="e#16042#16043#0" expanded="true" />
-            <element signature="e#16092#16093#0" expanded="true" />
-            <element signature="e#16198#16199#0" expanded="true" />
-            <element signature="e#16259#16260#0" expanded="true" />
-            <element signature="e#17937#17938#0" expanded="true" />
-            <element signature="e#17987#17988#0" expanded="true" />
-            <element signature="e#18093#18094#0" expanded="true" />
-            <element signature="e#18154#18155#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -497,22 +677,6 @@
           <caret line="159" column="43" selection-start-line="159" selection-start-column="43" selection-end-line="159" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7598#7599#0" expanded="true" />
-            <element signature="e#7652#7653#0" expanded="true" />
-            <element signature="e#7762#7763#0" expanded="true" />
-            <element signature="e#7823#7824#0" expanded="true" />
-            <element signature="e#15156#15157#0" expanded="true" />
-            <element signature="e#15206#15207#0" expanded="true" />
-            <element signature="e#15312#15313#0" expanded="true" />
-            <element signature="e#15373#15374#0" expanded="true" />
-            <element signature="e#16042#16043#0" expanded="true" />
-            <element signature="e#16092#16093#0" expanded="true" />
-            <element signature="e#16198#16199#0" expanded="true" />
-            <element signature="e#16259#16260#0" expanded="true" />
-            <element signature="e#17937#17938#0" expanded="true" />
-            <element signature="e#17987#17988#0" expanded="true" />
-            <element signature="e#18093#18094#0" expanded="true" />
-            <element signature="e#18154#18155#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -566,28 +730,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/model/IType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1808">
+          <caret line="137" column="45" selection-start-line="137" selection-start-column="45" selection-end-line="137" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="589" column="155" selection-start-line="589" selection-start-column="155" selection-end-line="589" selection-end-column="155" />
+        <state relative-caret-position="-1920">
+          <caret line="86" column="35" lean-forward="true" selection-start-line="86" selection-start-column="35" selection-end-line="86" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7598#7599#0" expanded="true" />
-            <element signature="e#7652#7653#0" expanded="true" />
-            <element signature="e#7762#7763#0" expanded="true" />
-            <element signature="e#7823#7824#0" expanded="true" />
-            <element signature="e#15156#15157#0" expanded="true" />
-            <element signature="e#15206#15207#0" expanded="true" />
-            <element signature="e#15312#15313#0" expanded="true" />
-            <element signature="e#15373#15374#0" expanded="true" />
-            <element signature="e#16042#16043#0" expanded="true" />
-            <element signature="e#16092#16093#0" expanded="true" />
-            <element signature="e#16198#16199#0" expanded="true" />
-            <element signature="e#16259#16260#0" expanded="true" />
-            <element signature="e#17937#17938#0" expanded="true" />
-            <element signature="e#17987#17988#0" expanded="true" />
-            <element signature="e#18093#18094#0" expanded="true" />
-            <element signature="e#18154#18155#0" expanded="true" />
           </folding>
         </state>
       </provider>

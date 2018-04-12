@@ -129,10 +129,13 @@ public class IType extends Instruction{
 			name = parameter[0].substring(0, parameter[0].lastIndexOf("R")).replaceAll("\\s+","");
 			
 			String rtInit = parameter[0].substring(parameter[0].lastIndexOf("R")+1, parameter[0].length());
+			System.out.println("rt" +  rtInit);
 			rt = Integer.parseInt(rtInit);
 			
 			String rsInit = parameter[1].substring(parameter[1].indexOf("R")+1, parameter[1].length());
 			rs = Integer.parseInt(rsInit);
+
+			System.out.println("rs" +  rsInit);
 			
 			if (parameter[2].contains("#")) { 
 				immediate = parameter[2].substring(parameter[2].indexOf("#")+1, parameter[2].length());
