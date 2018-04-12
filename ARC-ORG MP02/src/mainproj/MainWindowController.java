@@ -623,8 +623,8 @@ public class MainWindowController implements Initializable {
 				curCycle.setINSTRUCTION(m.getStruct().getCode());
 				curCycle.setIR(m.getOpcode());
 				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)).toUpperCase(), 16));
-				curCycle.setA(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRs()))).getContent());
-				curCycle.setB(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).getContent());
+				curCycle.setA(Lists.getRegisters().get(m.getStruct().getRs()).getContent());
+				curCycle.setB(Lists.getRegisters().get(m.getStruct().getRt()).getContent());
 				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));
 				curCycle.setALUOUPUT(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(curCycle.getA()) + util.hexToDec(curCycle.getB()))).toUpperCase(), 16));
 				curCycle.setCOND(false);
@@ -643,7 +643,7 @@ public class MainWindowController implements Initializable {
 				curCycle.setINSTRUCTION(m.getStruct().getCode());
 				curCycle.setIR(m.getOpcode());
 				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)).toUpperCase(), 16));
-				curCycle.setA(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRs()))).getContent());				
+				curCycle.setA(Lists.getRegisters().get(m.getStruct().getRs()).getContent());
 				curCycle.setB(Lists.getRegisters().get(m.getStruct().getRt()).getContent());
 				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));
 				curCycle.setALUOUPUT(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(curCycle.getA()) + util.hexToDec(curCycle.getIMM()))).toUpperCase(), 16));
@@ -663,8 +663,8 @@ public class MainWindowController implements Initializable {
 				curCycle.setINSTRUCTION(m.getStruct().getCode());
 				curCycle.setIR(m.getOpcode());
 				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)).toUpperCase(), 16));
-				curCycle.setA(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRs()))).getContent());
-				curCycle.setB(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).getContent());
+				curCycle.setA(Lists.getRegisters().get(m.getStruct().getRs()).getContent());
+				curCycle.setB(Lists.getRegisters().get(m.getStruct().getRt()).getContent());
 				curCycle.setIMM(util.padZeros(m.getStruct().getImmediate(), 16));
 				curCycle.setALUOUPUT(util.padZeros(xorFunc(curCycle.getA(), curCycle.getIMM()).toUpperCase(), 16));
 				curCycle.setCOND(false);
@@ -687,8 +687,8 @@ public class MainWindowController implements Initializable {
 				curCycle.setINSTRUCTION(m.getStruct().getCode());
 				curCycle.setIR(m.getOpcode());
 				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)).toUpperCase(), 16));
-				curCycle.setA(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getBase()))).getContent()); //base
-				curCycle.setB(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).getContent()); //rt
+				curCycle.setA(Lists.getRegisters().get(m.getStruct().getBase()).getContent()); //base
+				curCycle.setB(Lists.getRegisters().get(m.getStruct().getRt()).getContent()); //rt
 				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));
 
 				//a, b, imm
@@ -736,8 +736,8 @@ public class MainWindowController implements Initializable {
 				curCycle.setINSTRUCTION(m.getStruct().getCode());
 				curCycle.setIR(m.getOpcode());
 				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)).toUpperCase(), 16));
-				curCycle.setA(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getBase()))).getContent()); //base
-				curCycle.setB(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).getContent()); //rt
+				curCycle.setA(Lists.getRegisters().get(m.getStruct().getBase()).getContent()); //base
+				curCycle.setB(Lists.getRegisters().get(m.getStruct().getRt()).getContent()); //rt
 				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));
 				curCycle.setALUOUPUT(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(curCycle.getA()) + util.hexToDec(curCycle.getIMM()))).toUpperCase(), 16));
 				curCycle.setCOND(false);
@@ -777,8 +777,8 @@ public class MainWindowController implements Initializable {
 				curCycle.setINSTRUCTION(m.getStruct().getCode());
 				curCycle.setIR(m.getOpcode());
 				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)).toUpperCase(), 16));
-				curCycle.setA(util.padZeros(util.decToHex(m.getStruct().getFinalopcode().substring(21, 25)), 16));
-				curCycle.setB(util.padZeros(util.decToHex(m.getStruct().getFinalopcode().substring(16, 20)), 16));
+				curCycle.setA(util.padZeros(m.getStruct().getFinalopcode().substring(21, 25), 16));
+				curCycle.setB(util.padZeros(m.getStruct().getFinalopcode().substring(16, 20), 16));
 				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));
 				curCycle.setALUOUPUT(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) +  (util.hexToDec(curCycle.getIMM())*4) + 4)), 16));
 				curCycle.setCOND(true);
@@ -802,8 +802,8 @@ public class MainWindowController implements Initializable {
 				curCycle.setINSTRUCTION(m.getStruct().getCode());
 				curCycle.setIR(m.getOpcode());
 				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)).toUpperCase(), 16));
-				curCycle.setA(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRs()))).getContent());
-				curCycle.setB(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).getContent());
+				curCycle.setA(Lists.getRegisters().get(m.getStruct().getRs()).getContent());
+				curCycle.setB(Lists.getRegisters().get(m.getStruct().getRt()).getContent());
 				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));
 				curCycle.setALUOUPUT(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) +  (util.hexToDec(curCycle.getIMM())*4) + 4)), 16));
 
