@@ -91,7 +91,8 @@ public class MainWindowController implements Initializable {
 			currPointer = defaultPointer;
 			runCycles();
 		} catch(Exception e) {
-			System.out.println("Code empty");
+			e.printStackTrace();
+//			System.out.println("Code empty");
 		}
 	}
 
@@ -607,14 +608,17 @@ public class MainWindowController implements Initializable {
 		return (util.intToHex(BinInt ^ AinInt).toUpperCase());
 	}
 	public void runCycles() {
-
 		
+//		System.out.println("                                         size : "+Lists.getMemoryCodes().size());
 
 		for(int i = 0;i <= Lists.getMemoryCodes().size() ; i++) {
 			Cycle curCycle = new Cycle();
 			System.out.println(currPointer);
+			
+//			System.out.println("                            i: "+i);
 			if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("DADDU") && Lists.getMemoryCodes().get(i).getAddress().equalsIgnoreCase(currPointer.substring(currPointer.length() - 4))) {
-
+//				System.out.println(Lists.getMemoryCodes().get(i).getAddress()+" vs "+currPointer.substring(currPointer.length() - 4));
+				
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 				curCycle.setINSTRUCTION(m.getStruct().getCode());
 				curCycle.setIR(m.getOpcode());
@@ -633,13 +637,14 @@ public class MainWindowController implements Initializable {
 				Lists.addCyles(curCycle);
 
 			} else if (Lists.getMemoryCodes().get(i).getStruct().getName().trim().equalsIgnoreCase("DADDIU") && Lists.getMemoryCodes().get(i).getAddress().equalsIgnoreCase(currPointer.substring(currPointer.length() - 4))) {
-
+//				System.out.println(Lists.getMemoryCodes().get(i).getAddress()+" vs "+currPointer.substring(currPointer.length() - 4));
+				
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 				curCycle.setINSTRUCTION(m.getStruct().getCode());
 				curCycle.setIR(m.getOpcode());
 				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)).toUpperCase(), 16));
-				curCycle.setA(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRs()))).getContent());
-				curCycle.setB(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).getContent());
+				curCycle.setA(Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRs()))).getContent());				
+				curCycle.setB(Lists.getRegisters().get(m.getStruct().getRt()).getContent());
 				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));
 				curCycle.setALUOUPUT(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(curCycle.getA()) + util.hexToDec(curCycle.getIMM()))).toUpperCase(), 16));
 				curCycle.setCOND(false);
@@ -651,7 +656,8 @@ public class MainWindowController implements Initializable {
 				currPointer = curCycle.getPC();
 				Lists.addCyles(curCycle);
 			}else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("XORI") && Lists.getMemoryCodes().get(i).getAddress().equalsIgnoreCase(currPointer.substring(currPointer.length() - 4))) {
-
+//				System.out.println(Lists.getMemoryCodes().get(i).getAddress()+" vs "+currPointer.substring(currPointer.length() - 4));
+				
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 
 				curCycle.setINSTRUCTION(m.getStruct().getCode());
@@ -673,7 +679,8 @@ public class MainWindowController implements Initializable {
 
 
 			} else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("SD") && Lists.getMemoryCodes().get(i).getAddress().equalsIgnoreCase(currPointer.substring(currPointer.length() - 4))) {
-
+//				System.out.println(Lists.getMemoryCodes().get(i).getAddress() + " vs "+ currPointer.substring(currPointer.length() - 4));
+				
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 				String label = "";
 
@@ -721,7 +728,8 @@ public class MainWindowController implements Initializable {
 				currPointer = curCycle.getPC();
 				Lists.addCyles(curCycle);
 			} else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("LD") && Lists.getMemoryCodes().get(i).getAddress().equalsIgnoreCase(currPointer.substring(currPointer.length() - 4))) {
-
+//				System.out.println(Lists.getMemoryCodes().get(i).getAddress()+" vs "+currPointer.substring(currPointer.length() - 4));
+				
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 				String label = "";
 
@@ -762,7 +770,8 @@ public class MainWindowController implements Initializable {
 
 				Lists.addCyles(curCycle);
 			} else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("BC") && Lists.getMemoryCodes().get(i).getAddress().equalsIgnoreCase(currPointer.substring(currPointer.length() - 4))) {
-
+//				System.out.println(Lists.getMemoryCodes().get(i).getAddress()+" vs "+currPointer.substring(currPointer.length() - 4));
+				
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 
 				curCycle.setINSTRUCTION(m.getStruct().getCode());
@@ -786,7 +795,8 @@ public class MainWindowController implements Initializable {
 				currPointer = curCycle.getPC();
 				Lists.addCyles(curCycle);
 			} else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("BLTC") && Lists.getMemoryCodes().get(i).getAddress().equalsIgnoreCase(currPointer.substring(currPointer.length() - 4))) {
-
+//				System.out.println(Lists.getMemoryCodes().get(i).getAddress()+" vs "+currPointer.substring(currPointer.length() - 4));
+				
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 
 				curCycle.setINSTRUCTION(m.getStruct().getCode());
@@ -841,12 +851,14 @@ public class MainWindowController implements Initializable {
 				MemDataGrid.add(b1, 0, k);
 			}
 		}
-
 	}
+	
 	public void showCycles(){
 		initCyclesTable();
 		int j  = 1;
-
+		
+		System.out.println("                                   SIZE OF CYCLES: "+Lists.getCycles().size());
+		
 		for(int i = 0; i < Lists.getCycles().size() ; i++){
 			Cycle c = Lists.getCycles().get(i);
 			CyclesGrid.add(new Label(c.getINSTRUCTION()), j, 0);
@@ -874,15 +886,13 @@ public class MainWindowController implements Initializable {
 			j++;
 		}
 
-
 		ObservableList<Node> childrens = CyclesGrid.getChildren();
 		for (Node node : childrens) {
 			CyclesGrid.setMargin(node, new Insets(5, 5, 5, 5));
 
 		}
-
-
 	}
+	
 	public void initCyclesTable(){
 
 		CyclesGrid.setPadding(new Insets(2, 2, 2, 2));
