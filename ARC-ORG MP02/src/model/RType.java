@@ -19,39 +19,45 @@ public class RType extends Instruction {
 	}
 	
 	public boolean checkForErrors() {
-	
 		String parameter[] = code.replaceAll("\\s+","").split(",");
-			
-		if (parameter.length != 3) {
-			Lists.addError("Invalid parameters");
-			return true;
-		}
-		else { 
-			if (!parameter[0].contains("R")) {
-				Lists.addError("First parameter is not a register");
+		name = parameter[0].substring(0, parameter[0].lastIndexOf("R"));	
+		
+		if (code.contains("DADDU")) { 
+			if (parameter.length != 3) {
+				Lists.addError("Invalid parameters");
 				return true;
 			}
-			if (!parameter[1].contains("R")) {
-				Lists.addError("Second parameter is not a register");
-				return true;
-			}
-			if ( !parameter[2].contains("R")) {
-				Lists.addError("Third parameter is not a register");
-				return true;
-			}
-			else {
-				assignParts(parameter);
-				if (rt > 31 || rs > 31 || rd > 31) {
-					Lists.addError("Invalid register number");	
+			else { 
+				if (!parameter[0].contains("R")) {
+					Lists.addError(name + ": First parameter is not a register");
 					return true;
 				}
-				return false; 
-			}
-		} 
+				if (!parameter[1].contains("R")) {
+					Lists.addError(name + ": Second parameter is not a register");
+					return true;
+				}
+				if ( !parameter[2].contains("R")) {
+					Lists.addError(name + ": Third parameter is not a register");
+					return true;
+				}
+				else {
+					assignParts(parameter);
+					if (rt > 31 || rs > 31 || rd > 31) {
+						Lists.addError(name + ": Invalid register number");	
+						return true;
+					}
+					if (rd == 0) { 
+						Lists.addError(name + ": Invalid rd. Cannot be zero");
+						return true;
+					}
+					return false; 
+				}
+			} 
+		}
+		return false;
 	} 
 	
 	public void assignParts(String parameter[]) {
-		name = parameter[0].substring(0, parameter[0].lastIndexOf("R"));
 		
 		String rdInit = parameter[0].substring(parameter[0].lastIndexOf("R")+1, parameter[0].length());
 		rd = Integer.parseInt(rdInit);

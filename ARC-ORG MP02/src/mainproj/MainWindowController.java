@@ -183,7 +183,7 @@ public class MainWindowController implements Initializable {
 				Lists.addInstruction(it);
 			} else {
 				int j = i + 1;
-				Lists.addError("Invalid instruction on line " + j);
+				Lists.addError("ERROR: There is an invalid instruction"); 
 			}
 		}
 		
@@ -191,11 +191,12 @@ public class MainWindowController implements Initializable {
 			Instruction i = Lists.getInstructions().get(j);
 			
 			if(i instanceof JType) {
-				((JType) i).buildOpcode();
-			} else if (i instanceof IType) {
+				if (((JType) i).checkForErrors() == false)
+				    ((JType) i).buildOpcode();
+			} if (i instanceof IType) {
 				if (((IType) i).checkForErrors() == false)
 					((IType) i).buildOpcode();
-			} else if (i instanceof RType) {
+			}if (i instanceof RType) {
 				if (((RType) i).checkForErrors() == false)
 					((RType) i).buildOpCode();
 			}
@@ -222,7 +223,7 @@ public class MainWindowController implements Initializable {
 						if (registerContent.replaceAll("\\s+","").length() > 16 || !registerContent.matches("[0-9A-F]+")) { 
 							JOptionPane.showMessageDialog(null, "Please enter a valid input! ", "Error", JOptionPane.ERROR_MESSAGE);		
 						} else if (registerNum == 0) {
-							JOptionPane.showMessageDialog(null, "Cannot put value in R1! ", "Error", JOptionPane.ERROR_MESSAGE);		
+							JOptionPane.showMessageDialog(null, "Cannot put value in R0! ", "Error", JOptionPane.ERROR_MESSAGE);		
 						} else {
 							registerContent = util.padZeros(registerContent, 16);
 							
@@ -580,11 +581,14 @@ public class MainWindowController implements Initializable {
 		return (util.intToHex(BinInt ^ AinInt).toUpperCase());
 	}
 	public void runCycles() {
+
+		
 		String currPointer = "0000000000000100";
 		for(int i = 0;i <= Lists.getMemoryCodes().size() ; i++) {
 			Cycle curCycle = new Cycle();
 			System.out.println(currPointer);
 			if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("DADDU") && Lists.getMemoryCodes().get(i).getAddress().equals(currPointer.substring(currPointer.length() - 4))) {
+				System.out.println("DADDU REACHED");
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 				curCycle.setINSTRUCTION(m.getStruct().getCode());
 				curCycle.setIR(m.getOpcode());
@@ -603,6 +607,7 @@ public class MainWindowController implements Initializable {
 				Lists.addCyles(curCycle);
 
 			} else if (Lists.getMemoryCodes().get(i).getStruct().getName().trim().equalsIgnoreCase("DADDIU") && Lists.getMemoryCodes().get(i).getAddress().equals(currPointer.substring(currPointer.length() - 4))) {
+				System.out.println("DADDIU REACHED");
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 				curCycle.setINSTRUCTION(m.getStruct().getCode());
 				curCycle.setIR(m.getOpcode());
@@ -620,6 +625,7 @@ public class MainWindowController implements Initializable {
 				currPointer = curCycle.getPC();
 				Lists.addCyles(curCycle);
 			}else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("XORI") && Lists.getMemoryCodes().get(i).getAddress().equals(currPointer.substring(currPointer.length() - 4))) {
+				System.out.println("XORI REACHED");
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 
 				curCycle.setINSTRUCTION(m.getStruct().getCode());
@@ -638,9 +644,10 @@ public class MainWindowController implements Initializable {
 				Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).setContent(util.padZeros(curCycle.getALUOUPUT().toUpperCase(), 16));
 				currPointer = curCycle.getPC();
 				Lists.addCyles(curCycle);
-				currPointer = curCycle.getPC();
+
 
 			} else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("SD") && Lists.getMemoryCodes().get(i).getAddress().equals(currPointer.substring(currPointer.length() - 4))) {
+				System.out.println("SD REACHED");
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 				String label = "";
 
@@ -675,6 +682,7 @@ public class MainWindowController implements Initializable {
 				currPointer = curCycle.getPC();
 				Lists.addCyles(curCycle);
 			} else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("LD") && Lists.getMemoryCodes().get(i).getAddress().equals(currPointer.substring(currPointer.length() - 4))) {
+				System.out.println("LD REACHED");
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 				String label = "";
 
@@ -702,6 +710,7 @@ public class MainWindowController implements Initializable {
 
 				Lists.addCyles(curCycle);
 			} else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("BC") && Lists.getMemoryCodes().get(i).getAddress().equals(currPointer.substring(currPointer.length() - 4))) {
+				System.out.println("BC REACHED");
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 
 				curCycle.setINSTRUCTION(m.getStruct().getCode());
@@ -726,6 +735,7 @@ public class MainWindowController implements Initializable {
 				currPointer = curCycle.getPC();
 				Lists.addCyles(curCycle);
 			} else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("BLTC") && Lists.getMemoryCodes().get(i).getAddress().equals(currPointer.substring(currPointer.length() - 4))) {
+				System.out.println("BLTC REACHED");
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 
 				curCycle.setINSTRUCTION(m.getStruct().getCode());
