@@ -92,7 +92,7 @@ public class MainWindowController implements Initializable {
 			runCycles();
 		} catch(Exception e) {
 			e.printStackTrace();
-//			System.out.println("Code empty");
+			System.out.println("Code empty");
 		}
 	}
 
@@ -808,13 +808,13 @@ public class MainWindowController implements Initializable {
 				curCycle.setALUOUPUT(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) +  (util.hexToDec(curCycle.getIMM())*4) + 4)), 16));
 
 				if(util.hexToDec(curCycle.getA()) > util.hexToDec((curCycle.getB()))) {
-					curCycle.setCOND(true);
-					curCycle.setPC(curCycle.getALUOUPUT());
+					curCycle.setCOND(false);
+					curCycle.setPC(curCycle.getNPC());
 
 				}
 				else {
-					curCycle.setCOND(false);
-					curCycle.setPC(curCycle.getNPC());
+					curCycle.setCOND(true);
+					curCycle.setPC(curCycle.getALUOUPUT());
 				}
 				curCycle.setLMD("N/A");
 				curCycle.setRANGE("N/A");
