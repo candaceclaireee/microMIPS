@@ -22,95 +22,102 @@ public class IType extends Instruction{
 	
 	public boolean checkForErrors() {
 		if (code.contains("DADDIU") || code.contains("XORI")) {
-			String parameter[] = code.replaceAll("\\s+","").split(",");
+			String parameter[] = code.replaceAll("\\s+","").split(",");			
+			
+			name = parameter[0].substring(0, parameter[0].lastIndexOf("R")).replaceAll("\\s+","");
 
 			if (parameter.length != 3) {
-				Lists.addError("Invalid parameters");
+				Lists.addError(name + ": Invalid parameters");
 				return true;
 			}
 			else { 
 				if (!parameter[0].contains("R")) {
-					Lists.addError("First parameter is not a register");
+					Lists.addError(name + ": First parameter is not a register");
 					return true;
 				}
 				if (!parameter[1].contains("R")) {
-					Lists.addError("Second parameter is not a register");
+					Lists.addError(name + ": Second parameter is not a register");
+					return true;
+				}
+				if (!parameter[2].matches("[#0-9a-fA-FxX]+")) {
+					Lists.addError(name + ": Third parameter contains non hexadecimal values");
 					return true;
 				}
 				if ( !parameter[2].contains("0X") && !parameter[2].contains("#")) {
-					Lists.addError("Third parameter has a wrong immediate format");
+					Lists.addError(name + ": Third parameter has a wrong immediate format");
 					return true;
 				}
 				if (parameter[2].length() > 6) {
-					Lists.addError("Third parameter size is too big");
+					Lists.addError(name + ": Third parameter size is too big");
 					return true;
 				}
 				else {
 					assignParts(parameter);
 					if (rt > 31 || rs > 31) {
-						Lists.addError("Invalid register number");	
+						Lists.addError(name + ": Invalid register number");	
 						return true;
 					}
-					return false; 
+					if (rt == 0) { 
+						Lists.addError(name + ": Invalid rt. Cannot be zero");
+						return true;
+					}
 				}
 			} 
 		} 
 		else if (code.contains("LD") || code.contains("SD")) {
 			String[]parameter = code.split(", |\\(");
+			name = parameter[0].substring(0, parameter[0].lastIndexOf("R")).replaceAll("\\s+","");
+			
 			
 			if (parameter.length != 3) {
-				Lists.addError("Invalid parameters");
+				Lists.addError(name + ": Invalid parameters");
 				return true;
 			}
 			else { 
 				if (!parameter[0].contains("R")) {
-					Lists.addError("First parameter is not a register");
+					Lists.addError(name + ": First parameter is not a register");
 					return true;
 				}
 				if (!parameter[2].contains("R")) {
-					Lists.addError("Third parameter is not a register");
+					Lists.addError(name + ": Third parameter is not a register");
 					return true;
 				}
-//				if (!(parameter[1].length()==4)) {
-//					Lists.addError("Second parameter size is invalid");
-//					return true;
-//				}
 				else {
 					assignParts(parameter);
-					if (rt > 31) {
-						Lists.addError("Invalid register number");	
+					if (rt > 31 || base > 31) {
+						Lists.addError(name + ": Invalid register number");	
 						return true;
 					}
-					return false; 
 				}
 			}
 		}	
 		else if (code.contains("BLTC")) {
 			String parameter[] = code.replaceAll("\\s+","").split(",");
+			name = parameter[0].substring(0, parameter[0].lastIndexOf("R")).replaceAll("\\s+","");
+			
 
 			if (parameter.length != 3) {
 				Lists.addError("Invalid parameters");
 				return true;
 			} else {
 				if (!parameter[0].contains("R")) {
-					Lists.addError("First parameter is not a register");
+					Lists.addError(name + ": First parameter is not a register");
 					return true;
 				}
 				if (!parameter[1].contains("R")) {
-					Lists.addError("Second parameter is not a register");
+					Lists.addError(name + ": Second parameter is not a register");
 					return true;
 				} else {
 					assignParts(parameter);
 					if (rt > 31 || rs > 31) {
-						Lists.addError("Invalid register number");	
+						Lists.addError(name + ": Invalid register number");	
 						return true;
 					} else if (rt == 0) {
-						Lists.addError("Invalid rt. Cannot be zero");	
+						Lists.addError(name + ": Invalid rt. Cannot be zero");	
 						return true;
 					} else if (rs == rt) {
-						Lists.addError("Error. rs cannot be equal to rt");
+						Lists.addError(name + ": Error. rs cannot be equal to rt");
 					}
-					return false; 
 				}
 			}
 		}
@@ -134,8 +141,7 @@ public class IType extends Instruction{
 			}
 		}
 		else if (code.contains("LD") || code.contains("SD")) {
-			name = parameter[0].substring(0, parameter[0].lastIndexOf("R")).replaceAll("\\s+","");
-			
+
 			String rtInit = parameter[0].substring(parameter[0].lastIndexOf("R")+1, parameter[0].length());
 			rt = Integer.parseInt(rtInit);
 			
@@ -159,8 +165,7 @@ public class IType extends Instruction{
 			}	
 		}
 		else if (code.contains("BLTC")) {
-			name = parameter[0].substring(0, parameter[0].lastIndexOf("R")).replaceAll("\\s+","");
-			
+
 			String rsInit = parameter[0].substring(parameter[0].indexOf("R")+1, parameter[0].length());
 			rs = Integer.parseInt(rsInit);
 			

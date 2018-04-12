@@ -17,19 +17,18 @@ public class JType extends Instruction{
 	}
 	
 	public boolean checkForErrors(){
-		if (code.contains("LD") || code.contains("SD")) {
-			String[]parameter = code.split(" ");
+
+		if (code.contains("BC")) {
+	
+			String parameter[] = code.split(" ");
+			name = parameter[0].substring(0, parameter[0].length()).replaceAll("\\s+","");
 			
 			if (parameter.length != 2) {
-				Lists.addError("Invalid parameters");
+				Lists.addError(name + ": Invalid parameters");
 				return true;
 			}
 			else { 
-				if (!parameter[0].contains("R")) {
-					Lists.addError("First parameter is not a register");
-					return true;
-				} else 
-					return false;
+				return false;
 			}
 		}	
 		return false;	
@@ -58,9 +57,7 @@ public class JType extends Instruction{
 	
 		int countDistance = bcOffset - bcIndex -1;
 		
-		String parameter[] = code.split(" ");
-		name = parameter[0].substring(0, parameter[0].length()).replaceAll("\\s+","");
-		
+
 		StringBuilder sb = new StringBuilder();
 		sb.append(BC_OPCODE);
 		sb.append(util.padZeros(util.convertBinary(countDistance), 26));
