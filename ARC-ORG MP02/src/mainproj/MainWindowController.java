@@ -692,15 +692,18 @@ public class MainWindowController implements Initializable {
 				curCycle.setIMM(util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));
 
 				//a, b, imm
-				System.out.println("a :"   + Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getBase()))).getContent());
-				System.out.println("b :"   + Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).getContent());
+				System.out.println("a :"   + Lists.getRegisters().get(m.getStruct().getBase()).getContent());
+				System.out.println("b :"   + Lists.getRegisters().get(m.getStruct().getRt()).getContent());
 				System.out.println("imm :" + util.padZeros(m.getOpcode().substring(m.getOpcode().length() - 4), 16));
 
 				curCycle.setALUOUPUT(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(curCycle.getA()) + util.hexToDec(curCycle.getIMM()))).toUpperCase(), 16));
+				
+				System.out.println("ALU (SD)!!! :" + curCycle.getALUOUPUT());
+				
 				curCycle.setCOND(false);
 				curCycle.setPC(curCycle.getNPC());
 				curCycle.setLMD("N/A");
-				curCycle.setRANGE(m.getStruct().getOffset()+" - " +util.decToHex(Integer.toString(util.hexToDec(m.getStruct().getOffset()) + 7)));
+				curCycle.setRANGE(m.getStruct().getOffset()+" - " +util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getStruct().getOffset()) + 7)), 4));
 				curCycle.setRN("N/A");
 				
 				int c=0;
