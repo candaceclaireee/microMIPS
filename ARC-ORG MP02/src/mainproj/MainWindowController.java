@@ -133,10 +133,14 @@ public class MainWindowController implements Initializable {
 		}
 	}
 	
-	////////////////   OTHER functions
 	public void initialize(URL url, ResourceBundle rb) {
-		gotoButton.setOnMouseClicked(new EventHandler<MouseEvent>() { 
+		gotoButton.setOnMouseClicked(new EventHandler<MouseEvent>() {  /////////// NEWLY ADDED
 			public void handle(MouseEvent event) {
+				int flag = 0;
+				String address = "";
+				String data = "";
+				String label = ""; 
+				String code = ""; 
 				String memoryAddress = JOptionPane.showInputDialog("Type memory address ");
 				try {
 					if (memoryAddress.replaceAll("\\s+","").length() > 4) {
@@ -144,18 +148,35 @@ public class MainWindowController implements Initializable {
 					} else {
 						for (int i=0; i<Lists.getMemoryData().size(); i++) {
 							MemoryData m = Lists.getMemoryData().get(i);
+							address = m.getAddress(); 
+							data = m.getData();
+							label = m.getLabel(); 
+							code = m.getCode();
 							
-							if (memoryAddress.equals(m.getAddress())) {
-								JOptionPane.showMessageDialog(null, "Address: " + m.getAddress() + "\nData: " + m.getData()
-								 	+ "\n Label: " + m.getLabel() + "\nCode: " + m.getCode(), "\nError", JOptionPane.INFORMATION_MESSAGE);
+							if (memoryAddress.equals(address)) {
+								flag = 1; 
+								break;
 							}
 						}
+						
+						if (label.equalsIgnoreCase("label")) {
+							label = "";
+						}
+						if (code.equalsIgnoreCase("code")) {
+							code = "";
+						}
+						
+						if (flag == 1)
+							JOptionPane.showMessageDialog(null, "Address: " + address + "\nData: " + data
+						 	+ "\n Label: " + label + "\nCode: " + code, "Memory Address", JOptionPane.INFORMATION_MESSAGE);
+						else if (flag == 0)
+							JOptionPane.showMessageDialog(null, "Invalid memory data address", "Error", JOptionPane.ERROR_MESSAGE);		
 					}
 				} catch (Exception e) {
 					System.out.println("Exited/Cancelled");
 				}
 			}
-		});	
+		});	 //////////////////////////////////////////////////// NEWLY ADDED
 		
 		for(int i = 0 ; i < 32 ; i++) {
 			Register r = new Register(i, "0000000000000000");
@@ -171,7 +192,7 @@ public class MainWindowController implements Initializable {
 		for (int i = cs; i <= ce ; i++) {
 			String code = codeRead[i].toUpperCase();
 		
-			if (code.contains("BC")) {
+			if (code.contains("BC ")) {
 				JType j = new JType(code);
 				Lists.addInstruction(j);
 			} else if (code.contains("DADDU")) {
@@ -601,7 +622,7 @@ public class MainWindowController implements Initializable {
 				curCycle.setPC(curCycle.getNPC());
 				curCycle.setLMD("N/A");
 				curCycle.setRANGE("N/A");
-				curCycle.setRN(util.padZeros(curCycle.getALUOUPUT(), 16) + "in R" + m.getStruct().getRd());
+				curCycle.setRN(util.padZeros(curCycle.getALUOUPUT(), 16) + " in R" + m.getStruct().getRd());
 				Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRd()))).setContent(util.padZeros(curCycle.getALUOUPUT().toUpperCase(), 16));
 				currPointer = curCycle.getPC();
 				Lists.addCyles(curCycle);
@@ -620,7 +641,7 @@ public class MainWindowController implements Initializable {
 				curCycle.setPC(curCycle.getNPC());
 				curCycle.setLMD("N/A");
 				curCycle.setRANGE("N/A");
-				curCycle.setRN(util.padZeros(curCycle.getALUOUPUT(), 16)+ "in R" + m.getStruct().getRt());
+				curCycle.setRN(util.padZeros(curCycle.getALUOUPUT(), 16)+ " in R" + m.getStruct().getRt());
 				Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).setContent(util.padZeros(curCycle.getALUOUPUT().toUpperCase(), 16));
 				currPointer = curCycle.getPC();
 				Lists.addCyles(curCycle);
@@ -639,7 +660,7 @@ public class MainWindowController implements Initializable {
 				curCycle.setPC(curCycle.getNPC());
 				curCycle.setLMD("N/A");
 				curCycle.setRANGE("N/A");
-				curCycle.setRN(util.padZeros(curCycle.getALUOUPUT(), 16)+ "in R" + m.getStruct().getRt());
+				curCycle.setRN(util.padZeros(curCycle.getALUOUPUT(), 16)+ " in R" + m.getStruct().getRt());
 
 				Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).setContent(util.padZeros(curCycle.getALUOUPUT().toUpperCase(), 16));
 				currPointer = curCycle.getPC();
@@ -668,7 +689,7 @@ public class MainWindowController implements Initializable {
 				curCycle.setPC(curCycle.getNPC());
 				curCycle.setLMD("N/A");
 				curCycle.setRANGE(m.getStruct().getOffset()+" - " +util.decToHex(Integer.toString(util.hexToDec(m.getStruct().getOffset()) + 7)));
-				curCycle.setRN("N/A in R" + m.getStruct().getRt());
+				curCycle.setRN("N/A" + m.getStruct().getRt());
 				
 				int c=0;
 				for (int b = 0; b< 32; b++) {
