@@ -669,16 +669,29 @@ public class MainWindowController implements Initializable {
 				curCycle.setLMD("N/A");
 				curCycle.setRANGE(m.getStruct().getOffset()+" - " +util.decToHex(Integer.toString(util.hexToDec(m.getStruct().getOffset()) + 7)));
 				curCycle.setRN("N/A in R" + m.getStruct().getRt());
+				
+				int c=0;
+				for (int b = 0; b< 32; b++) {
+					if (util.isHexBetween(util.padZeros(Integer.toHexString(c), 16), 
+								          util.padZeros(curCycle.getALUOUPUT(), 16), 
+								          util.padZeros(Integer.toHexString(c+7), 16))){
+//						offset = util.padZeros(Integer.toHexString(j), 4);
+						curCycle.setALUOUPUT(util.padZeros(Integer.toHexString(c), 16));
+						
+					}
+					c+=8;
+				}
 
 				for (int l=0; l<Lists.getMemoryData().size(); l++){
 					System.out.println(util.padZeros(Lists.getMemoryData().get(l).getAddress(), 16)+" vs "+curCycle.getALUOUPUT());
-					if (util.padZeros(Lists.getMemoryData().get(l).getAddress(), 16).equalsIgnoreCase(curCycle.getIMM())){
+					if (util.padZeros(Lists.getMemoryData().get(l).getAddress(), 16).equalsIgnoreCase(curCycle.getALUOUPUT())){
 						System.out.println("assign memory address "+Lists.getMemoryData().get(l).getAddress()+" to "+curCycle.getB());
 						Lists.getMemoryData().get(l).setData(curCycle.getB());
 						System.out.println("updated data: "+Lists.getMemoryData().get(l).getData());
 						break;
 					}
 				}
+				
 				currPointer = curCycle.getPC();
 				Lists.addCyles(curCycle);
 			} else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("LD") && Lists.getMemoryCodes().get(i).getAddress().equalsIgnoreCase(currPointer.substring(currPointer.length() - 4))) {
@@ -695,9 +708,22 @@ public class MainWindowController implements Initializable {
 				curCycle.setALUOUPUT(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(curCycle.getA()) + util.hexToDec(curCycle.getIMM()))).toUpperCase(), 16));
 				curCycle.setCOND(false);
 				curCycle.setPC(curCycle.getNPC());
+				
+				int c=0;
+				for (int b = 0; b< 32; b++) {
+					if (util.isHexBetween(util.padZeros(Integer.toHexString(c), 16), 
+								          util.padZeros(curCycle.getALUOUPUT(), 16), 
+								          util.padZeros(Integer.toHexString(c+7), 16))){
+//						offset = util.padZeros(Integer.toHexString(j), 4);
+						curCycle.setALUOUPUT(util.padZeros(Integer.toHexString(c), 16));
+						
+					}
+					c+=8;
+				}
 
 				for (int l=0; l<Lists.getMemoryData().size(); l++){
-					if (Lists.getMemoryData().get(l).getAddress().equalsIgnoreCase(m.getStruct().getOffset())){
+					System.out.println(util.padZeros(Lists.getMemoryData().get(l).getAddress(), 16)+" vs "+curCycle.getALUOUPUT());
+					if (util.padZeros(Lists.getMemoryData().get(l).getAddress(), 16).equalsIgnoreCase(curCycle.getALUOUPUT())){
 						curCycle.setLMD(Lists.getMemoryData().get(l).getData());
 						break;
 					}

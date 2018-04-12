@@ -9,6 +9,10 @@ public class Utilities {
 	  return str.matches("-?[0-9a-fA-F]+");  //match a number with optional '-' and decimal.
 	}
 	
+	public boolean isHexBetween (String x, String y, String z) {
+		return (Integer.parseInt(x, 16) <= Integer.parseInt(y, 16) && Integer.parseInt(y, 16) <= Integer.parseInt(z, 16));
+	}
+	
 	public String padZeros(String binary, int n) { 
 		if (binary.length() < n){
 			for (int i = binary.length(); i<n; i++)
