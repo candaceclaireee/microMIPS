@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java" line="853" />
+    <bookmark url="file://$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java" line="856" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="760b0336-0a29-4963-8e8f-2e513529eadb" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARC-ORG MP02/bin/mainproj/MainWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/ARC-ORG MP02/bin/mainproj/MainWindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARC-ORG MP02/bin/mainproj/MainWindowController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindow.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -21,39 +24,25 @@
       <file leaf-file-name="MainWindowController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="127">
-              <caret line="826" column="34" lean-forward="true" selection-start-line="826" selection-start-column="34" selection-end-line="826" selection-end-column="34" />
+            <state relative-caret-position="73">
+              <caret line="665" column="133" selection-start-line="665" selection-start-column="133" selection-end-line="665" selection-end-column="133" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#8348#8349#0" expanded="true" />
-                <element signature="e#8402#8403#0" expanded="true" />
-                <element signature="e#8512#8513#0" expanded="true" />
-                <element signature="e#8573#8574#0" expanded="true" />
-                <element signature="e#15906#15907#0" expanded="true" />
-                <element signature="e#15956#15957#0" expanded="true" />
-                <element signature="e#16062#16063#0" expanded="true" />
-                <element signature="e#16123#16124#0" expanded="true" />
-                <element signature="e#16792#16793#0" expanded="true" />
-                <element signature="e#16842#16843#0" expanded="true" />
-                <element signature="e#16948#16949#0" expanded="true" />
-                <element signature="e#17009#17010#0" expanded="true" />
-                <element signature="e#18687#18688#0" expanded="true" />
-                <element signature="e#18737#18738#0" expanded="true" />
-                <element signature="e#18843#18844#0" expanded="true" />
-                <element signature="e#18904#18905#0" expanded="true" />
-                <element signature="e#32494#32495#0" expanded="true" />
-                <element signature="e#32546#32547#0" expanded="true" />
-                <element signature="e#32655#32656#0" expanded="true" />
-                <element signature="e#32718#32719#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="MainWindow.fxml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindow.fxml">
+          <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
+          <provider editor-type-id="text-editor" />
+        </entry>
+      </file>
       <file leaf-file-name="IType.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/model/IType.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1808">
+            <state relative-caret-position="2192">
               <caret line="137" column="45" selection-start-line="137" selection-start-column="45" selection-end-line="137" selection-end-column="45" />
             </state>
           </provider>
@@ -111,8 +100,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/ARC-ORG MP02/src/model/Cycle.java" />
-        <option value="$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindow.fxml" />
         <option value="$PROJECT_DIR$/ARC-ORG MP02/src/model/IType.java" />
+        <option value="$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindow.fxml" />
         <option value="$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java" />
       </list>
     </option>
@@ -135,6 +124,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AndroidView" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -168,9 +160,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="AndroidView" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -205,8 +194,7 @@
           <option name="myId" value="UPDATED" />
           <PATH vcs="Git" revision="">$PROJECT_DIR$/ARC-ORG MP02/bin/mainproj/Driver.class</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/ARC-ORG MP02/bin/mainproj/MainWindowController.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/ARC-ORG MP02/bin/model/IType.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/Driver.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/ARC-ORG MP02/bin/model/Utilities.class</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
@@ -395,7 +383,8 @@
       <workItem from="1523508193090" duration="5037000" />
       <workItem from="1523528041713" duration="790000" />
       <workItem from="1523532771704" duration="420000" />
-      <workItem from="1523541318953" duration="6939000" />
+      <workItem from="1523541318953" duration="10046000" />
+      <workItem from="1523559390143" duration="2998000" />
     </task>
     <task id="LOCAL-00001" summary="fixed BC and BLTC">
       <created>1523438540136</created>
@@ -439,19 +428,26 @@
       <option name="project" value="LOCAL" />
       <updated>1523551241498</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="FIXED BLTC">
+      <created>1523552685930</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1523552685930</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28641000" />
+    <option name="totallyTimeSpent" value="34746000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="7" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.32965517" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
@@ -459,7 +455,7 @@
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32965517" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49934897" visible="true" weight="0.17103449" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49934897" visible="true" weight="0.13241379" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
@@ -492,35 +488,61 @@
     <MESSAGE value="fixed cycles" />
     <MESSAGE value="fixed double digit register error. Found pointer errors" />
     <MESSAGE value="fixed stupid hex bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed stupid hex bug" />
+    <MESSAGE value="FIXED BLTC" />
+    <option name="LAST_COMMIT_MESSAGE" value="FIXED BLTC" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11616">
+          <caret line="726" column="16" lean-forward="true" selection-start-line="726" selection-start-column="16" selection-end-line="726" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/model/IType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2192">
+          <caret line="137" column="45" selection-start-line="137" selection-start-column="45" selection-end-line="137" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/model/Cycle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/model/Instruction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-9.0.1/lib/src.zip!/javafx.fxml/javafx/fxml/Initializable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="848">
+          <caret line="53" column="16" selection-start-line="53" selection-start-column="16" selection-end-line="53" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/model/Utilities.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="11360">
           <caret line="710" column="100" selection-start-line="710" selection-start-column="100" selection-end-line="710" selection-end-column="100" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8348#8349#0" expanded="true" />
-            <element signature="e#8402#8403#0" expanded="true" />
-            <element signature="e#8512#8513#0" expanded="true" />
-            <element signature="e#8573#8574#0" expanded="true" />
-            <element signature="e#15906#15907#0" expanded="true" />
-            <element signature="e#15956#15957#0" expanded="true" />
-            <element signature="e#16062#16063#0" expanded="true" />
-            <element signature="e#16123#16124#0" expanded="true" />
-            <element signature="e#16792#16793#0" expanded="true" />
-            <element signature="e#16842#16843#0" expanded="true" />
-            <element signature="e#16948#16949#0" expanded="true" />
-            <element signature="e#17009#17010#0" expanded="true" />
-            <element signature="e#18687#18688#0" expanded="true" />
-            <element signature="e#18737#18738#0" expanded="true" />
-            <element signature="e#18843#18844#0" expanded="true" />
-            <element signature="e#18904#18905#0" expanded="true" />
-            <element signature="e#32494#32495#0" expanded="true" />
-            <element signature="e#32546#32547#0" expanded="true" />
-            <element signature="e#32655#32656#0" expanded="true" />
-            <element signature="e#32718#32719#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -559,26 +581,6 @@
           <caret line="710" column="100" selection-start-line="710" selection-start-column="100" selection-end-line="710" selection-end-column="100" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8348#8349#0" expanded="true" />
-            <element signature="e#8402#8403#0" expanded="true" />
-            <element signature="e#8512#8513#0" expanded="true" />
-            <element signature="e#8573#8574#0" expanded="true" />
-            <element signature="e#15906#15907#0" expanded="true" />
-            <element signature="e#15956#15957#0" expanded="true" />
-            <element signature="e#16062#16063#0" expanded="true" />
-            <element signature="e#16123#16124#0" expanded="true" />
-            <element signature="e#16792#16793#0" expanded="true" />
-            <element signature="e#16842#16843#0" expanded="true" />
-            <element signature="e#16948#16949#0" expanded="true" />
-            <element signature="e#17009#17010#0" expanded="true" />
-            <element signature="e#18687#18688#0" expanded="true" />
-            <element signature="e#18737#18738#0" expanded="true" />
-            <element signature="e#18843#18844#0" expanded="true" />
-            <element signature="e#18904#18905#0" expanded="true" />
-            <element signature="e#32494#32495#0" expanded="true" />
-            <element signature="e#32546#32547#0" expanded="true" />
-            <element signature="e#32655#32656#0" expanded="true" />
-            <element signature="e#32718#32719#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -617,26 +619,6 @@
           <caret line="676" column="78" lean-forward="true" selection-start-line="676" selection-start-column="78" selection-end-line="676" selection-end-column="78" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8348#8349#0" expanded="true" />
-            <element signature="e#8402#8403#0" expanded="true" />
-            <element signature="e#8512#8513#0" expanded="true" />
-            <element signature="e#8573#8574#0" expanded="true" />
-            <element signature="e#15906#15907#0" expanded="true" />
-            <element signature="e#15956#15957#0" expanded="true" />
-            <element signature="e#16062#16063#0" expanded="true" />
-            <element signature="e#16123#16124#0" expanded="true" />
-            <element signature="e#16792#16793#0" expanded="true" />
-            <element signature="e#16842#16843#0" expanded="true" />
-            <element signature="e#16948#16949#0" expanded="true" />
-            <element signature="e#17009#17010#0" expanded="true" />
-            <element signature="e#18687#18688#0" expanded="true" />
-            <element signature="e#18737#18738#0" expanded="true" />
-            <element signature="e#18843#18844#0" expanded="true" />
-            <element signature="e#18904#18905#0" expanded="true" />
-            <element signature="e#32494#32495#0" expanded="true" />
-            <element signature="e#32546#32547#0" expanded="true" />
-            <element signature="e#32655#32656#0" expanded="true" />
-            <element signature="e#32718#32719#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -675,26 +657,6 @@
           <caret line="745" column="54" lean-forward="true" selection-start-line="745" selection-start-column="54" selection-end-line="745" selection-end-column="54" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8348#8349#0" expanded="true" />
-            <element signature="e#8402#8403#0" expanded="true" />
-            <element signature="e#8512#8513#0" expanded="true" />
-            <element signature="e#8573#8574#0" expanded="true" />
-            <element signature="e#15906#15907#0" expanded="true" />
-            <element signature="e#15956#15957#0" expanded="true" />
-            <element signature="e#16062#16063#0" expanded="true" />
-            <element signature="e#16123#16124#0" expanded="true" />
-            <element signature="e#16792#16793#0" expanded="true" />
-            <element signature="e#16842#16843#0" expanded="true" />
-            <element signature="e#16948#16949#0" expanded="true" />
-            <element signature="e#17009#17010#0" expanded="true" />
-            <element signature="e#18687#18688#0" expanded="true" />
-            <element signature="e#18737#18738#0" expanded="true" />
-            <element signature="e#18843#18844#0" expanded="true" />
-            <element signature="e#18904#18905#0" expanded="true" />
-            <element signature="e#32494#32495#0" expanded="true" />
-            <element signature="e#32546#32547#0" expanded="true" />
-            <element signature="e#32655#32656#0" expanded="true" />
-            <element signature="e#32718#32719#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -733,26 +695,6 @@
           <caret line="816" column="33" selection-start-line="816" selection-start-column="33" selection-end-line="816" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8348#8349#0" expanded="true" />
-            <element signature="e#8402#8403#0" expanded="true" />
-            <element signature="e#8512#8513#0" expanded="true" />
-            <element signature="e#8573#8574#0" expanded="true" />
-            <element signature="e#15906#15907#0" expanded="true" />
-            <element signature="e#15956#15957#0" expanded="true" />
-            <element signature="e#16062#16063#0" expanded="true" />
-            <element signature="e#16123#16124#0" expanded="true" />
-            <element signature="e#16792#16793#0" expanded="true" />
-            <element signature="e#16842#16843#0" expanded="true" />
-            <element signature="e#16948#16949#0" expanded="true" />
-            <element signature="e#17009#17010#0" expanded="true" />
-            <element signature="e#18687#18688#0" expanded="true" />
-            <element signature="e#18737#18738#0" expanded="true" />
-            <element signature="e#18843#18844#0" expanded="true" />
-            <element signature="e#18904#18905#0" expanded="true" />
-            <element signature="e#32494#32495#0" expanded="true" />
-            <element signature="e#32546#32547#0" expanded="true" />
-            <element signature="e#32655#32656#0" expanded="true" />
-            <element signature="e#32718#32719#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -791,26 +733,6 @@
           <caret line="839" selection-start-line="839" selection-end-line="839" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8348#8349#0" expanded="true" />
-            <element signature="e#8402#8403#0" expanded="true" />
-            <element signature="e#8512#8513#0" expanded="true" />
-            <element signature="e#8573#8574#0" expanded="true" />
-            <element signature="e#15906#15907#0" expanded="true" />
-            <element signature="e#15956#15957#0" expanded="true" />
-            <element signature="e#16062#16063#0" expanded="true" />
-            <element signature="e#16123#16124#0" expanded="true" />
-            <element signature="e#16792#16793#0" expanded="true" />
-            <element signature="e#16842#16843#0" expanded="true" />
-            <element signature="e#16948#16949#0" expanded="true" />
-            <element signature="e#17009#17010#0" expanded="true" />
-            <element signature="e#18687#18688#0" expanded="true" />
-            <element signature="e#18737#18738#0" expanded="true" />
-            <element signature="e#18843#18844#0" expanded="true" />
-            <element signature="e#18904#18905#0" expanded="true" />
-            <element signature="e#32494#32495#0" expanded="true" />
-            <element signature="e#32546#32547#0" expanded="true" />
-            <element signature="e#32655#32656#0" expanded="true" />
-            <element signature="e#32718#32719#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -835,26 +757,6 @@
           <caret line="159" column="43" selection-start-line="159" selection-start-column="43" selection-end-line="159" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8348#8349#0" expanded="true" />
-            <element signature="e#8402#8403#0" expanded="true" />
-            <element signature="e#8512#8513#0" expanded="true" />
-            <element signature="e#8573#8574#0" expanded="true" />
-            <element signature="e#15906#15907#0" expanded="true" />
-            <element signature="e#15956#15957#0" expanded="true" />
-            <element signature="e#16062#16063#0" expanded="true" />
-            <element signature="e#16123#16124#0" expanded="true" />
-            <element signature="e#16792#16793#0" expanded="true" />
-            <element signature="e#16842#16843#0" expanded="true" />
-            <element signature="e#16948#16949#0" expanded="true" />
-            <element signature="e#17009#17010#0" expanded="true" />
-            <element signature="e#18687#18688#0" expanded="true" />
-            <element signature="e#18737#18738#0" expanded="true" />
-            <element signature="e#18843#18844#0" expanded="true" />
-            <element signature="e#18904#18905#0" expanded="true" />
-            <element signature="e#32494#32495#0" expanded="true" />
-            <element signature="e#32546#32547#0" expanded="true" />
-            <element signature="e#32655#32656#0" expanded="true" />
-            <element signature="e#32718#32719#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -910,37 +812,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/model/IType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1808">
+        <state relative-caret-position="2192">
           <caret line="137" column="45" selection-start-line="137" selection-start-column="45" selection-end-line="137" selection-end-column="45" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindow.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
+      <provider editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="826" column="34" lean-forward="true" selection-start-line="826" selection-start-column="34" selection-end-line="826" selection-end-column="34" />
+        <state relative-caret-position="73">
+          <caret line="665" column="133" selection-start-line="665" selection-start-column="133" selection-end-line="665" selection-end-column="133" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8348#8349#0" expanded="true" />
-            <element signature="e#8402#8403#0" expanded="true" />
-            <element signature="e#8512#8513#0" expanded="true" />
-            <element signature="e#8573#8574#0" expanded="true" />
-            <element signature="e#15906#15907#0" expanded="true" />
-            <element signature="e#15956#15957#0" expanded="true" />
-            <element signature="e#16062#16063#0" expanded="true" />
-            <element signature="e#16123#16124#0" expanded="true" />
-            <element signature="e#16792#16793#0" expanded="true" />
-            <element signature="e#16842#16843#0" expanded="true" />
-            <element signature="e#16948#16949#0" expanded="true" />
-            <element signature="e#17009#17010#0" expanded="true" />
-            <element signature="e#18687#18688#0" expanded="true" />
-            <element signature="e#18737#18738#0" expanded="true" />
-            <element signature="e#18843#18844#0" expanded="true" />
-            <element signature="e#18904#18905#0" expanded="true" />
-            <element signature="e#32494#32495#0" expanded="true" />
-            <element signature="e#32546#32547#0" expanded="true" />
-            <element signature="e#32655#32656#0" expanded="true" />
-            <element signature="e#32718#32719#0" expanded="true" />
           </folding>
         </state>
       </provider>

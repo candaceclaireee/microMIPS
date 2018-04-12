@@ -2,7 +2,7 @@ package mainproj;
 
 import java.net.URL;
 import java.util.*;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -661,9 +661,9 @@ public class MainWindowController implements Initializable {
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 
 				curCycle.setINSTRUCTION(m.getStruct().getCode());
+				curCycle.setA(Lists.getRegisters().get(m.getStruct().getRs()).getContent());
 				curCycle.setIR(m.getOpcode());
 				curCycle.setNPC(util.padZeros(util.decToHex(Integer.toString(util.hexToDec(m.getAddress()) + 4)).toUpperCase(), 16));
-				curCycle.setA(Lists.getRegisters().get(m.getStruct().getRs()).getContent());
 				curCycle.setB(Lists.getRegisters().get(m.getStruct().getRt()).getContent());
 				curCycle.setIMM(util.padZeros(m.getStruct().getImmediate(), 16));
 				curCycle.setALUOUPUT(util.padZeros(xorFunc(curCycle.getA(), curCycle.getIMM()).toUpperCase(), 16));
@@ -878,13 +878,18 @@ public class MainWindowController implements Initializable {
 			System.out.println("IMM: " + c.getIMM());
 			CyclesGrid.add(new Label(c.getALUOUPUT()), j, 6);
 			System.out.println("ALUOUTPUT: " + c.getALUOUPUT());
-			CyclesGrid.add(new Label(c.getPC()), j, 7);
+			if (c.getCOND()){
+				CyclesGrid.add(new Label("1"), j, 7);
+			}
+			else
+				CyclesGrid.add(new Label("0"), j, 7);
+			CyclesGrid.add(new Label(c.getPC()), j, 8);
 			System.out.println("PC: " + c.getPC());
-			CyclesGrid.add(new Label(c.getLMD()), j, 8);
+			CyclesGrid.add(new Label(c.getLMD()), j, 9);
 			System.out.println("LMD: " + c.getLMD());
-			CyclesGrid.add(new Label(c.getRANGE()), j, 9);
+			CyclesGrid.add(new Label(c.getRANGE()), j, 10);
 			System.out.println("RANGE: " + c.getRANGE());
-			CyclesGrid.add(new Label(c.getRN()), j, 10);
+			CyclesGrid.add(new Label(c.getRN()), j, 11);
 			System.out.println("RN: " + c.getRN());
 			j++;
 		}
@@ -910,10 +915,11 @@ public class MainWindowController implements Initializable {
 		CyclesGrid.add(new Label(" B"), 0, 4);
 		CyclesGrid.add(new Label(" IMM"), 0, 5);
 		CyclesGrid.add(new Label(" ALUOUTPUT"), 0, 6);
-		CyclesGrid.add(new Label(" PC"), 0, 7);
-		CyclesGrid.add(new Label(" LMD"), 0, 8);
-		CyclesGrid.add(new Label(" RANGE"), 0, 9);
-		CyclesGrid.add(new Label(" RN"), 0, 10);
+		CyclesGrid.add(new Label(" COND"), 0, 7);
+		CyclesGrid.add(new Label(" PC"), 0, 8);
+		CyclesGrid.add(new Label(" LMD"), 0, 9);
+		CyclesGrid.add(new Label(" RANGE"), 0, 10);
+		CyclesGrid.add(new Label(" RN"), 0, 11);
 
 		CyclesGrid.setGridLinesVisible(true);
 	}
