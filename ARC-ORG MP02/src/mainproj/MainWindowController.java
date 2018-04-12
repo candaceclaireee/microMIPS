@@ -587,7 +587,7 @@ public class MainWindowController implements Initializable {
 		for(int i = 0;i <= Lists.getMemoryCodes().size() ; i++) {
 			Cycle curCycle = new Cycle();
 			System.out.println(currPointer);
-			if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("DADDU") && Lists.getMemoryCodes().get(i).getAddress().equals(currPointer.substring(currPointer.length() - 4))) {
+			if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("DADDU") && Lists.getMemoryCodes().get(i).getAddress().equalsIgnoreCase(currPointer.substring(currPointer.length() - 4))) {
 				System.out.println("DADDU REACHED");
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 				curCycle.setINSTRUCTION(m.getStruct().getCode());
@@ -606,7 +606,7 @@ public class MainWindowController implements Initializable {
 				currPointer = curCycle.getPC();
 				Lists.addCyles(curCycle);
 
-			} else if (Lists.getMemoryCodes().get(i).getStruct().getName().trim().equalsIgnoreCase("DADDIU") && Lists.getMemoryCodes().get(i).getAddress().equals(currPointer.substring(currPointer.length() - 4))) {
+			} else if (Lists.getMemoryCodes().get(i).getStruct().getName().trim().equalsIgnoreCase("DADDIU") && Lists.getMemoryCodes().get(i).getAddress().equalsIgnoreCase(currPointer.substring(currPointer.length() - 4))) {
 				System.out.println("DADDIU REACHED");
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 				curCycle.setINSTRUCTION(m.getStruct().getCode());
@@ -624,7 +624,7 @@ public class MainWindowController implements Initializable {
 				Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).setContent(util.padZeros(curCycle.getALUOUPUT().toUpperCase(), 16));
 				currPointer = curCycle.getPC();
 				Lists.addCyles(curCycle);
-			}else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("XORI") && Lists.getMemoryCodes().get(i).getAddress().equals(currPointer.substring(currPointer.length() - 4))) {
+			}else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("XORI") && Lists.getMemoryCodes().get(i).getAddress().equalsIgnoreCase(currPointer.substring(currPointer.length() - 4))) {
 				System.out.println("XORI REACHED");
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 
@@ -646,7 +646,7 @@ public class MainWindowController implements Initializable {
 				Lists.addCyles(curCycle);
 
 
-			} else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("SD") && Lists.getMemoryCodes().get(i).getAddress().equals(currPointer.substring(currPointer.length() - 4))) {
+			} else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("SD") && Lists.getMemoryCodes().get(i).getAddress().equalsIgnoreCase(currPointer.substring(currPointer.length() - 4))) {
 				System.out.println("SD REACHED");
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 				String label = "";
@@ -681,7 +681,7 @@ public class MainWindowController implements Initializable {
 				}
 				currPointer = curCycle.getPC();
 				Lists.addCyles(curCycle);
-			} else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("LD") && Lists.getMemoryCodes().get(i).getAddress().equals(currPointer.substring(currPointer.length() - 4))) {
+			} else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("LD") && Lists.getMemoryCodes().get(i).getAddress().equalsIgnoreCase(currPointer.substring(currPointer.length() - 4))) {
 				System.out.println("LD REACHED");
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 				String label = "";
@@ -709,7 +709,7 @@ public class MainWindowController implements Initializable {
 				Lists.getRegisters().get(util.hexToDec(Integer.toString(m.getStruct().getRt()))).setContent(util.padZeros(curCycle.getLMD().toUpperCase(), 16));
 
 				Lists.addCyles(curCycle);
-			} else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("BC") && Lists.getMemoryCodes().get(i).getAddress().equals(currPointer.substring(currPointer.length() - 4))) {
+			} else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("BC") && Lists.getMemoryCodes().get(i).getAddress().equalsIgnoreCase(currPointer.substring(currPointer.length() - 4))) {
 				System.out.println("BC REACHED");
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 
@@ -724,7 +724,6 @@ public class MainWindowController implements Initializable {
 				curCycle.setLMD("N/A");
 				curCycle.setRANGE("N/A");
 				curCycle.setRN("N/A");
-				currPointer = curCycle.getPC();
 				if (curCycle.getCOND()) {
 					curCycle.setPC(curCycle.getALUOUPUT());
 					System.out.println("NEXT IS: "+ curCycle.getALUOUPUT());
@@ -734,7 +733,7 @@ public class MainWindowController implements Initializable {
 				}
 				currPointer = curCycle.getPC();
 				Lists.addCyles(curCycle);
-			} else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("BLTC") && Lists.getMemoryCodes().get(i).getAddress().equals(currPointer.substring(currPointer.length() - 4))) {
+			} else if(Lists.getMemoryCodes().get(i).getStruct().getName().equalsIgnoreCase("BLTC") && Lists.getMemoryCodes().get(i).getAddress().equalsIgnoreCase(currPointer.substring(currPointer.length() - 4))) {
 				System.out.println("BLTC REACHED");
 				MemoryCode m = Lists.getMemoryCodes().get(i);
 

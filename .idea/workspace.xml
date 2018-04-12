@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java" line="787" />
+    <bookmark url="file://$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java" line="796" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="760b0336-0a29-4963-8e8f-2e513529eadb" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/ARC-ORG MP02/bin/mainproj/MainWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/ARC-ORG MP02/bin/mainproj/MainWindow.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ARC-ORG MP02/bin/model/Cycle.class" beforeDir="false" afterPath="$PROJECT_DIR$/ARC-ORG MP02/bin/model/Cycle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARC-ORG MP02/bin/mainproj/MainWindowController.class" beforeDir="false" afterPath="$PROJECT_DIR$/ARC-ORG MP02/bin/mainproj/MainWindowController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARC-ORG MP02/bin/model/IType.class" beforeDir="false" afterPath="$PROJECT_DIR$/ARC-ORG MP02/bin/model/IType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARC-ORG MP02/bin/model/JType.class" beforeDir="false" afterPath="$PROJECT_DIR$/ARC-ORG MP02/bin/model/JType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARC-ORG MP02/bin/model/RType.class" beforeDir="false" afterPath="$PROJECT_DIR$/ARC-ORG MP02/bin/model/RType.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -22,10 +25,26 @@
       <file leaf-file-name="MainWindowController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-352">
-              <caret line="758" column="46" lean-forward="true" selection-start-line="758" selection-start-column="46" selection-end-line="758" selection-end-column="46" />
+            <state relative-caret-position="205">
+              <caret line="589" column="155" selection-start-line="589" selection-start-column="155" selection-end-line="589" selection-end-column="155" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#7598#7599#0" expanded="true" />
+                <element signature="e#7652#7653#0" expanded="true" />
+                <element signature="e#7762#7763#0" expanded="true" />
+                <element signature="e#7823#7824#0" expanded="true" />
+                <element signature="e#15156#15157#0" expanded="true" />
+                <element signature="e#15206#15207#0" expanded="true" />
+                <element signature="e#15312#15313#0" expanded="true" />
+                <element signature="e#15373#15374#0" expanded="true" />
+                <element signature="e#16042#16043#0" expanded="true" />
+                <element signature="e#16092#16093#0" expanded="true" />
+                <element signature="e#16198#16199#0" expanded="true" />
+                <element signature="e#16259#16260#0" expanded="true" />
+                <element signature="e#17937#17938#0" expanded="true" />
+                <element signature="e#17987#17988#0" expanded="true" />
+                <element signature="e#18093#18094#0" expanded="true" />
+                <element signature="e#18154#18155#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -248,7 +267,7 @@
       <workItem from="1523437719260" duration="11163000" />
       <workItem from="1523457400282" duration="2908000" />
       <workItem from="1523463217763" duration="582000" />
-      <workItem from="1523508193090" duration="364000" />
+      <workItem from="1523508193090" duration="1742000" />
     </task>
     <task id="LOCAL-00001" summary="fixed BC and BLTC">
       <created>1523438540136</created>
@@ -275,21 +294,23 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15819000" />
+    <option name="totallyTimeSpent" value="17197000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Messages" order="7" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info active="true" anchor="bottom" id="Event Log" order="7" side_tool="true" visible="true" weight="0.32965517" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50065106" side_tool="true" weight="0.52965516" />
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32965517" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.033103447" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49934897" visible="true" weight="0.033103447" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
@@ -307,7 +328,6 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32965517" />
-      <window_info anchor="bottom" id="Messages" order="7" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -329,6 +349,22 @@
           <caret line="745" column="54" lean-forward="true" selection-start-line="745" selection-start-column="54" selection-end-line="745" selection-end-column="54" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#7598#7599#0" expanded="true" />
+            <element signature="e#7652#7653#0" expanded="true" />
+            <element signature="e#7762#7763#0" expanded="true" />
+            <element signature="e#7823#7824#0" expanded="true" />
+            <element signature="e#15156#15157#0" expanded="true" />
+            <element signature="e#15206#15207#0" expanded="true" />
+            <element signature="e#15312#15313#0" expanded="true" />
+            <element signature="e#15373#15374#0" expanded="true" />
+            <element signature="e#16042#16043#0" expanded="true" />
+            <element signature="e#16092#16093#0" expanded="true" />
+            <element signature="e#16198#16199#0" expanded="true" />
+            <element signature="e#16259#16260#0" expanded="true" />
+            <element signature="e#17937#17938#0" expanded="true" />
+            <element signature="e#17987#17988#0" expanded="true" />
+            <element signature="e#18093#18094#0" expanded="true" />
+            <element signature="e#18154#18155#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -367,6 +403,22 @@
           <caret line="816" column="33" selection-start-line="816" selection-start-column="33" selection-end-line="816" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#7598#7599#0" expanded="true" />
+            <element signature="e#7652#7653#0" expanded="true" />
+            <element signature="e#7762#7763#0" expanded="true" />
+            <element signature="e#7823#7824#0" expanded="true" />
+            <element signature="e#15156#15157#0" expanded="true" />
+            <element signature="e#15206#15207#0" expanded="true" />
+            <element signature="e#15312#15313#0" expanded="true" />
+            <element signature="e#15373#15374#0" expanded="true" />
+            <element signature="e#16042#16043#0" expanded="true" />
+            <element signature="e#16092#16093#0" expanded="true" />
+            <element signature="e#16198#16199#0" expanded="true" />
+            <element signature="e#16259#16260#0" expanded="true" />
+            <element signature="e#17937#17938#0" expanded="true" />
+            <element signature="e#17987#17988#0" expanded="true" />
+            <element signature="e#18093#18094#0" expanded="true" />
+            <element signature="e#18154#18155#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -405,6 +457,22 @@
           <caret line="839" selection-start-line="839" selection-end-line="839" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#7598#7599#0" expanded="true" />
+            <element signature="e#7652#7653#0" expanded="true" />
+            <element signature="e#7762#7763#0" expanded="true" />
+            <element signature="e#7823#7824#0" expanded="true" />
+            <element signature="e#15156#15157#0" expanded="true" />
+            <element signature="e#15206#15207#0" expanded="true" />
+            <element signature="e#15312#15313#0" expanded="true" />
+            <element signature="e#15373#15374#0" expanded="true" />
+            <element signature="e#16042#16043#0" expanded="true" />
+            <element signature="e#16092#16093#0" expanded="true" />
+            <element signature="e#16198#16199#0" expanded="true" />
+            <element signature="e#16259#16260#0" expanded="true" />
+            <element signature="e#17937#17938#0" expanded="true" />
+            <element signature="e#17987#17988#0" expanded="true" />
+            <element signature="e#18093#18094#0" expanded="true" />
+            <element signature="e#18154#18155#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -429,6 +497,22 @@
           <caret line="159" column="43" selection-start-line="159" selection-start-column="43" selection-end-line="159" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#7598#7599#0" expanded="true" />
+            <element signature="e#7652#7653#0" expanded="true" />
+            <element signature="e#7762#7763#0" expanded="true" />
+            <element signature="e#7823#7824#0" expanded="true" />
+            <element signature="e#15156#15157#0" expanded="true" />
+            <element signature="e#15206#15207#0" expanded="true" />
+            <element signature="e#15312#15313#0" expanded="true" />
+            <element signature="e#15373#15374#0" expanded="true" />
+            <element signature="e#16042#16043#0" expanded="true" />
+            <element signature="e#16092#16093#0" expanded="true" />
+            <element signature="e#16198#16199#0" expanded="true" />
+            <element signature="e#16259#16260#0" expanded="true" />
+            <element signature="e#17937#17938#0" expanded="true" />
+            <element signature="e#17987#17988#0" expanded="true" />
+            <element signature="e#18093#18094#0" expanded="true" />
+            <element signature="e#18154#18155#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -484,10 +568,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ARC-ORG MP02/src/mainproj/MainWindowController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-352">
-          <caret line="758" column="46" lean-forward="true" selection-start-line="758" selection-start-column="46" selection-end-line="758" selection-end-column="46" />
+        <state relative-caret-position="205">
+          <caret line="589" column="155" selection-start-line="589" selection-start-column="155" selection-end-line="589" selection-end-column="155" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#7598#7599#0" expanded="true" />
+            <element signature="e#7652#7653#0" expanded="true" />
+            <element signature="e#7762#7763#0" expanded="true" />
+            <element signature="e#7823#7824#0" expanded="true" />
+            <element signature="e#15156#15157#0" expanded="true" />
+            <element signature="e#15206#15207#0" expanded="true" />
+            <element signature="e#15312#15313#0" expanded="true" />
+            <element signature="e#15373#15374#0" expanded="true" />
+            <element signature="e#16042#16043#0" expanded="true" />
+            <element signature="e#16092#16093#0" expanded="true" />
+            <element signature="e#16198#16199#0" expanded="true" />
+            <element signature="e#16259#16260#0" expanded="true" />
+            <element signature="e#17937#17938#0" expanded="true" />
+            <element signature="e#17987#17988#0" expanded="true" />
+            <element signature="e#18093#18094#0" expanded="true" />
+            <element signature="e#18154#18155#0" expanded="true" />
           </folding>
         </state>
       </provider>
