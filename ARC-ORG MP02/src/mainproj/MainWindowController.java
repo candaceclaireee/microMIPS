@@ -672,7 +672,7 @@ public class MainWindowController implements Initializable {
 
 				for (int l=0; l<Lists.getMemoryData().size(); l++){
 					System.out.println(util.padZeros(Lists.getMemoryData().get(l).getAddress(), 16)+" vs "+curCycle.getALUOUPUT());
-					if (util.padZeros(Lists.getMemoryData().get(l).getAddress(), 16).equalsIgnoreCase(curCycle.getALUOUPUT())){
+					if (util.padZeros(Lists.getMemoryData().get(l).getAddress(), 16).equalsIgnoreCase(curCycle.getIMM())){
 						System.out.println("assign memory address "+Lists.getMemoryData().get(l).getAddress()+" to "+curCycle.getB());
 						Lists.getMemoryData().get(l).setData(curCycle.getB());
 						System.out.println("updated data: "+Lists.getMemoryData().get(l).getData());
