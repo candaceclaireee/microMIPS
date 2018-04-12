@@ -91,7 +91,7 @@ public class MainWindowController implements Initializable {
 			currPointer = defaultPointer;
 			runCycles();
 		} catch(Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			System.out.println("Code empty");
 		}
 	}
@@ -133,6 +133,7 @@ public class MainWindowController implements Initializable {
 			initializeData(datastart, dataend);
 			initializeInstructions(datastart, dataend, codestart, codeend);
 			initializeMemoryCode();
+			currPointer = defaultPointer;
 			runCycles();
 		} catch(Exception e) {
 			System.out.println("Code empty");
